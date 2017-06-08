@@ -37,7 +37,11 @@ Parse.Cloud.define("createUser", function(request, response) {
 //users
 
 Parse.Cloud.define("login", function(request, response) {
-    var data = request.params;
+    var data = request.params.data;
+    if (data == undefined){
+        data = request.params;
+    }
+
     UsersModule.logIn(data, function(user){
         AircraftsModule.loadUsersAircrafts({userId: user.id}, function(aircrafts){
             var hasAircrafts = (aircrafts == undefined || aircrafts.length == 0) ? false : true;
