@@ -743,3 +743,62 @@ $calendar_bubble_size: 40px;
   }
 
 }
+
+
+.user_index_app_content{
+  height: 100%;
+}
+
+.dispatcher_dashboard_placeholder{
+  h2{
+    text-align: center;
+  }
+}
+.rightsidebar{
+  box-sizing: inherit;
+}
+
+.Map {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 500px;
+
+}
+
+
+$right_dashboard_panel_width: 280px;
+$top_dashboard_panel_height: 50px;
+.dispatcher_dashboard_panel{
+  width: 100%;
+  height: 100%;
+  background: white;
+  font-size: 16px;
+  .header_panel{
+    height: $top_dashboard_panel_height;
+    width: 100%;
+    border-bottom: 1px solid whitesmoke;
+    padding: 5px;
+    line-height: 40px;
+  }
+
+  .content_panel{
+    height: calc(100% - #{$top_dashboard_panel_height});
+    width: 100%;
+
+    .left_placeholder{
+      display: inline-block;
+      vertical-align: top;
+      height: 100%;
+      width: calc(100% - #{$right_dashboard_panel_width});
+      border-right: 1px solid whitesmoke;
+    }
+    .right_placeholder{
+      display: inline-block;
+      vertical-align: top;
+      height: 100%;
+      width: $right_dashboard_panel_width;
+    }
+  }
+
+}
