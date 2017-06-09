@@ -758,14 +758,6 @@ $calendar_bubble_size: 40px;
   box-sizing: inherit;
 }
 
-.Map {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  width: 500px;
-
-}
-
 
 $right_dashboard_panel_width: 280px;
 $top_dashboard_panel_height: 50px;
@@ -781,7 +773,6 @@ $top_dashboard_panel_height: 50px;
     padding: 5px;
     line-height: 40px;
   }
-
   .content_panel{
     height: calc(100% - #{$top_dashboard_panel_height});
     width: 100%;
@@ -792,12 +783,24 @@ $top_dashboard_panel_height: 50px;
       height: 100%;
       width: calc(100% - #{$right_dashboard_panel_width});
       border-right: 1px solid whitesmoke;
+
+      .mapbox_map{
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        width: 500px;
+      }
     }
     .right_placeholder{
       display: inline-block;
       vertical-align: top;
       height: 100%;
       width: $right_dashboard_panel_width;
+      .calendar_right{
+        margin:10px 0px 10px 0px;
+        color: #fff;
+        background-color: #3476b7;
+      }
     }
   }
 

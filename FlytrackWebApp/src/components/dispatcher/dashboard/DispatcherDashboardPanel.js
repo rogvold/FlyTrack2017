@@ -46,13 +46,15 @@ class DispatcherDashboardPanel extends React.Component {
                 <div className={'content_panel'} >
 
                     <div className={'left_placeholder'} >
-
-                        <MapApp />
-
+                        <div className={'mapbox_map'}>
+                            <MapApp />
+                        </div>
                     </div>
 
                     <div className={'right_placeholder'} >
                         right controls
+
+                        calendar goes here
                     </div>
 
                 </div>

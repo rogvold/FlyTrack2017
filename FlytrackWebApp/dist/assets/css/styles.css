@@ -444,12 +444,6 @@
 .rightsidebar {
   box-sizing: inherit; }
 
-.Map {
-  position: relative;
-  display: block;
-  margin: 0 auto;
-  width: 500px; }
-
 .dispatcher_dashboard_panel {
   width: 100%;
   height: 100%;
@@ -470,8 +464,17 @@
       height: 100%;
       width: calc(100% - 280px);
       border-right: 1px solid whitesmoke; }
+      .dispatcher_dashboard_panel .content_panel .left_placeholder .mapbox_map {
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        width: 500px; }
     .dispatcher_dashboard_panel .content_panel .right_placeholder {
       display: inline-block;
       vertical-align: top;
       height: 100%;
       width: 280px; }
+      .dispatcher_dashboard_panel .content_panel .right_placeholder .calendar_right {
+        margin: 10px 0px 10px 0px;
+        color: #fff;
+        background-color: #3476b7; }

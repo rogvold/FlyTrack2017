@@ -69,7 +69,6 @@ class MapGenerator extends React.Component {
 
                 </ReactMapboxGl>
                 <div className="Datetime">{props.dateTime}</div>
-                <hr/>
             </div>
         )
     }
