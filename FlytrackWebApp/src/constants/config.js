@@ -13,4 +13,3 @@ export const PARSE_SERVER_URL = 'https://flytrackparse.sabir.pro/parse';
 export const LOGO_URL = './assets/images/ecg_express_logo_.png';
 export const COMPANY_NAME = 'FlyTrack';
 export const FACELESS_AVATAR = './assets/images/faceless_avatar.png';
-
