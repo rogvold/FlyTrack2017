@@ -7,6 +7,7 @@ import UsersReducer from './UsersReducer.js';
 import FileUploadReducer from './FileUploadReducer.js';
 import ChatReducer from './ChatReducer.js';
 import CommentsReducer from './CommentsReducer.js';
+import SessionsReducer from './SessionsReducer.js';
 
 // import SessionsReducer from './SessionsReducer.js';
 // import PusherReducer from './PusherReducer.js';
@@ -18,7 +19,8 @@ export const reducer = combineReducers({
     users: UsersReducer,
     upload: FileUploadReducer,
     chat: ChatReducer,
-    comments: CommentsReducer
+    comments: CommentsReducer,
+    sessions: SessionsReducer,
     // sessions: SessionsReducer,
     // notes: NotesReducer,
     // pusher: PusherReducer,
