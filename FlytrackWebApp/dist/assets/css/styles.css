@@ -434,3 +434,103 @@
     color: #858598;
     opacity: 0.8;
     margin-bottom: 20px; }
+
+.my_calendar {
+  background-color: white; }
+  .my_calendar .week_row, .my_calendar .days_placeholder, .my_calendar .additional_content_placeholder {
+    display: block; }
+  .my_calendar .day_placeholder, .my_calendar .header_column {
+    display: inline-block;
+    vertical-align: top;
+    /*padding: 10px;*/
+    position: relative;
+    width: 14.2%; }
+  .my_calendar.has_total_week .week_placeholder .day_placeholder, .my_calendar.has_total_week .header_column {
+    width: 12.5%; }
+  .my_calendar .header_column {
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 18px;
+    padding-bottom: 10px; }
+  .my_calendar .dayNumber {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    font-size: 14px;
+    opacity: 0.8; }
+    .my_calendar .dayNumber.today {
+      font-weight: bold;
+      color: #212121; }
+    .my_calendar .dayNumber.selected {
+      font-weight: bold; }
+  .my_calendar .day_placeholder {
+    min-height: 70px; }
+    .my_calendar .day_placeholder.not_this_month .dayNumber {
+      opacity: 0.4; }
+  .my_calendar .month_switcher_placeholder {
+    text-align: center;
+    line-height: 36px;
+    font-size: 20px; }
+    .my_calendar .month_switcher_placeholder .month_name_placeholder {
+      display: inline-block;
+      vertical-align: top; }
+      .my_calendar .month_switcher_placeholder .month_name_placeholder .month {
+        display: inline-block;
+        vertical-align: top; }
+      .my_calendar .month_switcher_placeholder .month_name_placeholder .year {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 5px; }
+    .my_calendar .month_switcher_placeholder .back_placeholder {
+      display: inline-block;
+      vertical-align: top;
+      width: 50px;
+      text-align: center; }
+      .my_calendar .month_switcher_placeholder .back_placeholder i {
+        cursor: pointer;
+        opacity: 0.5;
+        margin-right: 0px; }
+        .my_calendar .month_switcher_placeholder .back_placeholder i:hover {
+          opacity: 0.8; }
+    .my_calendar .month_switcher_placeholder .next_placeholder {
+      display: inline-block;
+      vertical-align: top;
+      width: 50px;
+      text-align: center; }
+      .my_calendar .month_switcher_placeholder .next_placeholder i {
+        cursor: pointer;
+        opacity: 0.5;
+        margin-right: 0px; }
+        .my_calendar .month_switcher_placeholder .next_placeholder i:hover {
+          opacity: 0.8; }
+  .my_calendar .day_content {
+    text-align: center;
+    padding: 3px;
+    cursor: pointer;
+    background-color: #F8FFF8;
+    border-radius: 3px; }
+    .my_calendar .day_content:hover {
+      /*background-color: #EFEBE9;*/
+      background-color: #FFF8E1; }
+    .my_calendar .day_content .score_placeholder {
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px; }
+    .my_calendar .day_content .duration_placeholder {
+      text-align: center; }
+  .my_calendar .week_duration {
+    margin-top: 3px;
+    margin-left: 3px;
+    font-weight: bold; }
+  .my_calendar .month_switcher_placeholder.current_month .next_placeholder i {
+    opacity: 0.1;
+    cursor: default; }
+  .my_calendar .delta_score {
+    opacity: 0.5;
+    margin-left: 5px;
+    font-size: 10px;
+    vertical-align: super; }
+    .my_calendar .delta_score.negative {
+      color: #BF360C; }
+    .my_calendar .delta_score.positive {
+      color: #1B5E20; }
