@@ -28,12 +28,16 @@ class DispatcherCalendar extends React.Component {
 
     }
 
+    onDayClick = (t) => {
+        console.log('DispatcherCalendar: onDayClick: timestamp = ', t);
+    }
+
     render = () => {
 
         return (
             <div className={'dispatcher_calendar'} >
 
-                <CalendarPanel  />
+                <CalendarPanel onDayClick={this.onDayClick} />
 
             </div>
         )

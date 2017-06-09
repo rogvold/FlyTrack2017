@@ -575,4 +575,6 @@
       height: 100%;
       width: 280px; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .calendar_placeholder {
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid lightgray; }

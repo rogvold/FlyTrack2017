@@ -930,6 +930,8 @@ $top_dashboard_panel_height: 50px;
       width: $right_dashboard_panel_width;
       .calendar_placeholder{
         margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid lightgray;
       }
       //.calendar_right{
       //  margin:10px 0px 10px 0px;
