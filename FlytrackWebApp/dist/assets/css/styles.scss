@@ -785,7 +785,8 @@ $calendar_bubble_size: 40px;
     &.not_this_month .dayNumber {
       opacity: 0.4;
     }
-    min-height: 70px;
+    //min-height: 70px;
+    min-height: 30px;
     &:hover {}
   }
   .month_switcher_placeholder {
@@ -927,11 +928,15 @@ $top_dashboard_panel_height: 50px;
       vertical-align: top;
       height: 100%;
       width: $right_dashboard_panel_width;
-      .calendar_right{
-        margin:10px 0px 10px 0px;
-        color: #fff;
-        background-color: #3476b7;
+      .calendar_placeholder{
+        margin-bottom: 10px;
       }
+      //.calendar_right{
+      //  margin:10px 0px 10px 0px;
+      //  color: #fff;
+      //  background-color: #3476b7;
+      //}
     }
   }
 }
+

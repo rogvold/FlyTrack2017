@@ -464,7 +464,7 @@
     .my_calendar .dayNumber.selected {
       font-weight: bold; }
   .my_calendar .day_placeholder {
-    min-height: 70px; }
+    min-height: 30px; }
     .my_calendar .day_placeholder.not_this_month .dayNumber {
       opacity: 0.4; }
   .my_calendar .month_switcher_placeholder {
@@ -574,7 +574,5 @@
       vertical-align: top;
       height: 100%;
       width: 280px; }
-      .dispatcher_dashboard_panel .content_panel .right_placeholder .calendar_right {
-        margin: 10px 0px 10px 0px;
-        color: #fff;
-        background-color: #3476b7; }
+      .dispatcher_dashboard_panel .content_panel .right_placeholder .calendar_placeholder {
+        margin-bottom: 10px; }

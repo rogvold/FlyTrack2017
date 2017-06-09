@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 
 import MapApp from '../../map/MapApp'
 
+import DispatcherCalendar from './DispatcherCalendar'
+
 class DispatcherDashboardPanel extends React.Component {
 
     static defaultProps = {
@@ -52,9 +54,11 @@ class DispatcherDashboardPanel extends React.Component {
                     </div>
 
                     <div className={'right_placeholder'} >
-                        right controls
 
-                        calendar goes here
+                        <div className={'calendar_placeholder'} >
+                            <DispatcherCalendar />
+                        </div>
+
                     </div>
 
                 </div>
