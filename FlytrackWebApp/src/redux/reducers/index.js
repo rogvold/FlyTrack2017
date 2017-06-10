@@ -8,6 +8,7 @@ import FileUploadReducer from './FileUploadReducer.js';
 import ChatReducer from './ChatReducer.js';
 import CommentsReducer from './CommentsReducer.js';
 import SessionsReducer from './SessionsReducer.js';
+import AircraftsReducer from './AircraftsReducer.js';
 
 // import SessionsReducer from './SessionsReducer.js';
 // import PusherReducer from './PusherReducer.js';
@@ -21,6 +22,7 @@ export const reducer = combineReducers({
     chat: ChatReducer,
     comments: CommentsReducer,
     sessions: SessionsReducer,
+    aircrafts: AircraftsReducer
     // sessions: SessionsReducer,
     // notes: NotesReducer,
     // pusher: PusherReducer,

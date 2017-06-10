@@ -10,7 +10,8 @@ const initialState = {
     loading: false,
     sessionsMap: Map(),
     sessionsDataMap: Map(),
-    error: undefined
+    error: undefined,
+    selectedSessionId: undefined
 }
 
 const startLoading = (state, action) => {
@@ -51,6 +52,18 @@ const SessionsReducer =  (state = initialState, action = {}) => {
                 sessionsDataMap: state.sessionsDataMap.set(action.sessionId, action.data)
             }
 
+
+        case types.SELECT_SESSION:
+            return {
+                ...state,
+                selectedSessionId: action.id
+            }
+
+        case types.UNSELECT_SESSION:
+            return {
+                ...state,
+                selectedSessionId: undefined
+            }
 
         default:
             return state;
