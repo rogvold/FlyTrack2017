@@ -6,6 +6,8 @@ import * as types from '../ActionTypes'
 import ParseAPI from '../../api/ParseAPI';
 import OrganizationsAPI from '../../api/OrganizationsAPI';
 
+import {Map} from 'immutable';
+
 let loadOrganizations_ = () => {
     return {
         type: types.LOAD_ORGANIZATIONS
@@ -20,6 +22,7 @@ let loadOrganizationsFail = (err) => {
 }
 
 let loadOrganizationsSuccess = (organizations) => {
+    console.log('loadOrganizationsSuccess occured');
     return {
         type: types.LOAD_ORGANIZATIONS_SUCCESS,
         organizations: organizations
@@ -60,7 +63,7 @@ let createOrganizationSuccess = (organization) => {
 
 export function createOrganization(data){
     return (dispatch, getState) => {
-        if (data == undefined || data.relatedId == undefined){
+        if (data == undefined){
             return;
         }
         dispatch(createOrganization_());

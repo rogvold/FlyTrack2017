@@ -17,6 +17,7 @@ import SettingsApp from './SettingsApp';
 
 import DevApp from './DevApp';
 import SimulatorApp from './SimulatorApp';
+import OrganizationsApp from './OrganizationsApp';
 
 // import DevApp from './DevApp.js';
 // import APIPlaygroundApp from './APIPlaygroundApp.js';
@@ -65,6 +66,8 @@ class App extends React.Component {
                 <Route path="/dev" component={DevApp}/>
 
                 <Route path="/simulator" component={SimulatorApp}/>
+
+                <Route path="/organizations" component={OrganizationsApp}/>
 
 
             </Router>

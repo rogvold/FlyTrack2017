@@ -7,16 +7,16 @@ import Parse from 'parse'
 
 const OrganizationsAPI = {
 
-    transformOrganization(org){
+    transformOrganization: function(org){
         if (org == undefined){
             return undefined;
         }
-        return {
+        var res = {
             id: org.id,
             timestamp: (new Date(org.createdAt)).getTime(),
-            updatedTimestamp: (new Date(s.updatedAt)).getTime(),
+            updatedTimestamp: (new Date(org.updatedAt)).getTime(),
 
-            adminId: (org.get('adminId') == undefined) ? org.get('dispatcherId') : org.get('adminId'), //todo: improve that
+            adminId: org.get('adminId'),
             name: org.get('name'),
             description: org.get('description'),
             freq: org.get('freq'),
@@ -25,9 +25,11 @@ const OrganizationsAPI = {
             alt: org.get('alt'),
             backgroundImg: org.get('backgroundImg'),
             code: org.get('code')
-        }
-    },
+        };
+
+        return res
+    }
 
 }
 
-export  default OrganizationsAPI;
+export default OrganizationsAPI;
