@@ -9,12 +9,7 @@ import ChatReducer from './ChatReducer.js';
 import CommentsReducer from './CommentsReducer.js';
 import SessionsReducer from './SessionsReducer.js';
 import AircraftsReducer from './AircraftsReducer.js';
-
-// import SessionsReducer from './SessionsReducer.js';
-// import PusherReducer from './PusherReducer.js';
-// import NotesReducer from './NotesReducer.js';
-// import ECGViewerReducer from './ECGViewerReducer.js';
-
+import OrganizationsReducer from './OrganizationsReducer.js';
 
 export const reducer = combineReducers({
     users: UsersReducer,
@@ -22,10 +17,6 @@ export const reducer = combineReducers({
     chat: ChatReducer,
     comments: CommentsReducer,
     sessions: SessionsReducer,
-    aircrafts: AircraftsReducer
-    // sessions: SessionsReducer,
-    // notes: NotesReducer,
-    // pusher: PusherReducer,
-    // ecg: ECGViewerReducer,
-
+    aircrafts: AircraftsReducer,
+    organizations: OrganizationsReducer
 });
