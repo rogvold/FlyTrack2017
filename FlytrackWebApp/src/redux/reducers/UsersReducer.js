@@ -101,7 +101,7 @@ const UsersReducers =  (state = initialState, action = {}) => {
             return {
                 ...state,
                 usersMap: state.usersMap.merge(action.users.reduce((res, u) => {return res.set(u.id, u)}, Map())),
-                linksMap: state.linksMap.merge(action.links.reduce((res, u) => {return res.set(u.id, u)}, Map())),
+                // linksMap: state.linksMap.merge(action.links.reduce((res, u) => {return res.set(u.id, u)}, Map())),
                 loading: false
             }
 

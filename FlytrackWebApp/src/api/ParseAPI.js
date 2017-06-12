@@ -26,6 +26,12 @@ const ParseAPI = {
             lastName: u.get('lastName'),
             avatar: u.get('avatar'),
             gender: u.get('gender'),
+
+            phone: u.get('phone'),
+            aboutMe: u.get('aboutMe'),
+            organizationId: u.get('organizationId'),
+            birthdayTimestamp: new Date(u.get('birthdayTimestamp')).getTime(),
+            role: u.get('userRole')
         }
     },
 

@@ -83,7 +83,7 @@ let init = () => {
     }
 }
 
-persistStore(store, {storage: localForage, transforms: [immutableTransform()]}, () => {
+// persistStore(store, {storage: localForage, transforms: [immutableTransform()]}, () => {
     store.dispatch(init());
-})
+// })
 
