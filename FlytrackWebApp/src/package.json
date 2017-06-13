@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "install": "^0.10.1",
+    "leaflet": "^1.0.3",
+    "leaflet-rotatedmarker": "^0.1.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-leaflet": "^1.2.2",
+    "react-map-gl": "^2.0.3",
+    "react-map-gl-alt": "^0.4.1"
+  }
+}

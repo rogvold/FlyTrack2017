@@ -24,6 +24,7 @@ import {reducer} from './redux/reducers'
 
 const loggerMiddleware = createLogger()
 
+
 //use this store if you do not want to support the redux-persist
 // const store = createStore(
 //     reducer,

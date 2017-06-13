@@ -55,6 +55,7 @@ class MapGenerator extends React.Component {
                         type="line"
                         layout={{ "line-cap": "round", "line-join": "round" }}
                         paint={{ "line-color": "#4b57c9", "line-width": 10 }}>
+
                         <Feature coordinates={props.mappedRoute}/>
                     </Layer>
 
