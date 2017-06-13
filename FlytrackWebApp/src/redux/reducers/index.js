@@ -10,6 +10,7 @@ import CommentsReducer from './CommentsReducer.js';
 import SessionsReducer from './SessionsReducer.js';
 import AircraftsReducer from './AircraftsReducer.js';
 import OrganizationsReducer from './OrganizationsReducer.js';
+import RealtimeReducer from './RealtimeReducer.js';
 
 export const reducer = combineReducers({
     users: UsersReducer,
@@ -18,5 +19,6 @@ export const reducer = combineReducers({
     comments: CommentsReducer,
     sessions: SessionsReducer,
     aircrafts: AircraftsReducer,
-    organizations: OrganizationsReducer
+    organizations: OrganizationsReducer,
+    realtime: RealtimeReducer
 });

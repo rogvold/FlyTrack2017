@@ -16,6 +16,200 @@ const FlytrackHelper = {
             });
         }
         return arr;
+    },
+
+    getSubscribeChannelsByLocation(lat, lon){
+        let lats = [Math.floor(lat), Math.ceil(lat)];
+        let lons = [Math.floor(lon), Math.ceil(lon)];
+        let arr = [];
+        for (let i in lats){
+            for (let j in lons){
+                arr.push({
+                    lat: lats[i],
+                    lon: lons[j],
+                    name: 'lat_' + lats[i] + '_lon_' + lons[j]
+                });
+            }
+        }
+        return arr;
+    },
+
+    getDist(x1, x2, y1, y2){
+        let d2 = (x1- x2)*(x1 - x2) + (y1- y2) * (y1-y2);
+        return d2;
+    },
+
+    getPublishChannelByLocation(lat, lon){
+        console.log('getPublishChannelByLocation: lat, lon = ', lat, lon);
+        let arr = this.getSubscribeChannelsByLocation(lat, lon);
+        console.log('arr = ', arr);
+
+        let res = {};
+        let d = 1000000;
+        for (let i in arr){
+            let p = arr[i];
+            let dr = this.getDist(+lat, +arr[i].lat, +lon, +arr[i].lon);
+            if (dr < d){
+                d = dr;
+                res = arr[i];
+            }
+        }
+        console.log('getPublishChannelByLocation: returning res = ', res);
+        return res;
+    },
+
+    generateRandomData(users){
+        //center: [-0.109970527, 51.52916347],
+        let centerLat = 56.0996454;
+        let centerLon = 36.8008261;
+        let lines = [];
+        let markers = [];
+        let maxDelta = 0.01;
+        let n = 1;
+        let id = 'random_' + 0;
+        let points = [];
+        let k = 2000 + Math.floor(Math.random() * 400);
+        points.push({lat: [centerLat + Math.random() * maxDelta],
+            lon: [centerLon + Math.random() * maxDelta],
+            acc: [Math.floor(Math.random() * 6)],
+            bea: [55], vel: [34], alt: [123],
+            times: [new Date().getTime()]
+        });
+        for (let j=1; j < k; j++){
+            points.push({
+                lat: [points[j-1].lat[0] + (0.5 - Math.random()) * maxDelta],
+                lon: [points[j-1].lon[0] + (0.5 - Math.random()) * maxDelta],
+                acc: [points[j-1].acc[0]],
+                alt: [points[j-1].alt[0]],
+                bea: [points[j-1].bea[0]],
+                vel: [points[j-1].vel[0]],
+                times: [points[j-1].times[0] + Math.floor(1000 * Math.random())]
+            });
+        }
+
+        return {
+            points: points,
+            user: {
+                name: "Test User",
+                id: 'sdf234sdf'
+            },
+            aircraft: {
+                id: 'asdfasd32f',
+                name: 'ikarus c42'
+            },
+            params: {"device":"test","network":"LTE"}
+        }
+    },
+
+
+    getAllPointsInLines(lines){
+        let arr = [];
+        for (let i in lines){
+            let pts = lines[i].points;
+            if (pts == undefined || pts.length == 0){
+                continue;
+            }
+            arr = arr.concat(lines[i].points);
+        }
+        return arr;
+    },
+
+    getCenter(points){
+        if (points == undefined || points.length == 0){
+            return {lat: 0, lon: 0};
+        }
+        if (points.length == 1){
+            return points[0];
+        }
+
+        let minLat = 1000000;
+        let minLon = 1000000;
+        let maxLat = -1000000;
+        let maxLon = -1000000;
+        for (let i in points){
+            let lat = points[i].lat;
+            let lon = points[i].lon;
+            if (lat > maxLat){
+                maxLat = lat;
+            }
+            if (lon > maxLon){
+                maxLon = lon;
+            }
+            if (lat < minLat){
+                minLat = lat;
+            }
+            if (lon < minLon){
+                minLon = lon;
+            }
+        }
+        return {
+            lat: (minLat + maxLat) / 2.0,
+            lon: (minLon + maxLon) / 2.0
+        }
+    },
+
+    getBounds(points){
+        console.log('getBounds occured: points = ', points);
+        if (points == undefined || points.length == 0){
+            return [[36.7008261, 56.0096454], [36.9008261, 56.1996454]];
+        }
+        if (points.length == 1){
+            return points[0];
+        }
+
+        let minLat = 1000000;
+        let minLon = 1000000;
+        let maxLat = -1000000;
+        let maxLon = -1000000;
+        for (let i in points){
+            let lat = +points[i].lat;
+            let lon = +points[i].lon;
+            if (lat > maxLat){
+                maxLat = lat;
+            }
+            if (lon > maxLon){
+                maxLon = lon;
+            }
+            if (lat < minLat){
+                minLat = lat;
+            }
+            if (lon < minLon){
+                minLon = lon;
+            }
+        }
+        console.log('minLat, minLon, maxLat, maxLon = ', minLat, minLon, maxLat, maxLon);
+
+
+        let dLon = maxLon - minLon;
+        let dLat = maxLat - minLat;
+
+        let delta = Math.max(dLat, dLon);
+
+        console.log('dLat, dLon = ', dLat, dLon);
+        let k = 1.4;
+
+        let bounds = [[minLon - k * delta, minLat - k * delta], [maxLon + k * delta, maxLat + k * delta]];
+
+        console.log('returning bounds = ', bounds);
+
+        return bounds;
+    },
+
+    getGoodTime(t){
+        if (t < 10){
+            return ('0' + t);
+        }
+        return ('' + t);
+    },
+
+    getTimerString(t){
+        if (t == undefined || t == 0){
+            return '00:00';
+        }
+        let seconds = Math.round(t / 1000.0);
+        let minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        return (this.getGoodTime(minutes) + ':' + this.getGoodTime(seconds));
     }
 
 }
