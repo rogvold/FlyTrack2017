@@ -41,7 +41,7 @@ class OrganizationEditForm extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         let {name, adminId, description, freq, lat, lon, alt, backgroundImg, code} = nextProps;
-        this.setState({name, adminId, description, freq, lat, lon, alt, backgroundImg, code, changed: false});
+        // this.setState({name, adminId, description, freq, lat, lon, alt, backgroundImg, code, changed: false});
     }
 
     onSave = () => {

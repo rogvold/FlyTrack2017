@@ -20,7 +20,7 @@ class SimulatorPanel extends React.Component {
     static propTypes = {}
 
     state = {
-        data: FlytrackHelper.generateRandomData(),
+        data: FlytrackHelper.generateRandomData(this.props.currentUser, this.props.aircraft),
         n: 0
     }
 
@@ -82,10 +82,21 @@ class SimulatorPanel extends React.Component {
 
 }
 
+let getAircraft = (state) => {
+    let aircrafts = state.aircrafts.aircraftsMap.toArray().sort((a, b) => {
+        return (b.timestamp - a.timestamp)
+    })
+    if (aircrafts.length == 0){
+        return undefined;
+    }
+    return aircrafts[0];
+}
 
 const mapStateToProps = (state) => {
    return {
-        messages: state.realtime.messagesSet.toArray()
+        messages: state.realtime.messagesSet.toArray(),
+        currentUser: state.users.usersMap.get(state.users.currentUserId),
+        aircraft: getAircraft(state)
    }
 }
 

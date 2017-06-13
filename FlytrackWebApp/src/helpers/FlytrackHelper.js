@@ -58,7 +58,7 @@ const FlytrackHelper = {
         return res;
     },
 
-    generateRandomData(users){
+    generateRandomData(user, aircraft){
         //center: [-0.109970527, 51.52916347],
         let centerLat = 56.0996454;
         let centerLon = 36.8008261;
@@ -89,14 +89,8 @@ const FlytrackHelper = {
 
         return {
             points: points,
-            user: {
-                name: "Test User",
-                id: 'sdf234sdf'
-            },
-            aircraft: {
-                id: 'asdfasd32f',
-                name: 'ikarus c42'
-            },
+            user: user,
+            aircraft: aircraft,
             params: {"device":"test","network":"LTE"}
         }
     },

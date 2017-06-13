@@ -45,12 +45,12 @@ class UpdateAircraftForm extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            name: nextProps.name,
-            aircraftNumber: nextProps.aircraftNumber,
-            aircraftType: nextProps.aircraftType,
-            callName: nextProps.callName
-        });
+        // this.setState({
+        //     name: nextProps.name,
+        //     aircraftNumber: nextProps.aircraftNumber,
+        //     aircraftType: nextProps.aircraftType,
+        //     callName: nextProps.callName
+        // });
     }
 
     onSave = () => {

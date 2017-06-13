@@ -30,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlytrackHelper.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FlytrackHelper.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/helpers/FlytrackHelper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="53" column="29" lean-forward="true" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+            <state relative-caret-position="345">
+              <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
               </folding>
@@ -42,11 +42,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RealtimeReducer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/redux/reducers/RealtimeReducer.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="214">
+              <caret line="82" column="17" lean-forward="true" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="17" />
+              <folding>
+                <element signature="e#42#65#0" expanded="true" />
+                <element signature="e#369#410#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdateAircraftForm.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/aircrafts/forms/UpdateAircraftForm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
               <folding>
                 <element signature="e#42#81#0" expanded="true" />
               </folding>
@@ -54,21 +67,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionTypes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/redux/ActionTypes.js">
+      <file leaf-file-name="OrganizationEditForm.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/organizations/forms/OrganizationEditForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="157" column="67" lean-forward="false" selection-start-line="157" selection-start-column="67" selection-end-line="157" selection-end-column="67" />
+            <state relative-caret-position="675">
+              <caret line="49" column="39" lean-forward="true" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SessionsReducer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/redux/reducers/SessionsReducer.js">
+      <file leaf-file-name="AircraftsPanel.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/components/aircrafts/panels/AircraftsPanel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="73" column="30" lean-forward="true" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+            <state relative-caret-position="77">
+              <caret line="70" column="51" lean-forward="false" selection-start-line="70" selection-start-column="51" selection-end-line="70" selection-end-column="51" />
               <folding>
                 <element signature="e#42#81#0" expanded="true" />
               </folding>
@@ -79,11 +92,33 @@
       <file leaf-file-name="SimulatorPanel.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/simulator/panels/SimulatorPanel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="22" column="43" lean-forward="false" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+            <state relative-caret-position="709">
+              <caret line="102" column="42" lean-forward="true" selection-start-line="102" selection-start-column="42" selection-end-line="102" selection-end-column="42" />
               <folding>
                 <element signature="e#42#81#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InitActions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/redux/actions/InitActions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="30" />
+              <folding>
+                <element signature="e#42#104#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrganizationsReducer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/redux/reducers/OrganizationsReducer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="44" column="32" lean-forward="false" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -96,42 +131,6 @@
               <folding>
                 <element signature="e#41#81#0" expanded="false" />
                 <element signature="e#83#122#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/redux/reducers/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
-              <folding>
-                <element signature="e#41#81#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RealtimeActions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/redux/actions/RealtimeActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-              <folding>
-                <element signature="e#42#81#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SessionsActions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/redux/actions/SessionsActions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="42" />
-              <folding>
-                <element signature="e#42#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -150,8 +149,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SimulatorApp</find>
-      <find>Name of the airfield</find>
       <find>pros</find>
       <find>.then</find>
       <find>createOrg</find>
@@ -180,6 +177,8 @@
       <find>getSubscribeChannelsByLocation</find>
       <find>self</find>
       <find>messagesMap</find>
+      <find>update</find>
+      <find>AircraftsPanel</find>
     </findStrings>
     <replaceStrings>
       <replace>LeftSidebarTemplate</replace>
@@ -207,7 +206,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/components/apps/Map_generator_test/user.js" />
         <option value="$PROJECT_DIR$/components/apps/Map_generator_test/MapGenerator.js" />
         <option value="$PROJECT_DIR$/components/apps/Map_test.js" />
         <option value="$PROJECT_DIR$/components/apps/map/route.json" />
@@ -228,7 +226,6 @@
         <option value="$PROJECT_DIR$/redux/reducers/OrganizationsReducer.js" />
         <option value="$PROJECT_DIR$/components/modals/CoolModal.js" />
         <option value="$PROJECT_DIR$/components/apps/OrganizationsApp.js" />
-        <option value="$PROJECT_DIR$/components/organizations/forms/OrganizationEditForm.js" />
         <option value="$PROJECT_DIR$/redux/actions/OrganizationsActions.js" />
         <option value="$PROJECT_DIR$/api/OrganizationsAPI.js" />
         <option value="$PROJECT_DIR$/components/organizations/panels/OrganizationsPanel.js" />
@@ -237,7 +234,6 @@
         <option value="$PROJECT_DIR$/components/admin/panels.js" />
         <option value="$PROJECT_DIR$/components/apps/AdminApp.js" />
         <option value="$PROJECT_DIR$/redux/reducers/UsersReducer.js" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/components/admin/panels/AdminTabbedPanel.js" />
         <option value="$PROJECT_DIR$/components/template/LeftSidebarTemplate.js" />
         <option value="$PROJECT_DIR$/components/admin/users/panels/AllUsersPanel.js" />
@@ -248,16 +244,19 @@
         <option value="$PROJECT_DIR$/redux/reducers/AircraftsReducer.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/assets/css/custom.css" />
-        <option value="$PROJECT_DIR$/components/aircrafts/forms/UpdateAircraftForm.js" />
         <option value="$PROJECT_DIR$/redux/actions/AircraftsActions.js" />
         <option value="$PROJECT_DIR$/assets/css/styles.scss" />
-        <option value="$PROJECT_DIR$/components/aircrafts/panels/AircraftsPanel.js" />
         <option value="$PROJECT_DIR$/redux/ActionTypes.js" />
         <option value="$PROJECT_DIR$/redux/reducers/RealtimeReducer.js" />
         <option value="$PROJECT_DIR$/redux/reducers/index.js" />
         <option value="$PROJECT_DIR$/redux/actions/RealtimeActions.js" />
-        <option value="$PROJECT_DIR$/components/simulator/panels/SimulatorPanel.js" />
         <option value="$PROJECT_DIR$/helpers/FlytrackHelper.js" />
+        <option value="$PROJECT_DIR$/components/simulator/panels/SimulatorPanel.js" />
+        <option value="$PROJECT_DIR$/redux/actions/InitActions.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/components/aircrafts/forms/UpdateAircraftForm.js" />
+        <option value="$PROJECT_DIR$/components/organizations/forms/OrganizationEditForm.js" />
+        <option value="$PROJECT_DIR$/components/aircrafts/panels/AircraftsPanel.js" />
       </list>
     </option>
   </component>
@@ -684,7 +683,7 @@
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="sim&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/apps/SimulatorApp.js&#10;sty&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/assets/css/styles.scss&#10;ыенд&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/assets/css/styles.scss&#10;air&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/aircrafts/panels/AircraftsPanel.js&#10;airc&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/redux/actions/AircraftsActions.js&#10;organi&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/organizations/forms/OrganizationEditForm.js&#10;lefts&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/template/LeftSidebar.js&#10;left&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/template/LeftSidebarTemplate.js&#10;admi&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/apps/AdminApp.js&#10;parsea&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/api/ParseAPI.js&#10;щкпф&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/redux/reducers/OrganizationsReducer.js&#10;org&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/organizations/panels/OrganizationsPanel.js&#10;lef&#9;null&#9;null&#10;Map&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/map/MapGenerator.js&#10;calen&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/calendar/CalendarPanel.js&#10;dispa&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/dispatcher/dashboard/DispatcherCalendar.js&#10;conf&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/src/constants/config.js&#10;usersac&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/redux/actions/UsersActions.js&#10;usersre&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/redux/reducers/UsersReducer.js&#10;userre&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/redux/reducers/UsersReducer.js&#10;setting&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/apps/SettingsApp.js&#10;auth&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/forms/AuthForm.js&#10;signup&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/forms/SignupForm.js&#10;loginf&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/forms/LoginForm.js&#10;logout&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/buttons/LogoutWrapper.js" />
+    <property name="SearchEverywhereHistoryKey" value="aircr&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/aircrafts/panels/AircraftsPanel.js&#10;organiza&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/organizations/forms/OrganizationEditForm.js&#10;air&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/aircrafts/forms/UpdateAircraftForm.js&#10;sim&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/simulator/panels/SimulatorPanel.js&#10;sty&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/assets/css/styles.scss&#10;ыенд&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/assets/css/styles.scss&#10;airc&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/redux/actions/AircraftsActions.js&#10;organi&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/organizations/forms/OrganizationEditForm.js&#10;lefts&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/template/LeftSidebar.js&#10;left&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/template/LeftSidebarTemplate.js&#10;admi&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/apps/AdminApp.js&#10;parsea&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/api/ParseAPI.js&#10;щкпф&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/redux/reducers/OrganizationsReducer.js&#10;org&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/organizations/panels/OrganizationsPanel.js&#10;lef&#9;null&#9;null&#10;Map&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/map/MapGenerator.js&#10;calen&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/calendar/CalendarPanel.js&#10;dispa&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/FlytrackWebApp/src/components/dispatcher/dashboard/DispatcherCalendar.js&#10;conf&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/FlyTrack2017/src/constants/config.js&#10;usersac&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/redux/actions/UsersActions.js&#10;usersre&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/redux/reducers/UsersReducer.js&#10;userre&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/redux/reducers/UsersReducer.js&#10;setting&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/apps/SettingsApp.js&#10;auth&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/forms/AuthForm.js&#10;signup&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/forms/SignupForm.js&#10;loginf&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/forms/LoginForm.js&#10;logout&#9;FILE&#9;file:///Users/sabir/Documents/GitHub/SabirPlatform/SabirPlatformWebApp/src/components/auth/buttons/LogoutWrapper.js" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
@@ -800,16 +799,16 @@
       <workItem from="1495315606872" duration="682000" />
       <workItem from="1496861048663" duration="2624000" />
       <workItem from="1496932208965" duration="13774000" />
-      <workItem from="1496994646693" duration="50203000" />
+      <workItem from="1496994646693" duration="51869000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109129000" />
+    <option name="totallyTimeSpent" value="110795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="733" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18659128" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -819,7 +818,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27145085" sideWeight="0.49030694" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27145085" sideWeight="0.49030694" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -860,14 +859,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/components/calendar/CalendarPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/map/MapApp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -970,14 +961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/redux/reducers/OrganizationsReducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="44" column="32" lean-forward="false" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/redux/actions/OrganizationsActions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -1030,14 +1013,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-566">
           <caret line="104" column="30" lean-forward="true" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1146,14 +1121,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/organizations/forms/OrganizationEditForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="211" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/apps/AircraftsApp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1202,16 +1169,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/aircrafts/forms/UpdateAircraftForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
-          <folding>
-            <element signature="e#42#81#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/redux/actions/AircraftsActions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-86">
@@ -1225,16 +1182,6 @@
         <state relative-caret-position="255">
           <caret line="63" column="29" lean-forward="false" selection-start-line="63" selection-start-column="29" selection-end-line="63" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/aircrafts/panels/AircraftsPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="151" column="24" lean-forward="true" selection-start-line="151" selection-start-column="24" selection-end-line="151" selection-end-column="24" />
-          <folding>
-            <element signature="e#42#81#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1307,22 +1254,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/helpers/FlytrackHelper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/simulator/panels/SimulatorPanel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="43" lean-forward="false" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+        <state relative-caret-position="709">
+          <caret line="102" column="42" lean-forward="true" selection-start-line="102" selection-start-column="42" selection-end-line="102" selection-end-column="42" />
           <folding>
             <element signature="e#42#81#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/helpers/FlytrackHelper.js">
+    <entry file="file://$PROJECT_DIR$/redux/actions/InitActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="53" column="29" lean-forward="true" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+        <state relative-caret-position="120">
+          <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="30" />
           <folding>
-            <element signature="e#0#40#0" expanded="false" />
+            <element signature="e#42#104#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/redux/reducers/OrganizationsReducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="44" column="32" lean-forward="false" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="82" column="17" lean-forward="true" selection-start-line="82" selection-start-column="17" selection-end-line="82" selection-end-column="17" />
+          <folding>
+            <element signature="e#42#65#0" expanded="true" />
+            <element signature="e#369#410#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/aircrafts/forms/UpdateAircraftForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+          <folding>
+            <element signature="e#42#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/organizations/forms/OrganizationEditForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="49" column="39" lean-forward="true" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/aircrafts/panels/AircraftsPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="70" column="51" lean-forward="false" selection-start-line="70" selection-start-column="51" selection-end-line="70" selection-end-column="51" />
+          <folding>
+            <element signature="e#42#81#0" expanded="true" />
           </folding>
         </state>
       </provider>

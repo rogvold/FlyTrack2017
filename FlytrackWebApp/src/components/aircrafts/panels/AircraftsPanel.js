@@ -154,7 +154,7 @@ class AircraftsPanel extends React.Component {
                         <UpdateAircraftForm
                             {...selectedAircraft}
                             onSave={(d) => {
-                                let data = Object.assign({}, {userId: userId}, d);
+                                let data = Object.assign({}, {id: selectedAircraft.id}, d);
                                 console.log('onSave: data = ', data);
                                 updateAircraft(data).then(
                                     () => {
