@@ -22,6 +22,76 @@
       margin-left: 5px;
       text-decoration: underline; }
 
+.pointer {
+  cursor: pointer !important; }
+
+.center {
+  text-align: center; }
+
+.bold {
+  font-weight: bold; }
+
+.mt10 {
+  margin-top: 10px !important; }
+
+.p10 {
+  padding: 10px; }
+
+.cool_modal {
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.8); }
+  .cool_modal .cool_modal_inner_placeholder {
+    width: 100%;
+    height: 100%;
+    position: relative; }
+    .cool_modal .cool_modal_inner_placeholder .cool_modal_overlay {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%; }
+    .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder {
+      z-index: 2;
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+      .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder .cool_modal_left {
+        display: inline-block;
+        vertical-align: top;
+        height: 100%;
+        width: 70px; }
+      .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder .cool_modal_middle {
+        display: inline-block;
+        vertical-align: top;
+        height: 100%;
+        max-height: 100%;
+        overflow-y: auto;
+        width: calc(100% - 70px - 70px);
+        background-color: white;
+        opacity: 0.99; }
+      .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder .cool_modal_right {
+        display: inline-block;
+        vertical-align: top;
+        height: 100%;
+        width: 70px; }
+        .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder .cool_modal_right .close_button_placeholder {
+          margin-top: 20px;
+          margin-left: 10px;
+          line-height: 26px;
+          height: 30px;
+          border-radius: 1000px;
+          font-size: 26px;
+          cursor: pointer; }
+          .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder .cool_modal_right .close_button_placeholder:hover {
+            opacity: 0.7; }
+          .cool_modal .cool_modal_inner_placeholder .cool_modal_content_placeholder .cool_modal_right .close_button_placeholder i.remove {
+            margin-right: 0px !important;
+            color: rgba(255, 255, 255, 0.9); }
+
 .dialog .dialog_overlay {
   position: fixed;
   top: 0px;
@@ -123,49 +193,49 @@
               .corporate_template .left_sidebar .sidebar_placeholder .sidebar .links_placeholder .links .link.logout_link {
                 position: absolute;
                 bottom: 0px; }
-  .corporate_template .main_area {
+  .corporate_template > .main_area {
     display: inline-block;
     vertical-align: top;
     width: calc(100% - 200px);
     height: 100%; }
-    .corporate_template .main_area > .header {
+    .corporate_template > .main_area > .header {
       background: #FFFFFF;
       height: 50px;
       border-bottom: 1px solid lightgrey; }
-      .corporate_template .main_area > .header .header_inner {
+      .corporate_template > .main_area > .header .header_inner {
         height: 100%;
         line-height: 50px;
         padding-left: 10px;
         padding-right: 10px;
         position: relative; }
-        .corporate_template .main_area > .header .header_inner .left_placeholder {
+        .corporate_template > .main_area > .header .header_inner .left_placeholder {
           position: absolute;
           height: 100%;
           left: 10px; }
-          .corporate_template .main_area > .header .header_inner .left_placeholder .current_page_name_placeholder .current_page_name {
+          .corporate_template > .main_area > .header .header_inner .left_placeholder .current_page_name_placeholder .current_page_name {
             font-size: 18px;
             font-weight: bold;
             color: #858598; }
-        .corporate_template .main_area > .header .header_inner .right_placeholder {
+        .corporate_template > .main_area > .header .header_inner .right_placeholder {
           height: 100%;
           position: absolute;
           right: 10px; }
-          .corporate_template .main_area > .header .header_inner .right_placeholder .current_user_placeholder {
+          .corporate_template > .main_area > .header .header_inner .right_placeholder .current_user_placeholder {
             height: 100%; }
-            .corporate_template .main_area > .header .header_inner .right_placeholder .current_user_placeholder .name_placeholder {
+            .corporate_template > .main_area > .header .header_inner .right_placeholder .current_user_placeholder .name_placeholder {
               display: inline-block;
               vertical-align: top;
               color: #858598;
               font-weight: bold; }
-            .corporate_template .main_area > .header .header_inner .right_placeholder .current_user_placeholder .avatar_placeholder {
+            .corporate_template > .main_area > .header .header_inner .right_placeholder .current_user_placeholder .avatar_placeholder {
               height: 100%;
               display: inline-block;
               vertical-align: top;
               padding: 6px; }
-              .corporate_template .main_area > .header .header_inner .right_placeholder .current_user_placeholder .avatar_placeholder img {
+              .corporate_template > .main_area > .header .header_inner .right_placeholder .current_user_placeholder .avatar_placeholder img {
                 height: 100%;
                 border-radius: 1000px; }
-    .corporate_template .main_area .content {
+    .corporate_template > .main_area > .content {
       height: calc(100% - 50px - 1px);
       max-height: calc(100% - 50px - 1px);
       overflow-y: auto;

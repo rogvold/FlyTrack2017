@@ -26,6 +26,12 @@ const ParseAPI = {
             lastName: u.get('lastName'),
             avatar: u.get('avatar'),
             gender: u.get('gender'),
+
+            phone: u.get('phone'),
+            aboutMe: u.get('aboutMe'),
+            organizationId: u.get('organizationId'),
+            birthdayTimestamp: new Date(u.get('birthdayTimestamp')).getTime(),
+            role: u.get('userRole')
         }
     },
 
@@ -222,11 +228,10 @@ const ParseAPI = {
             q.greaterThan('updatedAt', new Date(self.getMaxUpdatedTimestamp(objectsMap)));
             console.log('q = ', q);
             q.find().then((results) => {
-                // console.log('objects loaded: objects = ', results);
-                let objects = results.map( (m) => {
-                    return transformFunction(m);
+                let objects = results.map( function(m){
+                    let tro = transformFunction(m);
+                    return tro;
                 });
-                // console.log('transformed objects = ', objects);
                 resolve(objects);
             }, (err) => {
                 reject(err);

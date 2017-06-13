@@ -281,6 +281,7 @@
 import * as types from '../ActionTypes'
 import ParseAPI from '../../api/ParseAPI';
 import Parse from 'parse'
+import {Map} from 'immutable'
 
 //LOGIN
 let startLoggingIn = () => {
@@ -574,6 +575,17 @@ export function updateUser(data){
         return ParseAPI.updateObject(Parse.User, data, ParseAPI.transformUser).then(
             user => dispatch(updateUserSuccess(user)),
             err => dispatch(updateUserFail(err))
+        )
+    }
+}
+
+//load all users
+export function loadAllUsers(){
+    return (dispatch, getState) => {
+        dispatch(loadUsers_())
+        return ParseAPI.getFreshObjects(Parse.User, Map(), {}, ParseAPI.transformUser).then(
+            users => dispatch(loadUsersSuccess(users)),
+            err => dispatch(loadUsersFail(err))
         )
     }
 }

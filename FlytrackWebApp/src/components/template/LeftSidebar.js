@@ -52,6 +52,18 @@ class LeftSidebar extends React.Component {
         //     displayName: 'Устройства',
         //     icon: 'icon connectdevelop'
         // }
+            {
+                name: 'aircrafts',
+                url: '/aircrafts',
+                displayName: 'Мои авиасудна',
+                icon: 'icon plane'
+            },
+            {
+                name: 'organizations',
+                url: '/organizations',
+                displayName: 'Аэродромы',
+                icon: 'icon home'
+            },
 
          {
             name: 'settings',

@@ -7,21 +7,18 @@ import UsersReducer from './UsersReducer.js';
 import FileUploadReducer from './FileUploadReducer.js';
 import ChatReducer from './ChatReducer.js';
 import CommentsReducer from './CommentsReducer.js';
-
-// import SessionsReducer from './SessionsReducer.js';
-// import PusherReducer from './PusherReducer.js';
-// import NotesReducer from './NotesReducer.js';
-// import ECGViewerReducer from './ECGViewerReducer.js';
-
+import SessionsReducer from './SessionsReducer.js';
+import AircraftsReducer from './AircraftsReducer.js';
+import OrganizationsReducer from './OrganizationsReducer.js';
+import RealtimeReducer from './RealtimeReducer.js';
 
 export const reducer = combineReducers({
     users: UsersReducer,
     upload: FileUploadReducer,
     chat: ChatReducer,
-    comments: CommentsReducer
-    // sessions: SessionsReducer,
-    // notes: NotesReducer,
-    // pusher: PusherReducer,
-    // ecg: ECGViewerReducer,
-
+    comments: CommentsReducer,
+    sessions: SessionsReducer,
+    aircrafts: AircraftsReducer,
+    organizations: OrganizationsReducer,
+    realtime: RealtimeReducer
 });

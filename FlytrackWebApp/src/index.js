@@ -20,6 +20,8 @@ import ParseAPI from './api/ParseAPI.js';
 
 import * as usersActions from './redux/actions/UsersActions.js';
 
+import * as initActions from './redux/actions/InitActions'
+
 import {reducer} from './redux/reducers'
 
 const loggerMiddleware = createLogger()
@@ -72,19 +74,19 @@ ReactDOM.render(
 let init = () => {
     return (dispatch, getState) => {
         return dispatch(usersActions.initializeAuthorization())
-            // .then(
-            // (payload) => {
-            //     if (payload == undefined || payload.user == undefined){
-            //         return Promise.resolve();
-            //     }
-            //     let {user} = payload;
-            //     return dispatch(sessionsActions.loadFriendsSessions(user.id));
-            // }
-            // )
+            .then(
+                (payload) => {
+                    if (payload == undefined || payload.user == undefined){
+                        return Promise.resolve();
+                    }
+                    let {user} = payload;
+                    return dispatch(initActions.loadEverything());
+                }
+            )
     }
 }
 
-persistStore(store, {storage: localForage, transforms: [immutableTransform()]}, () => {
+// persistStore(store, {storage: localForage, transforms: [immutableTransform()]}, () => {
     store.dispatch(init());
-})
+// })
 
