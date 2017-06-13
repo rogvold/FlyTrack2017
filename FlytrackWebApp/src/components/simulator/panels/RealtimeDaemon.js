@@ -29,7 +29,9 @@ class RealtimeDaemon extends React.Component {
     }
 
     componentDidMount() {
-        this.initTimer();
+        setTimeout(() => {
+            this.initTimer();
+        }, 5000);
     }
 
     componentWillReceiveProps() {
@@ -37,6 +39,11 @@ class RealtimeDaemon extends React.Component {
     }
 
     initTimer = () => {
+        this.setState({
+            data: FlytrackHelper.generateRandomData(this.props.currentUser, this.props.aircraft),
+            n: 0
+        });
+
         let centerLat = 56.0996454;
         let centerLon = 36.8008261;
         let {addMessages} = this.props;

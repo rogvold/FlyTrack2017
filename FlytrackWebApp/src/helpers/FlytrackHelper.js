@@ -86,13 +86,14 @@ const FlytrackHelper = {
                 times: [points[j-1].times[0] + Math.floor(1000 * Math.random())]
             });
         }
-
-        return {
+        let d = {
             points: points,
             user: user,
             aircraft: aircraft,
             params: {"device":"test","network":"LTE"}
         }
+        console.log('generateRandomData: returining ', d);
+        return d;
     },
 
 
