@@ -6,7 +6,7 @@
 import React, {PropTypes} from 'react';
 import route from './route.json';
 //import rotation from 'leaflet-rotatedmarker'
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 
 class LeafletMap extends React.Component {
@@ -75,10 +75,10 @@ class LeafletMap extends React.Component {
                     rotationOrigin: 'center'
                 }).addTo(this.map);
                 planesArray[i].bindPopup(`<b>${i}</b>`)
-                console.log('samolet', planesArray[i]);
+                // console.log('samolet', planesArray[i]);
             }
         };
-        console.log('samoleti', planesArray);
+        // console.log('samoleti', planesArray);
         createPlanes(nOfPlanes);
 
         //marker.setIcon(planeIcon);
@@ -109,7 +109,7 @@ class LeafletMap extends React.Component {
             brng = (brng + 360) % 360;
             // brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
 
-            console.log('--->>>>>   brng = ', brng);
+            // console.log('--->>>>>   brng = ', brng);
 
             return brng-90;
         }
@@ -126,7 +126,7 @@ class LeafletMap extends React.Component {
 
         let movePlanes = (nOfPlanes, currentPoint) => {
             for (let i = 0; i < nOfPlanes; i++){
-                console.log('point', i, 'samolet')
+                // console.log('point', i, 'samolet')
                 let coordinates =  {'lat': pointOnCircle(+new Date() / 2000.0)[0], 'lng': pointOnCircle(+new Date() / 2000.0)[1]};
                 planesArray[i].setLatLng(coordinates);
 
@@ -170,6 +170,9 @@ class LeafletMap extends React.Component {
 
 
     render = () => {
+
+        console.log(this.props.message)
+
         return (
             <div
                 className={'mapbox_map'} ref={(m) => {
@@ -184,12 +187,13 @@ class LeafletMap extends React.Component {
 
 
 
-//const mapStateToProps = (state) => {
-//    return {
-//        currentUserId: state.users.currentUserId,
-//        loading: state.users.loading
-//    }
-//}
+const mapStateToProps = (state) => {
+   return {
+       // messages: state.realtime.messagesSet.toArray(),
+       // currentUserId: state.users.currentUserId,
+       // loading: state.users.loading
+   }
+}
 
 //const mapDispatchToProps = (dispatch) => {
 //    return {
@@ -199,6 +203,7 @@ class LeafletMap extends React.Component {
 //    }
 //}
 
-//LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)
+LeafletMap = connect(mapStateToProps)(LeafletMap)
+// LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)
 
 export default LeafletMap

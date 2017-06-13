@@ -45,9 +45,9 @@ class SimulatorPanel extends React.Component {
         let data = this.state.data;
         console.log('initTimer: data = ', data);
 
-        if (this.intervalId == undefined){
+        if (this.intervalId === undefined){
             this.intervalId = setInterval(() => {
-                if (this.state.started == false){
+                if (this.state.started === false){
                     return;
                 }
                 setTimeout(() => {
@@ -70,6 +70,7 @@ class SimulatorPanel extends React.Component {
 
     render = () => {
         let {messages} = this.props;
+        // let messages = this.props.messages;
 
         return (
             <div className={'simulator_panel'} >
@@ -104,7 +105,7 @@ const mapDispatchToProps = (dispatch) => {
    return {
        addMessages: (messages) => {
             return dispatch(actions.addRealtimeMessages(messages))
-       }
+       },
    }
 }
 

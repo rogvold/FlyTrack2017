@@ -20,5 +20,6 @@ export const reducer = combineReducers({
     sessions: SessionsReducer,
     aircrafts: AircraftsReducer,
     organizations: OrganizationsReducer,
-    realtime: RealtimeReducer
+    realtime: RealtimeReducer,
+
 });
