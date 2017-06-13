@@ -20,8 +20,7 @@ class SimulatorPanel extends React.Component {
     static propTypes = {}
 
     state = {
-        data: FlytrackHelper.generateRandomData(this.props.currentUser, this.props.aircraft),
-        n: 0
+
     }
 
     //ES5 - componentWillMount
@@ -30,43 +29,12 @@ class SimulatorPanel extends React.Component {
     }
 
     componentDidMount() {
-        this.initTimer();
     }
 
     componentWillReceiveProps() {
 
     }
 
-    initTimer = () => {
-        let centerLat = 56.0996454;
-        let centerLon = 36.8008261;
-        let {addMessages} = this.props;
-        let channelName = FlytrackHelper.getPublishChannelByLocation(centerLat, centerLon).name;
-        let data = this.state.data;
-        console.log('initTimer: data = ', data);
-
-        if (this.intervalId == undefined){
-            this.intervalId = setInterval(() => {
-                if (this.state.started == false){
-                    return;
-                }
-                setTimeout(() => {
-                    this.setState({
-                        n: this.state.n + 1
-                    });
-                }, 10);
-                let n = this.state.n;
-                let pts = data.points[n];
-                console.log('pts = ', pts);
-                // let pts = data.points;
-                pts.times = [new Date().getTime()];
-
-                let message = {points: pts, user: data.user, aircraft: data.aircraft, params: data.params};
-                // self.getFlux().actions.sendPusherMessage(channelName, message);
-                addMessages([message]);
-            }, this.props.interval);
-        }
-    }
 
     render = () => {
         let {messages} = this.props;
@@ -82,29 +50,15 @@ class SimulatorPanel extends React.Component {
 
 }
 
-let getAircraft = (state) => {
-    let aircrafts = state.aircrafts.aircraftsMap.toArray().sort((a, b) => {
-        return (b.timestamp - a.timestamp)
-    })
-    if (aircrafts.length == 0){
-        return undefined;
-    }
-    return aircrafts[0];
-}
-
 const mapStateToProps = (state) => {
    return {
-        messages: state.realtime.messagesSet.toArray(),
-        currentUser: state.users.usersMap.get(state.users.currentUserId),
-        aircraft: getAircraft(state)
+        messages: state.realtime.messagesSet.toArray()
    }
 }
 
 const mapDispatchToProps = (dispatch) => {
    return {
-       addMessages: (messages) => {
-            return dispatch(actions.addRealtimeMessages(messages))
-       }
+
    }
 }
 
