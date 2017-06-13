@@ -9,9 +9,6 @@ import AircraftsAPI from '../../api/AircraftsAPI';
 import {Map} from 'immutable'
 
 let loadAircrafts_ = () => {
-    if (__DEV__){
-        console.log('loadAircrafts_ occured');
-    }
     return {
         type: types.LOAD_AIRCRAFTS
     }
@@ -38,7 +35,7 @@ export function loadUsersAircrafts(usersIds) {
             usersIds = [getState().users.currentUserId];
         }
         return ParseAPI.getFreshObjects('Aircraft', Map(), {containedIn: [['userId', usersIds]]}, AircraftsAPI.transformAircraft).then(
-            comments => dispatch(loadAircraftsSuccess(comments))),
+            aircrafts => dispatch(loadAircraftsSuccess(aircrafts))),
             err => dispatch(loadAircraftsFail(err))
     }
 }
@@ -57,10 +54,10 @@ let createAircraftFail = (err) => {
     }
 }
 
-let createAircraftSuccess = (comment) => {
+let createAircraftSuccess = (aircraft) => {
     return {
         type: types.CREATE_AIRCRAFT_SUCCESS,
-        comment: comment
+        aircraft: aircraft
     }
 }
 
@@ -130,7 +127,7 @@ export function deleteAircraft(id){
         dispatch(updateAircraft_());
         let data = {id: id, deleted: true};
         return ParseAPI.updateObject('Aircraft', data, AircraftsAPI.transformAircraft).then(
-            comment => dispatch(updateAircraftSuccess(id)),
+            a => dispatch(updateAircraftSuccess(id)),
             err => dispatch(updateAircraftFail(err))
         )
     }

@@ -7,21 +7,21 @@ import Parse from 'parse'
 
 const AircraftsAPI = {
 
-    transformAircraft(s){
-        if (s == undefined){
+    transformAircraft(a){
+        if (a == undefined){
             return null;
         }
         return {
-            id: s.id,
-            timestamp: (new Date(s.createdAt)).getTime(),
-            updatedTimestamp: (new Date(s.updatedAt)).getTime(),
+            id: a.id,
+            timestamp: (new Date(a.createdAt)).getTime(),
+            updatedTimestamp: (new Date(a.updatedAt)).getTime(),
 
             userId: a.get('userId'),
-            aircraftId: a.get('aircraftId'),
+            name: a.get('name'),
+            aircraftNumber: a.get('aircraftNumber'),
             aircraftType: a.get('aircraftType'),
             callName: a.get('callName'),
-            deleted: a.get('deleted'),
-            name: a.get('name')
+            deleted: a.get('deleted')
 
         }
     }

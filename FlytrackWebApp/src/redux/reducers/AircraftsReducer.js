@@ -8,7 +8,7 @@ import {Map} from 'immutable'
 
 const initialState = {
     loading: false,
-    aircraftsReducer: Map(),
+    aircraftsMap: Map(),
     error: undefined,
 }
 

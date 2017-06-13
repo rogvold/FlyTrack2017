@@ -12,13 +12,17 @@ import CoolPreloader from '../../../preloader/CoolPreloader'
 
 import moment from 'moment'
 
+import CoolModal from '../../../modals/CoolModal'
+
 class AllUsersPanel extends React.Component {
 
     static defaultProps = {}
 
     static propTypes = {}
 
-    state = {}
+    state = {
+        selectedUserId: undefined
+    }
 
     //ES5 - componentWillMount
     constructor(props) {
@@ -34,8 +38,25 @@ class AllUsersPanel extends React.Component {
 
     }
 
+    getSelectedUser = () => {
+        let {users} = this.props;
+        let {selectedUserId} = this.state;
+        if (selectedUserId == undefined){
+            return undefined;
+        }
+        let usrs = users.filter((u) => {
+            return (u.id == selectedUserId);
+        })
+        if (usrs == undefined || usrs.length == 0){
+            return undefined;
+        }
+        return usrs[0];
+    }
+
     render = () => {
         let {loading, users} = this.props;
+        let {selectedUserId} = this.state;
+        let selectedUser = this.getSelectedUser();
 
         return (
             <div className={'all_users_panel'} >
@@ -45,20 +66,55 @@ class AllUsersPanel extends React.Component {
                     {users.map((u, k) => {
                         let key = 'user_' + u.id;
 
-
                         return (
-                            <div className={'card'} key={key} >
+                            <div className={'card pointer'} key={key} onClick={() => {
+                                this.setState({
+                                    selectedUserId: u.id
+                                });
+                            }} >
+
                                 <div className={'content'} >
                                     <div className={'header'} >
                                         {u.firstName} {u.lastName}
                                     </div>
+                                    <div className={'meta'} >
+                                        {moment(u.timestamp).format('DD.MM.YYYY HH:mm')}
+                                    </div>
+                                    <div className={'descriptions'} >
+
+                                    </div>
                                 </div>
+
                             </div>
                         )
 
                     })}
 
                 </div>
+
+                {selectedUserId == undefined ? null :
+                    <CoolModal onClose={() => {
+                        this.setState({
+                            selectedUserId: undefined
+                        });
+                    }} >
+
+                        <div className={'selected_user_panel'} >
+
+                            <div className={'header_placeholder'} >
+                                <div className={'center p10'} >
+                                    {selectedUser.firstName} {selectedUser.lastName}
+                                </div>
+                            </div>
+
+                            <div className={'content_placeholder'} >
+
+                            </div>
+
+                        </div>
+
+                    </CoolModal>
+                }
 
                 {loading == false ? null :
                     <CoolPreloader />

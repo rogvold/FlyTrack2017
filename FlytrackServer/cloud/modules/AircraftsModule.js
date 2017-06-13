@@ -40,8 +40,8 @@ var AircraftsModule = {
             error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'aircraftType is not defined'});
             return;
         }
-        if (data.aircraftId == undefined){
-            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'aircraftId is not defined'});
+        if (data.aircraftNumber == undefined){
+            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'aircraftNumber is not defined'});
             return;
         }
         if (data.callName == undefined){
@@ -53,7 +53,7 @@ var AircraftsModule = {
         a.set('userId', data.userId);
         a.set('name', data.name);
         a.set('aircraftType', data.aircraftType);
-        a.set('aircraftId', data.aircraftId);
+        a.set('aircraftNumber', data.aircraftNumber);
         a.set('callName', data.callName);
         a.set('deleted', false);
         var self = this;

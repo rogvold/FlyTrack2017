@@ -23,10 +23,16 @@
       text-decoration: underline; }
 
 .pointer {
-  cursor: pointer; }
+  cursor: pointer !important; }
+
+.center {
+  text-align: center; }
+
+.bold {
+  font-weight: bold; }
 
 .mt10 {
-  margin-top: 10px; }
+  margin-top: 10px !important; }
 
 .p10 {
   padding: 10px; }
