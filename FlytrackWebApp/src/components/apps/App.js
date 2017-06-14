@@ -27,6 +27,7 @@ import AircraftsApp from './AircraftsApp';
 // import UsersApp from './UsersApp.js';
 // import DevicesApp from './DevicesApp.js';
 
+import RealtimeDaemon from '../simulator/panels/RealtimeDaemon'
 
 class App extends React.Component {
 
@@ -98,7 +99,14 @@ class App extends React.Component {
             );
         }
 
-        return this.getUserRoute();
+        return (
+            <div>
+                {this.getUserRoute()}
+
+                <RealtimeDaemon />
+
+            </div>
+        )
     }
 
 }

@@ -2,12 +2,19 @@
  * Created by lesha on 12.06.17.
  */
 
-
 import React, {PropTypes} from 'react';
 import route from './route.json';
-//import rotation from 'leaflet-rotatedmarker'
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
+
+let howManyTimesCalledThisFunction = 0;
+
+const TOKEN = 'pk.eyJ1IjoibGVzaGEyODMyIiwiYSI6ImNqM2E0OTA5YjAwNmIzM3BwOTcxaWhpMnUifQ.YoQLyWhrj5p_r4S1GW0-Kg';
+
+const planeIcon = L.icon({
+    iconUrl: './assets/images/planes/plane0.png',
+    iconSize: [35, 35],})
+
 
 class LeafletMap extends React.Component {
 
@@ -20,7 +27,9 @@ class LeafletMap extends React.Component {
     }
 
     state = {
+        aircraftsMap: {
 
+        }
     }
 
     //ES5 - componentWillMount
@@ -30,156 +39,203 @@ class LeafletMap extends React.Component {
 
     componentDidMount(){
         this.initMap();
+        this.getAngle();
+        this.callFunction();
     }
 
     componentWillReceiveProps(){
+        this.updatePlanesPositions();
+    }
+
+/*
+    updatePlanesPositions = () => {
+        let {messages} = this.props;
+        let lastPositionsMap = this.getLastPositionsMap();
+        if (messages.length == 0){
+            return;
+        }
+        let lastMessage = messages[messages.length - 1];
+        let {aircraft} = lastMessage;
+        if (aircraft == undefined){
+            return;
+        }
+        let {id} = aircraft;
+        let oldPosition = lastPositionsMap[id];
+
+        if (oldPosition == undefined){
+            //todo: create marker
+            const planeIcon = L.icon({
+                iconUrl: './assets/images/planes/plane0.png',
+                iconSize: [35, 35],})
+            let marker = L.marker([lastMessage.points.lat[0], lastMessage.points.lon[0]], {
+                draggable: true,
+                icon: planeIcon,
+                rotationOrigin: 'center'
+            }).addTo(this.map);
+
+            let polyline = L.polyline([]).addTo(this.map);
+
+        } else {
+            //todo: update marker
+            let coords = [lastMessage.points.lat[0], lastMessage.points.lon[0]];
+            let prevCoords = [marker.getLatLng.lat, marker.getLatLng.lon]
+
+            marker.setRotationAngle(-getAngle(prevCoords,coords));
+            marker.setLatLng(coords);
+            polyline.addLatLng(coords);
+
+        }
+    }
+
+    getLastPositionsMap = () => {
+        let map = {};
+        let {messages} = this.props;
+        for (let i in messages){
+            let {aircraft, points} = messages[i];
+            if (aircraft == undefined || points == undefined || points.times == undefined || points.times.length == 0){
+                continue;
+            }
+            let {lat, lon, alt, acc, bea, vel, times} = points;
+            map[aircraft.id] = {
+                lat: lat[lat.length -1],
+                lon: lon[lon.length -1],
+                alt: alt[alt.length -1],
+                acc: acc[acc.length -1],
+                vel: vel[vel.length -1],
+                bea: bea[bea.length -1],
+                times: times[times.length -1]
+            };
+        }
+        return map;
+    }
+
+    let getAngle = (prevPoint, currPoint) => {
+        let dy = +currPoint.lat - +prevPoint.lat;
+        let dx = +currPoint.lng - +prevPoint.lng;
+
+        let dLon = (dx);
+        let lat1 = +prevPoint.lat;
+        let lat2 = +currPoint.lat;
+
+        let y = Math.sin(+dLon) * Math.cos(+lat2);
+        let x = Math.cos(+lat1) * Math.sin(+lat2) - Math.sin(+lat1) * Math.cos(+lat2) * Math.cos(+dLon);
+
+        let brng = Math.atan2(x, y);
+
+        brng = (brng*180/Math.PI);
+        brng = (brng + 360) % 360;
+
+        return brng-90;
+    }
+*/
+
+    getAngle = (prevPoint, currPoint) => {
+       if (prevPoint === undefined) return;
+
+        let dx = +currPoint.lng - +prevPoint.lng;
+        let dy = +currPoint.lat - +prevPoint.lat;
+
+        let dLon = (dx);
+        let lat1 = +prevPoint.lat;
+        let lat2 = +currPoint.lat;
+
+        let y = Math.sin(+dLon) * Math.cos(+lat2);
+        let x = Math.cos(+lat1) * Math.sin(+lat2) - Math.sin(+lat1) * Math.cos(+lat2) * Math.cos(+dLon);
+
+        let brng = Math.atan2(x, y);
+
+        brng = (brng*180/Math.PI);
+        brng = (brng + 360) % 360;
+
+        return -(brng-90);
+    }
+
+
+    updatePlanesPositions = () => { //отвечает за перемещение и рендер самолетов
+        let {messages} = this.props;
+
+        if (messages.length <= 1) { //проверка, что массив с координатами не пуст
+            return;
+        }
+
+        let currentMessage = messages[messages.length - 1];
+        let prevMessage = messages[messages.length - 2];
+
+        console.log('howManyTimesCalledThisFunction = ', howManyTimesCalledThisFunction);
+        console.log('prevMessage    = ', prevMessage)
+        console.log('currentMessage = ', currentMessage)
+
+
+        let coordinates = { 'lat': currentMessage.points.lat[0],
+                            'lng': currentMessage.points.lon[0]};
+
+        this.marker.setLatLng(coordinates);
+        this.polyline.addLatLng(coordinates);
+
+        this.marker.setRotationAngle(this.getAngle({
+            'lat': prevMessage.points.lat[0],
+            'lng': prevMessage.points.lon[0]},
+            coordinates));
+
+
+        //this.marker.setRotationAngle(this.getAngle(lastMessage.points., currentPoint.points));
+        //todo: aircraft, что это
+        //todo: непонятно, где id самолета будет лежать, чтобы нормально сделать функцию...
+
+
     }
 
 
     initMap = () => {
-        const allPoints = route.points.map(point => [point.lng, point.lat]);
-        const TOKEN = 'pk.eyJ1IjoibGVzaGEyODMyIiwiYSI6ImNqM2E0OTA5YjAwNmIzM3BwOTcxaWhpMnUifQ.YoQLyWhrj5p_r4S1GW0-Kg';
-        let mapCenter = [allPoints[Math.round(allPoints.length / 2)][0], allPoints[Math.round(allPoints.length / 2)][1]]
-        //              [longitude, latitude]
+        if (this.mapContainer == undefined) { return; }
 
-        if (this.mapContainer == undefined) {
-            return;
-        }
-        if (this.map != undefined) {
-            return;
-        }
+        if (this.map != undefined) { return; }
+
+        let {messages} = this.props;
+        console.log('messages from initmap = ', this.props);
+
+
 
         L.mapbox.accessToken = TOKEN;
+
+        let mapCenter = [51.501872, -0.121518];
         this.map = L.mapbox.map(this.mapContainer, 'mapbox.emerald', {
             keyboard: false,
-        }).setView(mapCenter, 11, null);
+        }).setView(mapCenter, 0.5, null);
 
-        const planeIcon = L.icon({
-            iconUrl: './assets/images/planes/plane0.png',
-            iconSize: [35, 35],})
 
-        let marker = L.marker([0, 0], {
+
+        this.map.setView([0,0], 0.5, null);
+
+        this.marker = L.marker([0, 0], {
             draggable: true,
             icon: planeIcon,
             rotationOrigin: 'center'
         }).addTo(this.map);
 
-
-        let nOfPlanes = 50;
-        let planesArray = [];
-        let createPlanes = (nOfPlanes) => {
-            for (let i = 0; i < nOfPlanes; i++){
-                planesArray[i] = L.marker([0,0], {
-                    draggable: true,
-                    icon: planeIcon,
-                    rotationOrigin: 'center'
-                }).addTo(this.map);
-                planesArray[i].bindPopup(`<b>${i}</b>`)
-                // console.log('samolet', planesArray[i]);
-            }
-        };
-        // console.log('samoleti', planesArray);
-        createPlanes(nOfPlanes);
-
-        //marker.setIcon(planeIcon);
-        marker.bindPopup("<b>POPUP</b>"); //.openPopup();
+        this.polyline = L.polyline([]).addTo(this.map);
 
         function onMapClick(e) { console.log("You clicked the map at " + e.latlng) }
         this.map.on('click', onMapClick);
 
-        console.log('marker', marker.getLatLng());
-       // this.map.on('load', () =>{
-
-        let polyline = L.polyline([]).addTo(this.map);
-
-        let getFollowingAngle = (prevPoint, currPoint) => {
-            let dy = +currPoint.lat - +prevPoint.lat;
-            let dx = +currPoint.lng - +prevPoint.lng;
-
-            let dLon = (dx);
-            let lat1 = +prevPoint.lat;
-            let lat2 = +currPoint.lat;
-
-            let y = Math.sin(+dLon) * Math.cos(+lat2);
-            let x = Math.cos(+lat1) * Math.sin(+lat2) - Math.sin(+lat1) * Math.cos(+lat2) * Math.cos(+dLon);
-
-            let brng = Math.atan2(x, y);
-
-            brng = (brng*180/Math.PI);
-            brng = (brng + 360) % 360;
-            // brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
-
-            // console.log('--->>>>>   brng = ', brng);
-
-            return brng-90;
-        }
-
-
-
-        function pointOnCircle(angle) { // returns circle
-            return [allPoints[Math.round(allPoints.length/2)][0] + Math.cos(angle)/8,
-                    allPoints[Math.round(allPoints.length/2)][1] + Math.sin(angle)/8];
-        }
-
-
-        let currentPoint = 0;
-
-        let movePlanes = (nOfPlanes, currentPoint) => {
-            for (let i = 0; i < nOfPlanes; i++){
-                // console.log('point', i, 'samolet')
-                let coordinates =  {'lat': pointOnCircle(+new Date() / 2000.0)[0], 'lng': pointOnCircle(+new Date() / 2000.0)[1]};
-                planesArray[i].setLatLng(coordinates);
-
-                if (currentPoint>0) {
-                    let prevAndCur = [{'lat': pointOnCircle(+new Date() / 2000.0 - 0.1)[0], 'lng': pointOnCircle(+new Date() / 2000.0 - 0.1)[1]},
-                        coordinates];
-                planesArray[i].setRotationAngle(-getFollowingAngle(...prevAndCur))
-                }
-            }
-
-            if (++currentPoint < allPoints.length) setTimeout(() => {movePlanes(nOfPlanes, currentPoint)}, 100)
-        }
-
-       // for (let i = 0; i < 10; i++){
-        movePlanes(nOfPlanes, currentPoint);
-    //}
-
-
-
-        let movePlane = (i) =>{
-            let coordinates =  {'lat': allPoints[i][0], 'lng': allPoints[i][1]};
-            marker.setLatLng(coordinates);
-            polyline.addLatLng(coordinates);
-
-            if (i>0) {
-                let prevAndCur = [{'lat': allPoints[i-1][0], 'lng': allPoints[i-1][1]},
-                                  {'lat': allPoints[i][0], 'lng': allPoints[i][1]}];
-
-
-                marker.setRotationAngle(-getFollowingAngle(...prevAndCur));
-            }
-
-            console.log(`coordinates: ${coordinates}`);
-
-            if (++i < allPoints.length) setTimeout(() => {movePlane(i)}, 100)
-        };
-
-        //movePlane(0);
+        //setTimeout(() => {this.initMap()}, 1000);
 
     } //end of initMap
 
+    callFunction = () => {
+        setTimeout(() => {
+            updatePlanesPositions(),
+            callFunction()}, 300);
+    }
+
 
     render = () => {
-
-        console.log(this.props.message)
-
         return (
             <div
                 className={'mapbox_map'} ref={(m) => {
                 this.mapContainer = m;
                 this.initMap();
             }}>
-
 
             </div>
         )
@@ -189,7 +245,7 @@ class LeafletMap extends React.Component {
 
 const mapStateToProps = (state) => {
    return {
-       // messages: state.realtime.messagesSet.toArray(),
+       messages: state.realtime.messagesSet.toArray(),
        // currentUserId: state.users.currentUserId,
        // loading: state.users.loading
    }
@@ -203,7 +259,6 @@ const mapStateToProps = (state) => {
 //    }
 //}
 
-LeafletMap = connect(mapStateToProps)(LeafletMap)
-// LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)
+LeafletMap = connect(mapStateToProps, null)(LeafletMap)
 
 export default LeafletMap
