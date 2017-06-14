@@ -19,7 +19,7 @@ class RealtimeDaemon extends React.Component {
     static propTypes = {}
 
     state = {
-        data: FlytrackHelper.generateRandomData(this.props.currentUser, this.props.aircraft),
+        data: FlytrackHelper.generateRandomDataForAircrafts(this.props.currentUser, this.props.aircrafts),
         n: 0
     }
 
@@ -40,7 +40,7 @@ class RealtimeDaemon extends React.Component {
 
     initTimer = () => {
         this.setState({
-            data: FlytrackHelper.generateRandomData(this.props.currentUser, this.props.aircraft),
+            data: FlytrackHelper.generateRandomDataForAircrafts(this.props.currentUser, this.props.aircrafts),
             n: 0
         });
 
@@ -62,14 +62,28 @@ class RealtimeDaemon extends React.Component {
                     });
                 }, 10);
                 let n = this.state.n;
-                let pts = data.points[n];
-                console.log('pts = ', pts);
-                // let pts = data.points;
-                pts.times = [new Date().getTime()];
 
-                let message = {points: pts, user: data.user, aircraft: data.aircraft, params: data.params};
-                // self.getFlux().actions.sendPusherMessage(channelName, message);
-                addMessages([message]);
+                let aircrafts = this.props.aircrafts;
+
+                let arrM = [];
+
+                // console.log('---    >>>>     initTimer: aircrafts = ', aircrafts);
+
+                for (let j in aircrafts){
+                    let air = aircrafts[j];
+                    let pts = data[j].points[n];
+                    console.log('pts = ', pts);
+                    // let pts = data.points;
+                    pts.times = [new Date().getTime()];
+
+                    let message = {points: pts, user: data[j].user, aircraft: data[j].aircraft, params: data[j].params};
+                    // self.getFlux().actions.sendPusherMessage(channelName, message);
+                    arrM.push(message);
+                }
+
+                // addMessages([message]);
+                addMessages(arrM);
+
             }, this.props.interval);
         }
     }
@@ -100,7 +114,10 @@ const mapStateToProps = (state) => {
     return {
         messages: state.realtime.messagesSet.toArray(),
         currentUser: state.users.usersMap.get(state.users.currentUserId),
-        aircraft: getAircraft(state)
+        aircraft: getAircraft(state),
+        aircrafts: state.aircrafts.aircraftsMap.toArray().sort((a, b) => {
+            return (b.timestamp - a.timestamp)
+        })
     }
 }
 
