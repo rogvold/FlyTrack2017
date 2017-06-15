@@ -37,7 +37,7 @@ var PhotosModule = {
         q.limit(1000);
         q.equalTo('sessionId', data.sessionId);
         q.addDescending('createdAt');
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             var photos = results.map(function(r){return self.transformPhoto(r)});
             success(photos);
         });
@@ -57,7 +57,7 @@ var PhotosModule = {
         q.limit(1000);
         q.equalTo('userId', data.userId);
         q.addDescending('createdAt');
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             var photos = results.map(function(r){return self.transformPhoto(r)});
             success(photos);
         });
@@ -82,7 +82,7 @@ var PhotosModule = {
             p.set(key, data[key]);
         }
         var self = this;
-        p.save({useMasterKey: true}).then(function(savedPhoto){
+        p.save(null, {useMasterKey: true}).then(function(savedPhoto){
             savedPhoto = self.transformPhoto(savedPhoto);
             success(savedPhoto);
         });
@@ -108,7 +108,7 @@ var PhotosModule = {
                     }
                     photo.set(key, data[key]);
                 }
-                photo.save({useMasterKey: true}).then(function(savedPhoto){
+                photo.save(null, {useMasterKey: true}).then(function(savedPhoto){
                     success(self.transformPhoto(savedPhoto));
                 });
             }
@@ -149,7 +149,7 @@ var PhotosModule = {
         q.containedIn('sessionId', sessionsIds);
         q.addAscending('createdAt');
         var self = this;
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (shouldTransform == true){
                 results = results.map(function(r){return self.transformPhoto(r)});
             }
@@ -167,7 +167,7 @@ var PhotosModule = {
         q.containedIn('userId', usersIds);
         q.addAscending('createdAt');
         var self = this;
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (shouldTransform == true){
                 results = results.map(function(r){return self.transformPhoto(r)});
             }

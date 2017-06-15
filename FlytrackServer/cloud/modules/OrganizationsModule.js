@@ -65,7 +65,7 @@ var OrganizationsModule = {
         org.set('lat', data.lat);
         org.set('lon', data.lon);
         org.set('alt', data.alt);
-        org.save({useMasterKey: true}).then(function(savedOrg){
+        org.save(null, {useMasterKey: true}).then(function(savedOrg){
             success(self.transformOrganization(savedOrg));
         });
     },
@@ -90,7 +90,7 @@ var OrganizationsModule = {
                     }
                     foundOrg.set(key, data[key]);
                 }
-                foundOrg.save({useMasterKey: true}).then(function(savedOrg){
+                foundOrg.save(null, {useMasterKey: true}).then(function(savedOrg){
                     success(self.transformOrganization(savedOrg));
                 });
             },
@@ -137,7 +137,7 @@ var OrganizationsModule = {
         q.addAscending('name');
         q.limit(1000);
         var self = this;
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }

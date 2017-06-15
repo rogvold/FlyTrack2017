@@ -95,7 +95,7 @@ var LoModule = {
         }
         var self = this;
         var q = new Parse.Query('AirSession');
-        q.limit(1000);
+        q.limit(100000);
         var timestamps = arr.map(function(a){
             return a.startTimestamp;
         });
@@ -105,7 +105,7 @@ var LoModule = {
         var map = {};
         q.containedIn('startTimestamp', timestamps);
         var resArr = [];
-        q.find(function(sessions){
+        q.find({useMasterKey: true}).then(function(sessions){
             if (sessions == undefined){
                 sessions = [];
             }
@@ -149,6 +149,7 @@ var LoModule = {
             res.push(sess);
         }
         Parse.Object.saveAll(res, {
+            useMasterKey: true,
             success: function(savedSessions){
                 if (savedSessions  == undefined){
                     savedSessions = [];
@@ -214,7 +215,7 @@ var LoModule = {
         q.limit(1000);
         q.containedIn('sessionId', sessionsIds);
         q.addAscending('t');
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (results == undefined || results.length == 0){
                 results = [];
             }
@@ -481,7 +482,7 @@ var LoModule = {
         q.equalTo('sessionId', sessionId);
         q.addAscending('number');
         var self = this;
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
@@ -522,7 +523,7 @@ var LoModule = {
         q.addAscending('t');
         q.equalTo('sessionId', sessionId);
         var self = this;
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
@@ -598,7 +599,7 @@ var LoModule = {
         q.equalTo('deleted', false);
         q.limit(1000);
         q.addDescending('startTimestamp');
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
@@ -648,7 +649,7 @@ var LoModule = {
                 //console.log('s = ' + s);
                 if (mapString == undefined || mapString == ''){
                     sess.set('mapString', s);
-                    sess.save({useMasterKey: true}).then(function(savedSession){
+                    sess.save(null, {useMasterKey: true}).then(function(savedSession){
                         callback(s);
                     });
                 }
@@ -675,7 +676,7 @@ var LoModule = {
         var q = new Parse.Query('AirSession');
         q.equalTo('startTimestamp', data.startTimestamp);
         q.equalTo('userId', data.userId);
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             if (results == undefined || results.length == 0){
                 error({code: ECR.UNKNOWN_ERROR.code, message: 'session is not found'});
                 return;
@@ -696,7 +697,7 @@ var LoModule = {
                 if (clearMode == true){
                     success(session);
                 }else {
-                    session.save({useMasterKey: true}).then(function(savedSession){
+                    session.save(null, {useMasterKey: true}).then(function(savedSession){
                         success(self.transformAirSession(savedSession));
                     });
                 }
@@ -709,7 +710,7 @@ var LoModule = {
         this.finishAirSession(data, function(session){
             self.saveCachePointsOfSessionToChunk(session, function(updatedSession){
                 updatedSession.set('cachePointsNumber', 0);
-                updatedSession.save({useMasterKey: true}).then(function(savedSession){
+                updatedSession.save(null, {useMasterKey: true}).then(function(savedSession){
                     success(self.transformAirSession(savedSession));
                 });
             });
@@ -725,7 +726,7 @@ var LoModule = {
             q.containedIn('userId', usersIds);
         }
         var self = this;
-        q.find(function(results){
+        q.find({useMasterKey: true}).then(function(results){
             results = results.map(function(r){return self.transformAirSession(r)});
             callback(results);
         });
@@ -755,7 +756,7 @@ var LoModule = {
                     }
                     session.set(key, data[key]);
                 }
-                session.save({useMasterKey: true}).then(function(savedSession){
+                session.save(null, {useMasterKey: true}).then(function(savedSession){
                     savedSession = self.transformAirSession(savedSession);
                     success(savedSession);
                 });
@@ -778,7 +779,7 @@ var LoModule = {
             useMasterKey: true,
             success: function(session){
                 session.set('deleted', true);
-                session.save({useMasterKey: true}).then(function(savedSession){
+                session.save(null, {useMasterKey: true}).then(function(savedSession){
                     savedSession = self.transformAirSession(savedSession);
                     success(savedSession);
                 });

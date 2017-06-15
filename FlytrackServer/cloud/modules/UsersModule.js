@@ -205,7 +205,7 @@ var UsersModule = {
                 }
                 u.set(key, data[key]);
             }
-            u.save({useMasterKey: true}).then(function(updatedUser){
+            u.save(null, {useMasterKey: true}).then(function(updatedUser){
                 success(self.transformUser(updatedUser));
             });
         });
@@ -226,6 +226,35 @@ var UsersModule = {
             }
             results = results.map(function(r){return self.transformUser(r)});
             callback(results);
+        });
+    },
+
+    loadUsersByIds: function(usersIds, callback){
+        if (usersIds == undefined || usersIds.length == 0){
+            callback([]);
+            return;
+        }
+        var q = new Parse.Query(Parse.User);
+        q.limit(100000);
+        q.containedIn('objectId', usersIds);
+        var self = this;
+        q.find({useMasterKey: true}).then(function(results){
+            var users = results.map(function(r){
+                return self.transformUser(r)
+            });
+            callback(users);
+        });
+    },
+
+    loadUsersMapByIds: function(usersIds, callback){
+        var map = {};
+        var self = this;
+        this.loadUsersByIds(usersIds, function (users) {
+            for (var i in users){
+                var u = users[i];
+                map[u.id] = u;
+            }
+            callback(map);
         });
     }
 

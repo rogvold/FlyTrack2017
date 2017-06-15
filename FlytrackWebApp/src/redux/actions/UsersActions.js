@@ -417,10 +417,11 @@ let loadUsersFail = (error) => {
     }
 }
 
-let loadUsersSuccess = (users) => {
+let loadUsersSuccess = (users, links) => {
     return {
         type: types.LOAD_USERS_SUCCESS,
-        users: users
+        users: users,
+        links: (links == undefined) ? [] : links
     }
 }
 
@@ -441,6 +442,7 @@ let loadUserLinks_ = () => {
         type: types.LOAD_USER_LINKS
     }
 }
+
 
 let loadUserLinksFail = (error) => {
     return {

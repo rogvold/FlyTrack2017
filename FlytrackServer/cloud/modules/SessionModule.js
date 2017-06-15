@@ -182,7 +182,7 @@ var SessionModule = {
                 s.set('lastPointTime', -1);
                 s.set('lastChunkNumber', -1);
                 s.set('cachePointsNumber', 0);
-                s.save({useMasterKey: true}).then(function(savedSession){
+                s.save(null, {useMasterKey: true}).then(function(savedSession){
                     callback(savedSession);
                 });
                 //create new session
@@ -286,7 +286,7 @@ var SessionModule = {
                 //save only CachePoints
                 self.saveCachePoints(data.sessionId, data.userId, points, function(){ // 2
                     session.set('cachePointsNumber', (cachePointsNumber + points.length));
-                    session.save({useMasterKey: true}).then(function(savedSession){ // 3
+                    session.save(null, {useMasterKey: true}).then(function(savedSession){ // 3
                         success(self.transformSession(savedSession));
                     });
                 });
@@ -305,7 +305,7 @@ var SessionModule = {
                          session.set('lastChunkNumber', lastChunkNumber + newChunksAmount);
                          session.set('lastPointTime', points[points.length - 1].t);
                          session.set('cachePointsNumber', cachePointsForSaving.length);
-                         session.save({useMasterKey: true}).them(function(savedSession){ // 5
+                         session.save(null, {useMasterKey: true}).them(function(savedSession){ // 5
                              Parse.Object.destroyAll(notTransformedCachePoints, { // 6
                                  useMasterKey: true,
                                  success: function(){
@@ -344,7 +344,7 @@ var SessionModule = {
                 session.set(key, data[key]);
             }
             if (f == true){
-                session.save({useMasterKey: true}).then(function(savedSession){
+                session.save(null, {useMasterKey: true}).then(function(savedSession){
                     success(self.transformSession(savedSession));
                 });
                 return;
@@ -365,7 +365,7 @@ var SessionModule = {
         var self = this;
         this.loadSession(data.sessionId, function(session){
             session.set('deleted', true);
-            session.save({useMasterKey: true}).then(function(savedSession){
+            session.save(null, {useMasterKey: true}).then(function(savedSession){
                 success(self.transformSession(savedSession));
             });
         });
