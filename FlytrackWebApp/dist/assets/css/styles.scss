@@ -1075,11 +1075,23 @@ $top_dashboard_panel_height: 50px;
   }
 
   .search_results_panel{
-    .user_item{
-      line-height: 40px;
-      height: 40px;
-      border-bottom: 1px solid lightgray;
-    }
+    padding-top: 10px;
   }
 
+}
+
+span.red{
+  color: red;
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+.ml5{
+  margin-left: 5px;
+}
+
+.right{
+  text-align: right;
 }

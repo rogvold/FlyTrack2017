@@ -70,8 +70,10 @@ var UserLinksModule = {
         }
         var q = new Parse.Query('UserLink');
         q.get(data.id, {
+            useMasterKey: true,
             success: function(loadedLink){
                 loadedLink.destroy({
+                    useMasterKey: true,
                     success: function(){
                         success();
                     }
@@ -134,6 +136,7 @@ var UserLinksModule = {
         var self = this;
         var q = new Parse.Query('UserLink');
         q.get(data.id, {
+            useMasterKey: true,
             success: function(loadedLink){
                 for (var key in data){
                     if (key == 'id' || key == 'creatorId' || key == 'friendId'){

@@ -30,6 +30,8 @@ import FriendsApp from './FriendsApp';
 
 import RealtimeDaemon from '../simulator/panels/RealtimeDaemon'
 
+import GroundComponent from '../ground/GroundComponent'
+
 class App extends React.Component {
 
     static defaultProps = {}
@@ -107,6 +109,8 @@ class App extends React.Component {
                 {this.getUserRoute()}
 
                 <RealtimeDaemon />
+
+                <GroundComponent />
 
             </div>
         )

@@ -11,8 +11,11 @@ import FlytrackHelper from '../../../helpers/FlytrackHelper'
 import UserAvatarImg from '../../users/panels/UserAvatarImg'
 
 import * as usersActions from '../../../redux/actions/UsersActions'
+import * as searchActions from '../../../redux/actions/SearchActions'
 
 import CoolPreloader from '../../preloader/CoolPreloader'
+
+import FriendCardPanel from './FriendCardPanel'
 
 class FriendsPanel extends React.Component {
 
@@ -42,23 +45,11 @@ class FriendsPanel extends React.Component {
 
     getList = (users) => {
         return (
-            <div className={'users_list'} >
+            <div className={'users_list ui two cards'} >
                 {users.map((u, k) => {
                     let key = 'user_' + k + '_' + u.id;
                     return (
-                        <div className={'user_item'} key={key} >
-
-                            <div className={'avatar_placeholder'} >
-                                <UserAvatarImg id={u.id} />
-                            </div>
-
-                            <div className={'user_info_placeholder'} >
-                                <div className={'name_placeholder'} >
-                                    {u.firstName} {u.lastName}
-                                </div>
-                            </div>
-
-                        </div>
+                        <FriendCardPanel key={key} id={u.id} />
                     )
                 })}
             </div>
@@ -66,7 +57,8 @@ class FriendsPanel extends React.Component {
     }
 
     render = () => {
-        let {friends, loading} = this.props;
+        let {friends, loading, openUsersSearchDialog} = this.props;
+        console.log('FriendsPanel: render: friends = ', friends);
         let followers = friends.filter((f) => {
             return (f.follower == true)
         })
@@ -78,33 +70,44 @@ class FriendsPanel extends React.Component {
         return (
             <div className={'friends_panel'} >
 
-                <div className="ui top attached tabular menu">
+                <div className="ui secondary pointing menu">
                     <div className={' item ' + (activeTab == 'following' ? 'active' : 'pointer')} onClick={() => {this.setState({activeTab: 'following'})}} >
                         Друзья, за которыми я слежу
                     </div>
                     <div className={' item ' + (activeTab == 'followers' ? 'active' : 'pointer')}  onClick={() => {this.setState({activeTab: 'followers'})}}  >
-                        Друзья, которые следят за мной
+                        Люди, которые следят за мной
                     </div>
                 </div>
 
                 {activeTab != 'following' ? null :
-                    <div className="ui bottom attached active tab segment">
-                        {this.getList(followings)}
+                    <div className="ui segment">
+
+                        <div className={'right'} >
+                            <span className={'pointer'} onClick={() => {openUsersSearchDialog()}} >
+                                <i className={'icon search'} ></i> поиск по пользователям
+                            </span>
+                        </div>
+
+                        <div className={'list_placeholder'} >
+                            {this.getList(followings)}
+                        </div>
+
                     </div>
                 }
 
                 {activeTab != 'followers' ? null :
-                    <div className="ui bottom attached active tab segment">
+                    <div className="ui  segment">
 
                         {this.getList(followers)}
 
                     </div>
                 }
 
-
                 {loading == false ? null :
-                    <CoolPreloader />
+                    <div className={'center p10'} >загрузка...</div>
                 }
+
+
 
             </div>
         )
@@ -124,6 +127,9 @@ const mapDispatchToProps = (dispatch) => {
    return {
        loadUserUserLinks: (userId) => {
            return dispatch(usersActions.loadUserUserLinks(userId))
+       },
+       openUsersSearchDialog: () => {
+           return dispatch(searchActions.openUsersSearchDialog())
        }
    }
 }

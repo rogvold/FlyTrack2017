@@ -105,7 +105,7 @@ class LeafletMap extends React.Component {
             brng = (brng + 360) % 360;
             // brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
 
-            console.log('--->>>>>   brng = ', brng);
+            // console.log('--->>>>>   brng = ', brng);
 
             return brng-90;
         }

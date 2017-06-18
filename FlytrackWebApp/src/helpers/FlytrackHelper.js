@@ -8,8 +8,9 @@ const FlytrackHelper = {
         let arr = [];
         let gss = (s) => {if (s == undefined){return ''}; return s;}
         let getLinksForUser = (uId) => {
+            console.log('getLinksForUser: uId = ', uId);
             return linksMap.toArray().filter((link) => {
-                return ((link.creatorId == currentUserId && link.friendId == uId) || (link.friendId == currentUserId && link.creatoId == uId));
+                return (((link.creatorId == currentUserId) && (link.friendId == uId)) || ((link.friendId == currentUserId) && (link.creatorId == uId)));
             })
         }
         return usersMap.toArray().filter((user) => {
@@ -22,6 +23,7 @@ const FlytrackHelper = {
             return 0;
         }).map((u) => {
             let links = getLinksForUser(u.id);
+            console.log('getFriendsListByLinksAndUsers: in map: links for user ' + u.id + ' : ', links);
             if (links.length == 0){return undefined};
             let following = false, follower = false, followingStatus = 'new', followerStatus = 'new';
             for (let j in links){
@@ -33,6 +35,19 @@ const FlytrackHelper = {
         }).filter((a) => {
             return (a != undefined);
         });
+    },
+
+    getUserRelationMap(linksMap, firstUserId, secondUserId){
+        let firstUserLinks = linksMap.toArray().filter((link) => {
+            return ((link.creatorId == firstUserId && link.friendId == secondUserId) || (link.friendId == firstUserId && link.creatorId == secondUserId));
+        })
+        let following = false, follower = false, followingStatus = 'new', followerStatus = 'new';
+        for (let j in firstUserLinks){
+            let l = firstUserLinks[j];
+            if (l.creatorId == firstUserId && l.friendId == secondUserId){followingStatus = l.status; following = true;};
+            if (l.creatorId == secondUserId && l.friendId == firstUserId){followerStatus = l.status; follower = true;};
+        }
+        return {following, follower, followingStatus, followerStatus};
     },
 
     getRandomPoints(coordinates, number = 100, radAngle = 0.01){

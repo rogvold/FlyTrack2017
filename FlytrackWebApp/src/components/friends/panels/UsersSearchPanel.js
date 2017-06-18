@@ -12,6 +12,8 @@ import * as actions from '../../../redux/actions/UsersActions'
 
 import debounce from 'debounce'
 
+import FriendCardPanel from './FriendCardPanel'
+
 class UsersSearchPanel extends React.Component {
 
     static defaultProps = {
@@ -28,7 +30,6 @@ class UsersSearchPanel extends React.Component {
     //ES5 - componentWillMount
     constructor(props) {
         super(props);
-        // this.debouncedSearch = debounce(()=>{this.search()}, 1000, true);
     }
 
     componentDidMount() {
@@ -76,8 +77,9 @@ class UsersSearchPanel extends React.Component {
 
                 <div className="search_panel_placeholder">
 
-                    <div className="ui fluid input">
+                    <div className="ui fluid icon input">
                         <input value={searchQuery}
+                               autoFocus={true}
                         placeholder={'Введите фамилию или email пользователя'}
                         onChange={(evt) => {
                             this.debouncedSearch();
@@ -85,6 +87,7 @@ class UsersSearchPanel extends React.Component {
                                 searchQuery: evt.target.value
                             });
                         }} />
+                        <i className="search icon"></i>
                     </div>
 
                 </div>
@@ -99,13 +102,13 @@ class UsersSearchPanel extends React.Component {
                     </div>
                     :
                     <div className={'search_results_panel'} >
-                        {users.map((u, k) => {
-                            return (
-                                <div className={'user_item'} key={u.id} >
-                                    {u.firstName} {u.lastName}
-                                </div>
-                            )
-                        })}
+                        <div className={'ui cards one'} >
+                            {users.map((u, k) => {
+                                return (
+                                    <FriendCardPanel id={u.id} key={u.id} />
+                                )
+                            })}
+                        </div>
                     </div>
                 }
 

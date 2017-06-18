@@ -11,6 +11,7 @@ import SessionsReducer from './SessionsReducer.js';
 import AircraftsReducer from './AircraftsReducer.js';
 import OrganizationsReducer from './OrganizationsReducer.js';
 import RealtimeReducer from './RealtimeReducer.js';
+import SearchReducer from './SearchReducer.js';
 
 export const reducer = combineReducers({
     users: UsersReducer,
@@ -20,5 +21,6 @@ export const reducer = combineReducers({
     sessions: SessionsReducer,
     aircrafts: AircraftsReducer,
     organizations: OrganizationsReducer,
-    realtime: RealtimeReducer
+    realtime: RealtimeReducer,
+    search: SearchReducer
 });
