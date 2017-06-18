@@ -15,10 +15,9 @@ var UserLinksModule = {
 
             creatorId: l.get('creatorId'),
             friendId: l.get('friendId'),
+            status: l.get('status'),
 
-            creatorCanWrite: l.get('creatorCanWrite'),
-
-            status: l.get('status')
+            creatorCanWrite: l.get('creatorCanWrite')
 
         }
     },

@@ -12,6 +12,8 @@ import EditProfilePanel from '../profile/panels/EditProfilePanel'
 
 import Infinite from 'react-infinite'
 
+import UsersSearchPanel from '../friends/panels/UsersSearchPanel'
+
 class DevApp extends React.Component {
 
     static defaultProps = {
@@ -50,7 +52,7 @@ class DevApp extends React.Component {
         return (
             <div className={'user_index_app_content'} >
 
-                this is a Dev App
+                <UsersSearchPanel />
 
             </div>
         )

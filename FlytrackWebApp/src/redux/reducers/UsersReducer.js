@@ -79,10 +79,7 @@ const UsersReducers =  (state = initialState, action = {}) => {
             }
 
 
-        case types.UPDATE_USER:
-            return startLoading(state, action);
-        case types.UPDATE_USER_FAIL:
-            return stopLoading(state, action);
+
         case types.UPDATE_USER_SUCCESS:
             return {
                 ...state,
@@ -90,11 +87,16 @@ const UsersReducers =  (state = initialState, action = {}) => {
                 usersMap: state.usersMap.set(action.user.id, action.user)
             }
 
-
+        case types.UPDATE_USER:
+        case types.SEARCH_USERS:
         case types.LOAD_USERS:
+        case types.LOAD_USER_LINKS:
             return startLoading(state, action)
 
+        case types.UPDATE_USER_FAIL:
+        case types.SEARCH_USERS_FAIL:
         case types.LOAD_USERS_FAIL:
+        case types.LOAD_USER_LINKS_FAIL:
             return stopLoading(state, action)
 
         case types.LOAD_USERS_SUCCESS:
@@ -106,13 +108,7 @@ const UsersReducers =  (state = initialState, action = {}) => {
             }
 
 
-
-        case types.LOAD_USER_LINKS:
-            return startLoading(state, action);
-
-        case types.LOAD_USER_LINKS_FAIL:
-            return stopLoading(state, action);
-
+        case types.SEARCH_USERS_SUCCESS:
         case types.LOAD_USER_LINKS_SUCCESS:
             return {
                 ...state,

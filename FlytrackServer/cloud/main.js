@@ -437,3 +437,13 @@ Parse.Cloud.define("deletePhoto", function(request, response) {
         response.error(err);
     });
 });
+
+//search users
+Parse.Cloud.define("searchUsers", function(request, response) {
+    var data = request.params.data;
+    UsersModule.searchUsers(data, function(users){
+        response.success(users)
+    }, function(err){
+        response.error(err)
+    });
+});

@@ -20,6 +20,7 @@ import SimulatorApp from './SimulatorApp';
 import OrganizationsApp from './OrganizationsApp';
 import AdminApp from './AdminApp';
 import AircraftsApp from './AircraftsApp';
+import FriendsApp from './FriendsApp';
 
 // import DevApp from './DevApp.js';
 // import APIPlaygroundApp from './APIPlaygroundApp.js';
@@ -73,6 +74,8 @@ class App extends React.Component {
                 <Route path="/organizations" component={OrganizationsApp}/>
 
                 <Route path="/aircrafts" component={AircraftsApp}/>
+
+                <Route path="/friends" component={FriendsApp}/>
 
                 <Route path="/admin" component={AdminApp}/>
 

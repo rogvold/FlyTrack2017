@@ -470,7 +470,7 @@ export function  loadUserUserLinks(userId){
             return;
         }
         dispatch(loadUserLinks_());
-        return ParseAPI.runCloudFunctionAsPromise('loadLinks', {userId: userId}).then(
+        return ParseAPI.runCloudFunctionAsPromise('loadUserUserLinks', {userId: userId}).then(
             d => {dispatch(loadUserLinksSuccess(d.links, d.users))},
             err => {dispatch(loadUserLinksFail(err))}
         )
@@ -546,6 +546,8 @@ export function deleteUserLink(id){
     }
 }
 
+
+
 // update user
 
 let updateUser_ = () => {
@@ -591,3 +593,35 @@ export function loadAllUsers(){
         )
     }
 }
+
+let searchUsers_ = () => {
+    return {
+        type: types.SEARCH_USERS
+    }
+}
+
+let searchUsersFail = (err) => {
+    return {
+        type: types.SEARCH_USERS_FAIL,
+        error: err
+    }
+}
+let searchUsersSuccess = (users) => {
+    return {
+        type: types.SEARCH_USERS_SUCCESS,
+        users: users,
+        links: []
+    }
+}
+//thunk
+export function searchUsers(searchText){
+    return (dispatch, getState) => {
+        dispatch(searchUsers_());
+        let data = {text: searchText};
+        return ParseAPI.runCloudFunctionAsPromise('searchUsers', data).then(
+            users => dispatch(searchUsersSuccess(users)),
+            err => dispatch(searchUsersFail(err))
+        )
+    }
+}
+

@@ -1055,3 +1055,31 @@ $top_dashboard_panel_height: 50px;
     }
   }
 }
+
+.friends_panel{
+  position: relative;
+
+
+
+}
+
+.users_search_panel{
+  position: relative;
+  background-color: white;
+  padding: 10px;
+  border-radius: $box_border_radius;
+  margin: 0 auto;
+
+  .search_panel_placeholder{
+
+  }
+
+  .search_results_panel{
+    .user_item{
+      line-height: 40px;
+      height: 40px;
+      border-bottom: 1px solid lightgray;
+    }
+  }
+
+}

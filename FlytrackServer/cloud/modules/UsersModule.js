@@ -256,7 +256,36 @@ var UsersModule = {
             }
             callback(map);
         });
-    }
+    },
+
+    searchUsers: function(data, success, error){
+        if (data == undefined){
+            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'data is not defined'});
+            return;
+        }
+        if (data.text == undefined){
+            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'text is not defined'});
+            return;
+        }
+        var text = data.text;
+        var emailQuery = new Parse.Query(Parse.User);
+        emailQuery.equalTo('email', text);
+        var lastNameQuery = new Parse.Query(Parse.User);
+        lastNameQuery.contains('lastName', text);
+        var q = Parse.Query.or(lastNameQuery, emailQuery);
+        q.limit(1000);
+        q.addAscending('lastName');
+        var self = this;
+        q.find({useMasterKey: true}).then(function(results){
+            if (results == undefined){
+                results = [];
+            }
+            results = results.map(function(r){
+                return self.transformUser(r)
+            });
+            success(results);
+        });
+    },
 
 };
 

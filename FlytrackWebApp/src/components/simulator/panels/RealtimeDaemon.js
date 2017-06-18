@@ -9,6 +9,7 @@ import FlytrackHelper from '../../../helpers/FlytrackHelper'
 
 import * as actions from '../../../redux/actions/RealtimeActions'
 
+import * as constants from '../../../constants/config'
 
 class RealtimeDaemon extends React.Component {
 
@@ -39,6 +40,9 @@ class RealtimeDaemon extends React.Component {
     }
 
     initTimer = () => {
+        if (constants.REALTIME_EMULATOR_ENABLED == false){
+            return;
+        }
         this.setState({
             data: FlytrackHelper.generateRandomDataForAircrafts(this.props.currentUser, this.props.aircrafts),
             n: 0

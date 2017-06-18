@@ -4,6 +4,37 @@
 
 const FlytrackHelper = {
 
+    getFriendsListByLinksAndUsers(linksMap, usersMap, currentUserId){
+        let arr = [];
+        let gss = (s) => {if (s == undefined){return ''}; return s;}
+        let getLinksForUser = (uId) => {
+            return linksMap.toArray().filter((link) => {
+                return ((link.creatorId == currentUserId && link.friendId == uId) || (link.friendId == currentUserId && link.creatoId == uId));
+            })
+        }
+        return usersMap.toArray().filter((user) => {
+            return (user.id != currentUserId);
+        }).sort((a, b) => {
+            let s1 = (gss(a.lastName) + gss(a.firstName)).toLowerCase();
+            let s2 = (gss(b.lastName) + gss(b.firstName)).toLowerCase();
+            if (s1 > s2){return 1;}
+            if (s1 < s2){return -1;}
+            return 0;
+        }).map((u) => {
+            let links = getLinksForUser(u.id);
+            if (links.length == 0){return undefined};
+            let following = false, follower = false, followingStatus = 'new', followerStatus = 'new';
+            for (let j in links){
+                let l = links[j];
+                if (l.creatorId == currentUserId && l.friendId == u.id){followingStatus = l.status; following = true;};
+                if (l.creatorId == u.id && l.friendId == currentUserId){followerStatus = l.status; follower = true;};
+            }
+            return Object.assign({}, u, {following, follower, followingStatus, followerStatus});
+        }).filter((a) => {
+            return (a != undefined);
+        });
+    },
+
     getRandomPoints(coordinates, number = 100, radAngle = 0.01){
         let arr = [];
         let lat0 = coordinates.lat, lon0 = coordinates.lon, t0 = +new Date(), dt = 1000;

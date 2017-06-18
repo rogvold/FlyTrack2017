@@ -650,3 +650,17 @@
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray; }
+
+.friends_panel {
+  position: relative; }
+
+.users_search_panel {
+  position: relative;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 0 auto; }
+  .users_search_panel .search_results_panel .user_item {
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 1px solid lightgray; }
