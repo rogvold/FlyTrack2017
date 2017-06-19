@@ -1047,6 +1047,28 @@ $top_dashboard_panel_height: 50px;
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray;
       }
+      .planes_list{
+        margin-left: 0px;
+        display: inline-block;
+        .cbox{
+          display: inline-block;
+          width: 25px;
+        }
+        .plane_spoiler{
+          width: $right_dashboard_panel_width;
+          display: block;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          border-bottom: 1px solid lightgray;
+          border-top: 1px solid lightgray;
+          ul {
+            font-size: small;
+            list-style-type: none;
+            margin: 0;
+            padding-left: 25px;
+          }
+        }
+      }
       //.calendar_right{
       //  margin:10px 0px 10px 0px;
       //  color: #fff;

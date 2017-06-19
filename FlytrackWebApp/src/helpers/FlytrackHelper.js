@@ -58,7 +58,7 @@ const FlytrackHelper = {
         return res;
     },
 
-    generateRandomData(user, aircraft){
+    generateRandomDataForOneAircraft(user, aircraft){
         //center: [-0.109970527, 51.52916347],
         let centerLat = 56.0996454;
         let centerLon = 36.8008261;
@@ -68,7 +68,7 @@ const FlytrackHelper = {
         let n = 1;
         let id = 'random_' + 0;
         let points = [];
-        let k = 2000 + Math.floor(Math.random() * 400);
+        let k = 20000 + Math.floor(Math.random() * 4000);
         points.push({lat: [centerLat + Math.random() * maxDelta],
             lon: [centerLon + Math.random() * maxDelta],
             acc: [Math.floor(Math.random() * 6)],
@@ -86,13 +86,58 @@ const FlytrackHelper = {
                 times: [points[j-1].times[0] + Math.floor(1000 * Math.random())]
             });
         }
-
-        return {
+        let d = {
             points: points,
             user: user,
             aircraft: aircraft,
             params: {"device":"test","network":"LTE"}
         }
+        console.log('generateRandomData: returining ', d);
+        return d;
+    },
+
+    generateRandomDataForAircrafts(user, aircrafts){
+        //center: [-0.109970527, 51.52916347],
+        // let centerLat = 56.0996454;
+        // let centerLon = 36.8008261;
+        // let lines = [];
+        // let markers = [];
+        // let maxDelta = 0.01;
+        // let n = 1;
+        // let id = 'random_' + 0;
+        // let points = [];
+        // let k = 2000 + Math.floor(Math.random() * 400);
+        // points.push({lat: [centerLat + Math.random() * maxDelta],
+        //     lon: [centerLon + Math.random() * maxDelta],
+        //     acc: [Math.floor(Math.random() * 6)],
+        //     bea: [55], vel: [34], alt: [123],
+        //     times: [new Date().getTime()]
+        // });
+        // for (let j=1; j < k; j++){
+        //     points.push({
+        //         lat: [points[j-1].lat[0] + (0.5 - Math.random()) * maxDelta],
+        //         lon: [points[j-1].lon[0] + (0.5 - Math.random()) * maxDelta],
+        //         acc: [points[j-1].acc[0]],
+        //         alt: [points[j-1].alt[0]],
+        //         bea: [points[j-1].bea[0]],
+        //         vel: [points[j-1].vel[0]],
+        //         times: [points[j-1].times[0] + Math.floor(1000 * Math.random())]
+        //     });
+        // }
+        let arr = [];
+        for (let i in aircrafts){
+            arr.push(this.generateRandomDataForOneAircraft(user, aircrafts[i]))
+        }
+        // let d = {
+        //     points: points,
+        //     user: user,
+        //     aircraft: aircraft,
+        //     params: {"device":"test","network":"LTE"}
+        // }
+        // console.log('generateRandomData: returining ', d);
+        console.log('generateRandomDataForAircrafts: returning arr = ', arr);
+
+        return arr;
     },
 
 

@@ -650,3 +650,21 @@
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray; }
+      .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list {
+        margin-left: 0px;
+        display: inline-block; }
+        .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .cbox {
+          display: inline-block;
+          width: 25px; }
+        .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .plane_spoiler {
+          width: 280px;
+          display: block;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          border-bottom: 1px solid lightgray;
+          border-top: 1px solid lightgray; }
+          .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .plane_spoiler ul {
+            font-size: small;
+            list-style-type: none;
+            margin: 0;
+            padding-left: 25px; }
