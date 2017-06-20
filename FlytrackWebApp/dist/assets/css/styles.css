@@ -651,19 +651,26 @@
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list {
+        max-height: calc(100vh - 346px);
+        overflow: auto;
+        cursor: pointer;
         margin-left: 0px;
-        display: inline-block; }
+        display: inline-block;
+        text-decoration: underline; }
         .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .cbox {
+          cursor: default;
           display: inline-block;
           width: 25px; }
         .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .plane_spoiler {
-          width: 280px;
+          cursor: default;
+          text-decoration: none;
           display: block;
           padding-top: 5px;
           padding-bottom: 5px;
           border-bottom: 1px solid lightgray;
           border-top: 1px solid lightgray; }
           .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .plane_spoiler ul {
+            text-decoration: none;
             font-size: small;
             list-style-type: none;
             margin: 0;

@@ -1048,20 +1048,29 @@ $top_dashboard_panel_height: 50px;
         border-bottom: 1px solid lightgray;
       }
       .planes_list{
+        //height: calc(100vh - 266px);
+        //width:$right_dashboard_panel_width;
+        max-height: calc(100vh - 346px);
+        overflow: auto;
+        cursor: pointer;
         margin-left: 0px;
         display: inline-block;
+        text-decoration: underline;
         .cbox{
+          cursor: default;
           display: inline-block;
           width: 25px;
         }
         .plane_spoiler{
-          width: $right_dashboard_panel_width;
+          cursor: default;
+          text-decoration: none;
           display: block;
           padding-top: 5px;
           padding-bottom: 5px;
           border-bottom: 1px solid lightgray;
           border-top: 1px solid lightgray;
           ul {
+            text-decoration: none;
             font-size: small;
             list-style-type: none;
             margin: 0;
@@ -1069,6 +1078,10 @@ $top_dashboard_panel_height: 50px;
           }
         }
       }
+
+
+
+
       //.calendar_right{
       //  margin:10px 0px 10px 0px;
       //  color: #fff;
