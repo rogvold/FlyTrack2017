@@ -34,7 +34,10 @@ export function loadUsersAircrafts(usersIds) {
         if (usersIds == undefined || usersIds.length == 0){
             usersIds = [getState().users.currentUserId];
         }
-        return ParseAPI.getFreshObjects('Aircraft', Map(), {containedIn: [['userId', usersIds]]}, AircraftsAPI.transformAircraft).then(
+        // return ParseAPI.getFreshObjects('Aircraft', Map(), {containedIn: [['userId', usersIds]]}, AircraftsAPI.transformAircraft).then(
+        //loading all aircrafts in the system - used in generator
+        //todo: uncomment the line above
+        return ParseAPI.getFreshObjects('Aircraft', Map(), {}, AircraftsAPI.transformAircraft).then(
             aircrafts => dispatch(loadAircraftsSuccess(aircrafts))),
             err => dispatch(loadAircraftsFail(err))
     }

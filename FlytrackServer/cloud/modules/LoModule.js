@@ -491,6 +491,132 @@ var LoModule = {
         });
     },
 
+    loadSessionsChunks: function(sessionsIds, callback){
+        if (sessionsIds == undefined || sessionsIds.length == 0){
+            callback([]);
+            return;
+        }
+        var q = new Parse.Query('LocationDataChunk');
+        q.limit(1000);
+        q.containedIn('sessionId', sessionsIds);
+        q.addAscending('number');
+        var self = this;
+        q.find({useMasterKey: true}).then(function(results){
+            if (results == undefined){
+                results = [];
+            }
+            var arr = results.map(function(r){return self.transformDataChunk(r)});
+            callback(arr);
+        });
+    },
+
+    loadSessionsPointsAsMapFromChunks: function(sessionsIds, callback){
+        var self = this;
+        var map = {};
+        this.loadSessionsChunks(sessionsIds, function(chunks){
+            for (var i in chunks){
+                var ch = chunks[i];
+                if (map[ch.sessionId] == undefined){
+                    map[ch.sessionId] = {
+                        lat: [], lon: [], times: [], alt: [], acc: [], bea: [], vel: []
+                    };
+                }
+                map[ch.sessionId].lat = map[ch.sessionId].lat.concat(ch.lat);
+                map[ch.sessionId].lon = map[ch.sessionId].lon.concat(ch.lon);
+                map[ch.sessionId].alt = map[ch.sessionId].alt.concat(ch.alt);
+                map[ch.sessionId].acc = map[ch.sessionId].acc.concat(ch.acc);
+                map[ch.sessionId].bea = map[ch.sessionId].bea.concat(ch.bea);
+                map[ch.sessionId].vel = map[ch.sessionId].vel.concat(ch.vel);
+                map[ch.sessionId].times = map[ch.sessionId].times.concat(ch.times);
+            }
+            callback(map);
+        })
+    },
+
+    loadSessionsCachePoints: function(sessionsIds, callback){
+        if (sessionsIds == undefined){
+            callback([]);
+            return;
+        }
+        var q = new Parse.Query('CachePoint');
+        q.limit(10000000);
+        q.addAscending('t');
+        q.containedIn('sessionId', sessionsIds);
+        var self = this;
+        q.find({useMasterKey: true}).then(function(results){
+            if (results == undefined){
+                results = [];
+            }
+            results = results.map(function(r){return self.transformCachePoint(r)});
+            callback(results);
+        });
+    },
+
+    loadSessionsCachePointsAsMap: function(sessionsIds, callback){
+          var self = this;
+          var map = {};
+          this.loadSessionsCachePoints(sessionsIds, function(points){
+              for (var i in points){
+                  var p = points[i];
+                  if (map[p.sessionId] == undefined){
+                      map[p.sessionId] = {
+                          lat: [], lon: [], times: [], alt: [], acc: [], bea: [], vel: []
+                      };
+                  }
+                  map[p.sessionId].lat.push(p.lat);
+                  map[p.sessionId].lon.push(p.lon);
+                  map[p.sessionId].acc.push(p.acc);
+                  map[p.sessionId].bea.push(p.bea);
+                  map[p.sessionId].vel.push(p.vel);
+                  map[p.sessionId].alt.push(p.alt);
+                  map[p.sessionId].times.push(p.t);
+              }
+              callback(map);
+          });
+    },
+
+    loadSessionsPointsMap: function(sessionsIds, callback){
+        if (sessionsIds == undefined || sessionsIds.length == 0){callback({});}
+        var map = {}, self = this;
+        for (var i in sessionsIds){
+            map[sessionsIds[i]] = {lat: [], lon: [], times: [], alt: [], acc: [], bea: [], vel: []}
+        }
+        this.loadSessionsPointsAsMapFromChunks(sessionsIds, function(chunksMap){
+            self.loadSessionsCachePointsAsMap(sessionsIds, function(pointsMap){
+                for (var sId in map){
+                    map[sId].lat = map[sId].lat.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].lat).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].lat);
+                    map[sId].lon = map[sId].lon.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].lon).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].lon);
+                    map[sId].alt = map[sId].alt.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].alt).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].alt);
+                    map[sId].acc = map[sId].acc.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].acc).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].acc);
+                    map[sId].bea = map[sId].bea.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].bea).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].bea);
+                    map[sId].vel = map[sId].vel.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].vel).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].vel);
+                    map[sId].times = map[sId].times.concat(chunksMap[sId] == undefined ? [] : chunksMap[sId].times).concat(pointsMap[sId] == undefined ? [] : pointsMap[sId].times);
+                }
+                callback(map);
+            });
+        });
+    },
+
+    loadSessionsInTimeSpan: function(data, callback, error){
+        if (data == undefined || data.from == undefined || data.to == undefined){
+            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'from or to is not defined'});
+            return;
+        }
+        var from = +data.from, to = + data.to;
+        var q = new Parse.Query('AirSession');
+        var self = this;
+        q.limit(100000);
+        q.addAscending('startTimestamp');
+        q.greaterThan('startTimestamp', from);
+        q.lessThan('startTimestamp', to);
+        q.find(function(results){
+            results = results.map(function(r){
+                return self.transformAirSession(r);
+            })
+            callback(results);
+        });
+    },
+
     loadChunkPoints: function(sessionId, callback){
         var self = this;
         var arr = [];
@@ -786,7 +912,6 @@ var LoModule = {
             }
         });
     }
-
 
 };
 

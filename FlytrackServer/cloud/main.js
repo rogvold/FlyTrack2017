@@ -342,6 +342,26 @@ Parse.Cloud.define("getSessionPoints", function(request, response) {
     });
 });
 
+Parse.Cloud.define("loadSessionsInTimeSpan", function(request, response) {
+    var data = request.params;
+    LoModule.loadSessionsInTimeSpan(data, function(sessions){
+        response.success(sessions);
+    }, function(err){
+        response.error(err);
+    });
+});
+
+Parse.Cloud.define("getSessionsPoints", function(request, response) {
+    var data = request.params;
+    if (data == undefined || data.sessionsIds == undefined){
+        response.error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'getSessionsPoints: sessionsIds is undefined'});
+        return;
+    }
+    LoModule.loadSessionsPointsMap(data.sessionsIds, function(sessions){
+        response.success(sessions);
+    });
+});
+
 //users
 Parse.Cloud.define("updateUser", function(request, response) {
     var data = request.params;

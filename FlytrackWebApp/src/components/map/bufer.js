@@ -4,7 +4,6 @@
 
 
 import React, {PropTypes} from 'react';
-import route from './route.json';
 //import rotation from 'leaflet-rotatedmarker'
 // import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';

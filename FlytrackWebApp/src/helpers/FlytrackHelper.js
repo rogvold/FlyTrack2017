@@ -114,7 +114,7 @@ const FlytrackHelper = {
         let n = 1;
         let id = 'random_' + 0;
         let points = [];
-        let k = 2000 + Math.floor(Math.random() * 400);
+        let k = 20000 + Math.floor(Math.random() * 4000);
         points.push({lat: [centerLat + Math.random() * maxDelta],
             lon: [centerLon + Math.random() * maxDelta],
             acc: [Math.floor(Math.random() * 6)],

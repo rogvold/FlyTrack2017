@@ -28,14 +28,14 @@ const SessionsReducer =  (state = initialState, action = {}) => {
     switch (action.type) {
 
         case types.LOAD_SESSION_DATA:
-        case types.LOAD_USER_SESSIONS:
+        case types.LOAD_SESSIONS:
             return startLoading(state, action)
 
-        case types.LOAD_USER_SESSIONS_FAIL:
+        case types.LOAD_SESSIONS_FAIL:
         case types.LOAD_SESSION_DATA_FAIL:
             return stopLoading(state, action)
 
-        case types.LOAD_USER_SESSIONS_SUCCESS:
+        case types.LOAD_SESSIONS_SUCCESS:
             return {
                 ...state,
                 loading: false,

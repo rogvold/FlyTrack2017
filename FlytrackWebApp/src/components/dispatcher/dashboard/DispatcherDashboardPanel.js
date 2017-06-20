@@ -5,11 +5,9 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import MapApp from '../../map/MapApplication'
-
 import DispatcherCalendar from './DispatcherCalendar'
 import LeafletMap from '../../map/LeafletMap'
-import MyMap from "../../map/MyMap";
+import PlanesList from '../../map/PlanesList'
 
 class DispatcherDashboardPanel extends React.Component {
 
@@ -62,6 +60,10 @@ class DispatcherDashboardPanel extends React.Component {
 
                         <div className={'calendar_placeholder'} >
                             <DispatcherCalendar />
+                        </div>
+
+                        <div className="planes_list">
+                            <PlanesList />
                         </div>
 
                     </div>

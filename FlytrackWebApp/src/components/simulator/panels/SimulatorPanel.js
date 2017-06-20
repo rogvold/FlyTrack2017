@@ -38,6 +38,7 @@ class SimulatorPanel extends React.Component {
 
     render = () => {
         let {messages} = this.props;
+        // let messages = this.props.messages;
 
         return (
             <div className={'simulator_panel'} >

@@ -14,7 +14,7 @@ import * as constants from '../../../constants/config'
 class RealtimeDaemon extends React.Component {
 
     static defaultProps = {
-        interval: 1000
+        interval: 200
     }
 
     static propTypes = {}
@@ -32,7 +32,7 @@ class RealtimeDaemon extends React.Component {
     componentDidMount() {
         setTimeout(() => {
             this.initTimer();
-        }, 5000);
+        }, 2000);
     }
 
     componentWillReceiveProps() {
@@ -53,7 +53,7 @@ class RealtimeDaemon extends React.Component {
         let {addMessages} = this.props;
         let channelName = FlytrackHelper.getPublishChannelByLocation(centerLat, centerLon).name;
         let data = this.state.data;
-        console.log('initTimer: data = ', data);
+        //console.log('initTimer: data = ', data);
 
         if (this.intervalId == undefined){
             this.intervalId = setInterval(() => {
@@ -76,7 +76,7 @@ class RealtimeDaemon extends React.Component {
                 for (let j in aircrafts){
                     let air = aircrafts[j];
                     let pts = data[j].points[n];
-                    console.log('pts = ', pts);
+                    //console.log('pts = ', pts);
                     // let pts = data.points;
                     pts.times = [new Date().getTime()];
 

@@ -20,10 +20,11 @@ let consumeMessages = (messagesSet, messages) => {
 }
 
 const RealtimeReducer =  (state = initialState, action = {}) => {
-
+    console.log(action)
     switch (action.type) {
 
         case types.REALTIME_MESSAGE_RECEIVED:
+            console.log(action.messages)
             return {
                 ...state,
                 loading: false,

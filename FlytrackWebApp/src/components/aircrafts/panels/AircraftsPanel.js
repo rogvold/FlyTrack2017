@@ -60,6 +60,7 @@ class AircraftsPanel extends React.Component {
 
     render = () => {
         let {loading, aircrafts, userId, currentUserId, createAircraft, updateAircraft} = this.props;
+
         let {createModalVisible, selectedAircraftId} = this.state;
         if (userId == undefined){
             userId = currentUserId;

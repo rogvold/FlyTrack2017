@@ -5,23 +5,23 @@
 import * as types from '../ActionTypes'
 import ParseAPI from '../../api/ParseAPI';
 
+import moment from 'moment';
+
 //SESSIONS
-let loadUserSessions_ = (userId) => {
+let loadUserSessions_ = () => {
     return {
-        type: types.LOAD_USER_SESSIONS,
-        userId: userId
+        type: types.LOAD_SESSIONS
     }
 }
-let loadUserSessionsSuccess = (userId, data) => {
+let loadUserSessionsSuccess = (sessions) => {
     return {
-        type: types.LOAD_USER_SESSIONS_SUCCESS,
-        sessions: data.sessions
+        type: types.LOAD_SESSIONS_SUCCESS,
+        sessions: sessions
     }
 }
-let loadUserSessionsFail = (userId, error) => {
+let loadUserSessionsFail = (error) => {
     return {
-        type: types.LOAD_USER_SESSIONS_FAIL,
-        userId: userId,
+        type: types.LOAD_SESSIONS_FAIL,
         error: error
     }
 }
@@ -33,8 +33,34 @@ export function loadUserSessions(userId){
         }
         dispatch(loadUserSessions_());
         return ParseAPI.runCloudFunctionAsPromise('getUserSessions', {userId: userId}).then(
-            data => dispatch(loadUserSessionsSuccess(userId, data)),
-            error => dispatch(loadUserSessionsFail(userId, error))
+            sessions => dispatch(loadUserSessionsSuccess(sessions)),
+            error => dispatch(loadUserSessionsFail(error))
+        )
+    }
+}
+
+export function loadSessionsInRange(from, to){
+    return (dispatch, getState) => {
+        dispatch(loadUserSessions_());
+        if (from == undefined || to == undefined){
+            from = +moment().startOf('day');
+            to = +moment().endOf('day');
+        }
+        return ParseAPI.runCloudFunctionAsPromise('loadSessionsInTimeSpan', {from: from, to: to}).then(
+            sessions => dispatch(loadUserSessionsSuccess(sessions)),
+            error => dispatch(loadUserSessionsFail(error))
+        )
+    }
+}
+
+export function loadSessionsForTheDay(dayTimestamp){
+    return (dispatch, getState) => {
+        dispatch(loadUserSessions_());
+        var from = +moment(dayTimestamp).startOf('day');
+        var to = +moment(dayTimestamp).endOf('day');
+        return ParseAPI.runCloudFunctionAsPromise('loadSessionsInTimeSpan', {from: from, to: to}).then(
+            sessions => dispatch(loadUserSessionsSuccess(sessions)),
+            error => dispatch(loadUserSessionsFail(error))
         )
     }
 }

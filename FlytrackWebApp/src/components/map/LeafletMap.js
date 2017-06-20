@@ -2,12 +2,35 @@
  * Created by lesha on 12.06.17.
  */
 
-
 import React, {PropTypes} from 'react';
-import route from './route.json';
-//import rotation from 'leaflet-rotatedmarker'
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import moment from '../../../node_modules/moment/moment';
 // import { bindActionCreators } from 'redux';
+
+import * as dashboardActions from '../../redux/actions/DashboardActions'
+
+const TOKEN = 'pk.eyJ1IjoibGVzaGEyODMyIiwiYSI6ImNqM2E0OTA5YjAwNmIzM3BwOTcxaWhpMnUifQ.YoQLyWhrj5p_r4S1GW0-Kg';
+
+const iconsList = {
+    'PLANE': L.icon({
+        iconUrl: './assets/images/planes/plane0.png',
+        iconSize: [40, 40],
+    }),
+    'GYROPLANE': L.icon({
+        iconUrl: './assets/images/planes/gyroplane0.png',
+        iconSize: [40, 40],
+    }),
+    'HELICOPTER': L.icon({
+        iconUrl: './assets/images/planes/helicopter0.png',
+        iconSize: [40, 40],
+    }),
+    'GLIDER': L.icon({
+        iconUrl: './assets/images/planes/glider0.png',
+        iconSize: [40, 40],
+    })
+};
+
+import PlanesList from './PlanesList'
 
 class LeafletMap extends React.Component {
 
@@ -20,7 +43,9 @@ class LeafletMap extends React.Component {
     }
 
     state = {
+        aircraftsMap: {
 
+        }
     }
 
     //ES5 - componentWillMount
@@ -30,144 +55,128 @@ class LeafletMap extends React.Component {
 
     componentDidMount(){
         this.initMap();
+        this.getAngle();
+        //this.isAircraftVisible;
+        this.callFunction();
     }
 
     componentWillReceiveProps(){
+        this.updatePlanesPositions();
     }
 
+    getAngle = (prevPoint, currPoint) => {
+        if (prevPoint === undefined) return;
 
-    initMap = () => {
-        const allPoints = route.points.map(point => [point.lng, point.lat]);
-        const TOKEN = 'pk.eyJ1IjoibGVzaGEyODMyIiwiYSI6ImNqM2E0OTA5YjAwNmIzM3BwOTcxaWhpMnUifQ.YoQLyWhrj5p_r4S1GW0-Kg';
-        let mapCenter = [allPoints[Math.round(allPoints.length / 2)][0], allPoints[Math.round(allPoints.length / 2)][1]]
-        //              [longitude, latitude]
+        let dx = +currPoint.lng - +prevPoint.lng;
+        let dy = +currPoint.lat - +prevPoint.lat;
 
-        if (this.mapContainer == undefined) {
+        let dLon = (dx);
+        let lat1 = +prevPoint.lat;
+        let lat2 = +currPoint.lat;
+
+        let y = Math.sin(+dLon) * Math.cos(+lat2);
+        let x = Math.cos(+lat1) * Math.sin(+lat2) - Math.sin(+lat1) * Math.cos(+lat2) * Math.cos(+dLon);
+
+        let brng = Math.atan2(x, y);
+
+        brng = (brng*180/Math.PI);
+        brng = (brng + 360) % 360;
+
+        return -(brng-90);
+    };
+
+    isAircraftVisible = (id) => {
+        if (id !== undefined) {
+            let {selectedAircraftsSet} = this.props;
+            return selectedAircraftsSet.has(id);
+        }
+    }
+
+    updatePlanesPositions = () => { //отвечает за перемещение и рендер самолетов
+        let {messages, selectAircraft, unselectAircraft, selectManyAircrafts, selectedAircraftsSet} = this.props;
+
+        messages = transformMessagesToDataArray(messages);
+
+        if (messages.length == 0) {
             return;
         }
-        if (this.map != undefined) {
-            return;
-        }
 
-        L.mapbox.accessToken = TOKEN;
-        this.map = L.mapbox.map(this.mapContainer, 'mapbox.emerald', {
-            keyboard: false,
-        }).setView(mapCenter, 11, null);
+        let planes = getAircraftsByMessages(messages);
+        let aircraftsIdsToSelect = [];
 
-        const planeIcon = L.icon({
-            iconUrl: './assets/images/planes/plane0.png',
-            iconSize: [35, 35],})
+        for (let i in messages){
+            let message = messages[i];
+            let prevPoint = message.points[message.points.length - 2];
+            let currentPoint = message.points[message.points.length - 1];
 
-        let marker = L.marker([0, 0], {
-            draggable: true,
-            icon: planeIcon,
-            rotationOrigin: 'center'
-        }).addTo(this.map);
+            if (undefined !== this.markers[message.aircraft.id]) {
+                this.markers[message.aircraft.id].setLatLng(currentPoint);
+                (this.polylines[message.aircraft.id].addLatLng(currentPoint));
 
+                let popupInfo = popupCreator(message);
+                this.markers[message.aircraft.id].bindPopup(popupInfo);
 
-        let nOfPlanes = 50;
-        let planesArray = [];
-        let createPlanes = (nOfPlanes) => {
-            for (let i = 0; i < nOfPlanes; i++){
-                planesArray[i] = L.marker([0,0], {
+                if (this.polylines[message.aircraft.id]._latlngs.length > 1) { //ПОВОРОТ
+                    this.markers[message.aircraft.id].setRotationAngle(this.getAngle(prevPoint, currentPoint));
+                }
+
+                if (this.isAircraftVisible(message.aircraft.id)) {
+                    this.polylines[message.aircraft.id].addTo(this.map);
+                } else {
+                    this.polylines[message.aircraft.id].remove();
+                }
+
+            } else { //рисую маркер и полилайн
+                this.markers[message.aircraft.id] = L.marker([0, 0], {
                     draggable: true,
-                    icon: planeIcon,
+                    icon: iconsList[message.aircraft.aircraftType],
                     rotationOrigin: 'center'
                 }).addTo(this.map);
-                planesArray[i].bindPopup(`<b>${i}</b>`)
-                // console.log('samolet', planesArray[i]);
-            }
-        };
-        // console.log('samoleti', planesArray);
-        createPlanes(nOfPlanes);
 
-        //marker.setIcon(planeIcon);
-        marker.bindPopup("<b>POPUP</b>"); //.openPopup();
+                this.polylines[message.aircraft.id] = L.polyline([], {
+                    color: getRandomColour(),
+                    width: 5,
+                    opacity: 0.75
+                });
+            }
+        }
+
+        if (aircraftsIdsToSelect.length > 0){
+            selectManyAircrafts(aircraftsIdsToSelect);
+        }
+
+
+    }
+
+    initMap = () => {
+        if (this.mapContainer == undefined) { return; }
+
+        if (this.map != undefined) { return; }
+
+        let {messages} = this.props;
+
+        L.mapbox.accessToken = TOKEN;
+
+        let mapCenter = [51.501872, -0.121518];
+        this.map = L.mapbox.map(this.mapContainer, 'mapbox.emerald', {
+            keyboard: false,
+        }).setView(mapCenter, 0.5, null);
+
+        this.markers = {};
+        this.polylines = {};
+
+        this.map.setView([56.13331, 36.82617], 10, null);
 
         function onMapClick(e) { console.log("You clicked the map at " + e.latlng) }
         this.map.on('click', onMapClick);
 
-        console.log('marker', marker.getLatLng());
-       // this.map.on('load', () =>{
-
-        let polyline = L.polyline([]).addTo(this.map);
-
-        let getFollowingAngle = (prevPoint, currPoint) => {
-            let dy = +currPoint.lat - +prevPoint.lat;
-            let dx = +currPoint.lng - +prevPoint.lng;
-
-            let dLon = (dx);
-            let lat1 = +prevPoint.lat;
-            let lat2 = +currPoint.lat;
-
-            let y = Math.sin(+dLon) * Math.cos(+lat2);
-            let x = Math.cos(+lat1) * Math.sin(+lat2) - Math.sin(+lat1) * Math.cos(+lat2) * Math.cos(+dLon);
-
-            let brng = Math.atan2(x, y);
-
-            brng = (brng*180/Math.PI);
-            brng = (brng + 360) % 360;
-            // brng = 360 - brng; // count degrees counter-clockwise - remove to make clockwise
-
-            // console.log('--->>>>>   brng = ', brng);
-
-            return brng-90;
-        }
-
-
-
-        function pointOnCircle(angle) { // returns circle
-            return [allPoints[Math.round(allPoints.length/2)][0] + Math.cos(angle)/8,
-                    allPoints[Math.round(allPoints.length/2)][1] + Math.sin(angle)/8];
-        }
-
-
-        let currentPoint = 0;
-
-        let movePlanes = (nOfPlanes, currentPoint) => {
-            for (let i = 0; i < nOfPlanes; i++){
-                // console.log('point', i, 'samolet')
-                let coordinates =  {'lat': pointOnCircle(+new Date() / 2000.0)[0], 'lng': pointOnCircle(+new Date() / 2000.0)[1]};
-                planesArray[i].setLatLng(coordinates);
-
-                if (currentPoint>0) {
-                    let prevAndCur = [{'lat': pointOnCircle(+new Date() / 2000.0 - 0.1)[0], 'lng': pointOnCircle(+new Date() / 2000.0 - 0.1)[1]},
-                        coordinates];
-                planesArray[i].setRotationAngle(-getFollowingAngle(...prevAndCur))
-                }
-            }
-
-            if (++currentPoint < allPoints.length) setTimeout(() => {movePlanes(nOfPlanes, currentPoint)}, 100)
-        }
-
-       // for (let i = 0; i < 10; i++){
-        movePlanes(nOfPlanes, currentPoint);
-    //}
-
-
-
-        let movePlane = (i) =>{
-            let coordinates =  {'lat': allPoints[i][0], 'lng': allPoints[i][1]};
-            marker.setLatLng(coordinates);
-            polyline.addLatLng(coordinates);
-
-            if (i>0) {
-                let prevAndCur = [{'lat': allPoints[i-1][0], 'lng': allPoints[i-1][1]},
-                                  {'lat': allPoints[i][0], 'lng': allPoints[i][1]}];
-
-
-                marker.setRotationAngle(-getFollowingAngle(...prevAndCur));
-            }
-
-            console.log(`coordinates: ${coordinates}`);
-
-            if (++i < allPoints.length) setTimeout(() => {movePlane(i)}, 100)
-        };
-
-        //movePlane(0);
-
     } //end of initMap
 
+    callFunction = () => {
+        setTimeout(() => {
+            updatePlanesPositions(),
+                callFunction()}, 500);
+    }
 
     render = () => {
         return (
@@ -177,28 +186,119 @@ class LeafletMap extends React.Component {
                 this.initMap();
             }}>
 
-
             </div>
         )
-    }}
+    }
+}
 
+let popupCreator = (message) => {
+    //language=HTML
+    return (
+        `Позывной: ${message.aircraft.callName}<br/>
+         Тип: ${message.aircraft.aircraftType}<br/> 
+         Последнее обновление: ${moment(message.points[message.points.length - 1].t).format('LTS')}<br/>
+         Координаты:<br/> 
+         [Широта: ${(''+message.points[message.points.length -1].lat).slice(0, 8)}, 
+         Долгота: ${('' + message.points[message.points.length -1].lng).slice(0, 8)}]`
+    );
+};
 
+let getAircraftMessages = (messages, aicraftId) => {
+    if (messages == undefined){
+        return [];
+    }
 
-//const mapStateToProps = (state) => {
-//    return {
-//        currentUserId: state.users.currentUserId,
-//        loading: state.users.loading
-//    }
-//}
+    return messages.filter((m) => {
+        let {aircraft} = m;
+        return (aircraft != undefined && aircraft.id == aicraftId);
+    })
+}; // фильтрующая функция
 
-//const mapDispatchToProps = (dispatch) => {
-//    return {
-//        onLogout: (data) => {
-//            dispatch(actions.logOut())
-//        }
-//    }
-//}
+let transformMessagesToDataArray = (messages) => {
+    let aMap = {};
+    for (let i in messages){
+        let m = messages[i];
+        let {aircraft} = m;
+        if (aircraft != undefined){
+            aMap[aircraft.id] = aircraft;
+        }
+    }
+    let arr = [];
+    for (let aId in aMap){
+        arr.push({
+            aircraft: aMap[aId],
+            messages: getAircraftMessages(messages, aId)
+        });
+    }
+    arr = arr.map((a) => {
+        let {messages} = a;
+        let newPoints = [];
+        for (let i in messages){
+            let {lat, lon, alt, acc, bea, vel, times} = messages[i].points;
+            let pts = times.map((t, k) => {return {
+                lat: lat[k],
+                lng: lon[k], // было lon, если чет поломалось
+                alt: alt[k],
+                acc: acc[k],
+                bea: bea[k],
+                vel: vel[k],
+                t: times[k]
+            }})
+            newPoints = newPoints.concat(pts);
+        }
+        return {
+            aircraft: a.aircraft,
+            // messages: a.messages,
+            points: newPoints
+        }
+    })
+    return arr;
+}
 
-//LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)
+let getAircraftsByMessages = (messages) => {
+    let map = {};
+    for (let i in messages){
+        let m = messages[i];
+        map[m.aircraft.id] = m.aircraft;
+    }
+    let arr = [];
+    for (let key in map){
+        arr.push(map[key]);
+    }
+    return arr;
+}
+
+let getRandomColour = () => {
+    let colour = '#';
+    for (let i = 0; i < 6; i++ ) {
+        colour += Math.round(Math.random()*8)
+    }
+    return colour;
+}
+
+const mapStateToProps = (state) => {
+    return {
+        messages: state.realtime.messagesSet.toArray(),
+        selectedAircraftsSet: state.dashboard.selectedAircraftsSet
+        // currentUserId: state.users.currentUserId,
+        // loading: state.users.loading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        selectAircraft: (aircratId) => {
+            return dispatch(dashboardActions.selectAircraft(aircratId))
+        },
+        selectManyAircrafts: (ids) => {
+            return dispatch(dashboardActions.selectManyAircrafts(ids))
+        },
+        unselectAircraft: (aircratId) => {
+            return dispatch(dashboardActions.unselectAircraft(aircratId))
+        }
+    }
+}
+
+LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)
 
 export default LeafletMap
