@@ -675,3 +675,27 @@
             list-style-type: none;
             margin: 0;
             padding-left: 25px; }
+
+.friends_panel {
+  position: relative; }
+
+.users_search_panel {
+  position: relative;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 0 auto; }
+  .users_search_panel .search_results_panel {
+    padding-top: 10px; }
+
+span.red {
+  color: red; }
+
+.underline {
+  text-decoration: underline; }
+
+.ml5 {
+  margin-left: 5px; }
+
+.right {
+  text-align: right; }

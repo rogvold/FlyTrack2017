@@ -65,7 +65,7 @@ class LeafletMap extends React.Component {
     }
 
     getAngle = (prevPoint, currPoint) => {
-       if (prevPoint === undefined) return;
+        if (prevPoint === undefined) return;
 
         let dx = +currPoint.lng - +prevPoint.lng;
         let dy = +currPoint.lat - +prevPoint.lat;
@@ -175,18 +175,18 @@ class LeafletMap extends React.Component {
     callFunction = () => {
         setTimeout(() => {
             updatePlanesPositions(),
-            callFunction()}, 500);
+                callFunction()}, 500);
     }
 
     render = () => {
         return (
-                <div
-                    className={'mapbox_map'} ref={(m) => {
-                        this.mapContainer = m;
-                        this.initMap();
-                    }}>
+            <div
+                className={'mapbox_map'} ref={(m) => {
+                this.mapContainer = m;
+                this.initMap();
+            }}>
 
-                </div>
+            </div>
         )
     }
 }
@@ -277,26 +277,26 @@ let getRandomColour = () => {
 }
 
 const mapStateToProps = (state) => {
-   return {
-       messages: state.realtime.messagesSet.toArray(),
-       selectedAircraftsSet: state.dashboard.selectedAircraftsSet
-       // currentUserId: state.users.currentUserId,
-       // loading: state.users.loading
-   }
+    return {
+        messages: state.realtime.messagesSet.toArray(),
+        selectedAircraftsSet: state.dashboard.selectedAircraftsSet
+        // currentUserId: state.users.currentUserId,
+        // loading: state.users.loading
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-   return {
-       selectAircraft: (aircratId) => {
-           return dispatch(dashboardActions.selectAircraft(aircratId))
-       },
-       selectManyAircrafts: (ids) => {
-           return dispatch(dashboardActions.selectManyAircrafts(ids))
-       },
-       unselectAircraft: (aircratId) => {
-           return dispatch(dashboardActions.unselectAircraft(aircratId))
-       }
-   }
+    return {
+        selectAircraft: (aircratId) => {
+            return dispatch(dashboardActions.selectAircraft(aircratId))
+        },
+        selectManyAircrafts: (ids) => {
+            return dispatch(dashboardActions.selectManyAircrafts(ids))
+        },
+        unselectAircraft: (aircratId) => {
+            return dispatch(dashboardActions.unselectAircraft(aircratId))
+        }
+    }
 }
 
 LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)

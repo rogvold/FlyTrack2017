@@ -6,6 +6,8 @@ var OrganizationsModule = require('./modules/OrganizationsModule');
 var UsersModule = require('./modules/UsersModule');
 var PhotosModule = require('./modules/PhotosModule');
 
+var UserLinksModule = require('./modules/UserLinksModule');
+
 var CommonHelper = require('./helpers/CommonHelper');
 
 
@@ -222,6 +224,43 @@ Parse.Cloud.define("uploadPoints", function(request, response) {
 //    });
 //});
 
+
+Parse.Cloud.define("createUserLink", function(request, response) {
+    var data = request.params.data;
+    UserLinksModule.createLink(data, function(link){
+        response.success(link);
+    }, function(err){
+        response.error(err);
+    });
+});
+
+Parse.Cloud.define("deleteUserLink", function(request, response) {
+    var data = request.params.data;
+    UserLinksModule.deleteLink(data, function(){
+        response.success(data);
+    }, function(err){
+        response.error(err);
+    });
+});
+
+Parse.Cloud.define("updateUserLink", function(request, response) {
+    var data = request.params.data;
+    UserLinksModule.updateLink(data, function(updatedLink){
+        response.success(updatedLink);
+    }, function(err){
+        response.error(err);
+    });
+});
+
+Parse.Cloud.define("loadUserUserLinks", function(request, response) {
+    var data = request.params.data;
+    UserLinksModule.loadUserUserLinks(data, function(d){
+        response.success(d);
+    }, function(err){
+        response.error(err);
+    });
+});
+
 Parse.Cloud.define("updateSession", function(request, response) {
     var data = request.params;
     LoModule.updateSession(data, function(session){
@@ -396,5 +435,15 @@ Parse.Cloud.define("deletePhoto", function(request, response) {
         response.success(data);
     }, function(err){
         response.error(err);
+    });
+});
+
+//search users
+Parse.Cloud.define("searchUsers", function(request, response) {
+    var data = request.params.data;
+    UsersModule.searchUsers(data, function(users){
+        response.success(users)
+    }, function(err){
+        response.error(err)
     });
 });

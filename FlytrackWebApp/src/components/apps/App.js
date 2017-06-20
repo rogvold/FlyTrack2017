@@ -20,6 +20,7 @@ import SimulatorApp from './SimulatorApp';
 import OrganizationsApp from './OrganizationsApp';
 import AdminApp from './AdminApp';
 import AircraftsApp from './AircraftsApp';
+import FriendsApp from './FriendsApp';
 
 // import DevApp from './DevApp.js';
 // import APIPlaygroundApp from './APIPlaygroundApp.js';
@@ -28,6 +29,8 @@ import AircraftsApp from './AircraftsApp';
 // import DevicesApp from './DevicesApp.js';
 
 import RealtimeDaemon from '../simulator/panels/RealtimeDaemon'
+
+import GroundComponent from '../ground/GroundComponent'
 
 class App extends React.Component {
 
@@ -74,6 +77,8 @@ class App extends React.Component {
 
                 <Route path="/aircrafts" component={AircraftsApp}/>
 
+                <Route path="/friends" component={FriendsApp}/>
+
                 <Route path="/admin" component={AdminApp}/>
 
 
@@ -104,6 +109,8 @@ class App extends React.Component {
                 {this.getUserRoute()}
 
                 <RealtimeDaemon />
+
+                <GroundComponent />
 
             </div>
         )

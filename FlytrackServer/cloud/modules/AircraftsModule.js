@@ -57,7 +57,7 @@ var AircraftsModule = {
         a.set('callName', data.callName);
         a.set('deleted', false);
         var self = this;
-        a.save({useMasterKey: true}).then(function(savedAircraft){
+        a.save(null, {useMasterKey: true}).then(function(savedAircraft){
             success(self.transformAircraft(savedAircraft));
         });
     },
@@ -97,7 +97,7 @@ var AircraftsModule = {
             useMasterKey: true,
             success: function(foundAircraft){
                 foundAircraft.set('deleted', true);
-                foundAircraft.save({useMasterKey: true}).then(function(savedAircraft){
+                foundAircraft.save(null, {useMasterKey: true}).then(function(savedAircraft){
                     success(self.transformAircraft(savedAircraft));
                 });
             },
@@ -123,7 +123,7 @@ var AircraftsModule = {
                     }
                     foundAircraft.set(key, data[key]);
                 }
-                foundAircraft.save({useMasterKey: true}).then(function(savedAircraft){
+                foundAircraft.save(null, {useMasterKey: true}).then(function(savedAircraft){
                     success(self.transformAircraft(savedAircraft));
                 });
             },

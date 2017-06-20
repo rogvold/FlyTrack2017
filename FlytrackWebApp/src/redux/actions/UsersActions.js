@@ -417,10 +417,11 @@ let loadUsersFail = (error) => {
     }
 }
 
-let loadUsersSuccess = (users) => {
+let loadUsersSuccess = (users, links) => {
     return {
         type: types.LOAD_USERS_SUCCESS,
-        users: users
+        users: users,
+        links: (links == undefined) ? [] : links
     }
 }
 
@@ -441,6 +442,7 @@ let loadUserLinks_ = () => {
         type: types.LOAD_USER_LINKS
     }
 }
+
 
 let loadUserLinksFail = (error) => {
     return {
@@ -468,7 +470,7 @@ export function  loadUserUserLinks(userId){
             return;
         }
         dispatch(loadUserLinks_());
-        return ParseAPI.runCloudFunctionAsPromise('loadLinks', {userId: userId}).then(
+        return ParseAPI.runCloudFunctionAsPromise('loadUserUserLinks', {userId: userId}).then(
             d => {dispatch(loadUserLinksSuccess(d.links, d.users))},
             err => {dispatch(loadUserLinksFail(err))}
         )
@@ -516,6 +518,25 @@ export function createLink(data){
     }
 }
 
+export function acceptFollower(userId){
+    return (dispatch, getState) => {
+        let friendId = getState().users.currentUserId;
+        let links = getState().users.linksMap.toArray().filter((link) => {
+            return (link.creatorId == userId && link.friendId == friendId);
+        })
+        if (links.length == 0){
+            return dispatch(deleteLinkFail());
+        }
+        let {id} = links[0];
+        let data = {id: id, status: 'accepted'};
+        dispatch(updateLink_());
+        return ParseAPI.runCloudFunctionAsPromise('updateUserLink', data).then(
+            link => {dispatch(updateLinkSuccess(link))},
+            err => {dispatch(updateLinkFail(err))}
+        )
+    }
+}
+
 let deleteLink_ = () => {
     return {
         type: types.DELETE_USER_LINK
@@ -543,6 +564,26 @@ export function deleteUserLink(id){
         )
     }
 }
+
+export function deleteUserLinkByCreatorIdAndFriendId(creatorId, friendId){
+    return (dispatch, getState) => {
+        let links = getState().users.linksMap.toArray().filter((link) => {
+            return (link.creatorId == creatorId && link.friendId == friendId);
+        })
+        if (links.length == 0){
+            return dispatch(deleteLinkFail());
+        }
+        dispatch(deleteLink_());
+        let {id} = links[0];
+        return ParseAPI.runCloudFunctionAsPromise('deleteUserLink', {id: id}).then(
+            d => {dispatch(deleteLinkSuccess(id))},
+            err => {dispatch(deleteLinkFail(err))}
+        )
+    }
+}
+
+
+
 
 // update user
 
@@ -589,3 +630,35 @@ export function loadAllUsers(){
         )
     }
 }
+
+let searchUsers_ = () => {
+    return {
+        type: types.SEARCH_USERS
+    }
+}
+
+let searchUsersFail = (err) => {
+    return {
+        type: types.SEARCH_USERS_FAIL,
+        error: err
+    }
+}
+let searchUsersSuccess = (users) => {
+    return {
+        type: types.SEARCH_USERS_SUCCESS,
+        users: users,
+        links: []
+    }
+}
+//thunk
+export function searchUsers(searchText){
+    return (dispatch, getState) => {
+        dispatch(searchUsers_());
+        let data = {text: searchText};
+        return ParseAPI.runCloudFunctionAsPromise('searchUsers', data).then(
+            users => dispatch(searchUsersSuccess(users)),
+            err => dispatch(searchUsersFail(err))
+        )
+    }
+}
+

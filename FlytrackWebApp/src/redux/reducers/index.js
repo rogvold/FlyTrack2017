@@ -12,6 +12,7 @@ import AircraftsReducer from './AircraftsReducer.js';
 import OrganizationsReducer from './OrganizationsReducer.js';
 import RealtimeReducer from './RealtimeReducer.js';
 import DashboardReducer from './DashboardReducer.js';
+import SearchReducer from './SearchReducer.js';
 
 export const reducer = combineReducers({
     users: UsersReducer,
@@ -23,5 +24,5 @@ export const reducer = combineReducers({
     organizations: OrganizationsReducer,
     realtime: RealtimeReducer,
     dashboard: DashboardReducer,
-
+    search: SearchReducer
 });

@@ -140,7 +140,7 @@ var LocationModule = {
         chunk.set('acc', points.map(function(p){return p.acc}));
         chunk.set('bea', points.map(function(p){return p.bea}));
         chunk.set('vel', points.map(function(p){return p.vel}));
-        chunk.save({useMasterKey: true}).then(function(savedChunk){
+        chunk.save(null, {useMasterKey: true}).then(function(savedChunk){
             callback(self.transformLocationDataChunk(savedChunk));
         });
     },
@@ -201,7 +201,7 @@ var LocationModule = {
                 s.set('lastPointTime', -1);
                 s.set('lastChunkNumber', -1);
                 s.set('cachePointsNumber', 0);
-                s.save({useMasterKey: true}).then(function(savedSession){
+                s.save(null, {useMasterKey: true}).then(function(savedSession){
                     if (shouldTransform == true){
                         savedSession = self.transformSession(savedSession);
                         success(savedSession);
@@ -327,7 +327,7 @@ var LocationModule = {
                         session.set('lastChunkNumber', lastChunkNumber + 1);
                         session.set('cachePointsNumber', points.length);
                         session.set('lastPointTime', points[points.length - 1].t);
-                        session.save({useMasterKey: true}).then(function(sSession){ // 1 req
+                        session.save(null, {useMasterKey: true}).then(function(sSession){ // 1 req
                             //total requests number is 6
                             success(self.transformSession(sSession));
                         });
@@ -339,7 +339,7 @@ var LocationModule = {
                 self.saveCachePoints(session.id, points, points, function(savedCachePoints){ // 1 req
                     session.set('cachePointsNumber', cachePointsNumber + points.length);
                     session.set('lastPointTime', points[points.length - 1].t);
-                    session.save({useMasterKey: true}).then(function(sSession){ // 1 req
+                    session.save(null, {useMasterKey: true}).then(function(sSession){ // 1 req
                         //total requests number is 3
                         success(self.transformSession(sSession));
                     });

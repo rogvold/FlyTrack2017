@@ -69,6 +69,33 @@ var CommonHelper = {
             sum = sum + d;
         }
         return sum;
+    },
+
+
+    getUniqueArray: function(arr){
+        var res = [];
+        if (arr == undefined){
+            return [];
+        }
+        var map = {};
+        for (var i in arr){
+            map[arr[i]] = 1;
+        }
+        for (var key in map){
+            res.push(key);
+        }
+        return res;
+    },
+
+    generateRandomEmail: function(){
+        var s = 'random_' + this.getRandomString(40, 'ABCDEFGHIJKMNPQRSTUVWXYZ'.toLowerCase()) + '@flytrack.net';
+        return s;
+    },
+
+    generateRandomPassword: function(){
+        return (
+            this.getRandomString(40)
+        );
     }
 
 };
