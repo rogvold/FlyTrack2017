@@ -3,6 +3,7 @@
  */
 
 import * as types from '../ActionTypes'
+import * as sessionsActions from './SessionsActions'
 
 export function selectAircraft(aircratId){
     return (dispatch, getState) => {
@@ -37,5 +38,13 @@ export function setTimestamp(timestamp){
             type: types.SET_TIMESTAMP_IN_DASHBOARD,
             timestamp: timestamp
         })
+    }
+}
+
+export function setTimestampAndLoadSessions(timestamp){
+    // sessionsActions
+    return (dispatch, getState) => {
+        dispatch(setTimestamp(timestamp));
+        dispatch(sessionsActions.loadSessionsForTheDay(timestamp))
     }
 }

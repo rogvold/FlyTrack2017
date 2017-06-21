@@ -794,12 +794,17 @@ $calendar_bubble_size: 40px;
 .sessions_calendar_panel{
   .day_placeholder.selected{
     background-color: #F3F3F8;
+
     .calendar_spot{
       .calendar_inner{
         background-color: #343268;
       }
     }
   }
+}
+
+.dispatcher_calendar{
+  position: relative;
 }
 
 
@@ -875,12 +880,20 @@ $calendar_bubble_size: 40px;
     top: 3px;
     font-size: 14px;
     opacity: 0.8;
+    cursor: pointer;
     &.today {
-      font-weight: bold;
+      //font-weight: bold;
+      font-style: italic;
       color: #212121;
     }
     &.selected {
       font-weight: bold;
+      cursor: default;
+      background-color: #343268;
+      color: white;
+      padding-left: 3px;
+      padding-right: 3px;
+      border-radius: $box_border_radius;
     }
   }
   .day_placeholder {
@@ -1142,6 +1155,8 @@ $top_dashboard_panel_height: 50px;
   }
 
 }
+
+
 
 span.red{
   color: red;

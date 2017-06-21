@@ -473,6 +473,9 @@
   .sessions_calendar_panel .day_placeholder.selected .calendar_spot .calendar_inner {
     background-color: #343268; }
 
+.dispatcher_calendar {
+  position: relative; }
+
 .edit_profile_panel {
   padding: 10px;
   position: relative; }
@@ -527,12 +530,19 @@
     left: 3px;
     top: 3px;
     font-size: 14px;
-    opacity: 0.8; }
+    opacity: 0.8;
+    cursor: pointer; }
     .my_calendar .dayNumber.today {
-      font-weight: bold;
+      font-style: italic;
       color: #212121; }
     .my_calendar .dayNumber.selected {
-      font-weight: bold; }
+      font-weight: bold;
+      cursor: default;
+      background-color: #343268;
+      color: white;
+      padding-left: 3px;
+      padding-right: 3px;
+      border-radius: 4px; }
   .my_calendar .day_placeholder {
     min-height: 30px; }
     .my_calendar .day_placeholder.not_this_month .dayNumber {

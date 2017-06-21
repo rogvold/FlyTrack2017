@@ -345,7 +345,8 @@ Parse.Cloud.define("getSessionPoints", function(request, response) {
 });
 
 Parse.Cloud.define("loadSessionsInTimeSpan", function(request, response) {
-    var data = request.params;
+    var data = request.params.data;
+    if (data == undefined){data = request.params;}
     LoModule.loadSessionsInTimeSpan(data, function(sessions){
         response.success(sessions);
     }, function(err){
