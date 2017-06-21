@@ -154,6 +154,10 @@
         <entry file="file://$PROJECT_DIR$/components/friends/panels/FriendCardPanel.js">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+            <state relative-caret-position="360">
+              <caret line="95" column="51" lean-forward="false" selection-start-line="95" selection-start-column="51" selection-end-line="95" selection-end-column="51" />
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
             <state relative-caret-position="488">
               <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
@@ -169,6 +173,7 @@
 =======
             <state relative-caret-position="66">
               <caret line="61" column="82" lean-forward="false" selection-start-line="61" selection-start-column="82" selection-end-line="61" selection-end-column="82" />
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
               <folding>
                 <element signature="e#42#81#0" expanded="true" />
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
@@ -262,6 +267,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -296,6 +303,7 @@
 =======
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
       <find>leaflet_map</find>
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
       <find>mapboxMap.lo</find>
       <find>l.</find>
 <<<<<<< HEAD
@@ -342,7 +350,11 @@
       <find>---&gt;&gt;&gt;&gt;</find>
       <find>samolet</find>
       <find>creatoId</find>
+<<<<<<< HEAD
+      <find>Мои ученики</find>
+=======
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
     </findStrings>
     <replaceStrings>
       <replace>LeftSidebarTemplate</replace>
@@ -916,12 +928,23 @@
 >>>>>>> 26a9da6cd279dfa846d43b4dd146fd694a87df0c
 =======
       <workItem from="1497359833469" duration="13030000" />
+<<<<<<< HEAD
+      <workItem from="1497706857226" duration="28164000" />
+=======
       <workItem from="1497706857226" duration="24662000" />
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="201456000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1280" height="726" extended-state="6" />
+    <editor active="true" />
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -946,6 +969,7 @@
     <frame x="0" y="23" width="1280" height="726" extended-state="6" />
     <editor active="false" />
 >>>>>>> 26a9da6cd279dfa846d43b4dd146fd694a87df0c
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18739903" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -955,6 +979,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34700316" sideWeight="0.49030694" order="9" side_tool="false" content_ui="tabs" />
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -969,6 +996,7 @@
 =======
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34700316" sideWeight="0.49030694" order="9" side_tool="false" content_ui="tabs" />
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1277,7 +1305,7 @@
         <state relative-caret-position="71">
           <caret line="54" column="36" lean-forward="false" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
           <folding>
-            <element signature="e#42#81#0" expanded="true" />
+            <element signature="e#42#81#0" expanded="false" />
           </folding>
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
         </state>
@@ -1392,7 +1420,7 @@
         <state relative-caret-position="525">
           <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
           <folding>
-            <element signature="e#41#80#0" expanded="true" />
+            <element signature="e#41#80#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1415,6 +1443,9 @@
         <state relative-caret-position="120">
           <caret line="10" column="21" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="21" />
           <folding>
+<<<<<<< HEAD
+            <element signature="e#42#81#0" expanded="false" />
+=======
             <element signature="e#42#81#0" expanded="true" />
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
           </folding>
@@ -1428,6 +1459,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+>>>>>>> 07fcec113dadf25c66430e99e5c5068b2083a43e
           </folding>
         </state>
       </provider>
@@ -1455,7 +1487,7 @@
         <state relative-caret-position="336">
           <caret line="117" column="0" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding>
-            <element signature="e#990#1053#0" expanded="true" />
+            <element signature="e#990#1053#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1611,8 +1643,8 @@
           <caret line="118" column="38" lean-forward="true" selection-start-line="118" selection-start-column="38" selection-end-line="118" selection-end-column="38" />
 >>>>>>> 58df49efdeda6ab729a7c5e23a9e6b1cdf026479
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#43#82#0" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#43#82#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1658,8 +1690,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/components/friends/panels/FriendCardPanel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="61" column="82" lean-forward="false" selection-start-line="61" selection-start-column="82" selection-end-line="61" selection-end-column="82" />
+        <state relative-caret-position="360">
+          <caret line="95" column="51" lean-forward="false" selection-start-line="95" selection-start-column="51" selection-end-line="95" selection-end-column="51" />
           <folding>
             <element signature="e#42#81#0" expanded="true" />
           </folding>

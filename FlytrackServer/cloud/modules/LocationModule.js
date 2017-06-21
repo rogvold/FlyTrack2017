@@ -21,6 +21,7 @@ var LocationModule = {
             timestamp: (new Date(s.createdAt)).getTime(),
             startTimestamp: s.get('startTimestamp'),
             userId: s.get('userId'),
+            aircraftId: s.get('aircraftId'),
             name: s.get('name'),
             mapString: s.get('mapString'),
             description: s.get('description'),
@@ -291,8 +292,10 @@ var LocationModule = {
             error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'savePoints: data is undefined'});
             return;
         }
-        if (data.userId == undefined || data.startTimestamp == undefined || data.points == undefined || data.points.length == 0){
-            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'savePoints: userId or startTimestamp is undefined or points are not defined or empty'});
+        if (data.userId == undefined || data.startTimestamp == undefined ||
+            data.aircraftId == undefined ||
+            data.points == undefined || data.points.length == 0){
+            error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'savePoints: userId or aircraftId or startTimestamp is undefined or points are not defined or empty'});
             return;
         }
         var self = this;
@@ -327,6 +330,7 @@ var LocationModule = {
                         session.set('lastChunkNumber', lastChunkNumber + 1);
                         session.set('cachePointsNumber', points.length);
                         session.set('lastPointTime', points[points.length - 1].t);
+                        session.set('aircraftId', data.aircraftId);
                         session.save(null, {useMasterKey: true}).then(function(sSession){ // 1 req
                             //total requests number is 6
                             success(self.transformSession(sSession));
@@ -339,6 +343,7 @@ var LocationModule = {
                 self.saveCachePoints(session.id, points, points, function(savedCachePoints){ // 1 req
                     session.set('cachePointsNumber', cachePointsNumber + points.length);
                     session.set('lastPointTime', points[points.length - 1].t);
+                    session.set('aircraftId', data.aircraftId); //ffuck
                     session.save(null, {useMasterKey: true}).then(function(sSession){ // 1 req
                         //total requests number is 3
                         success(self.transformSession(sSession));
