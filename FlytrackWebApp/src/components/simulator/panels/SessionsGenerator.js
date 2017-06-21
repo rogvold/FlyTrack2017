@@ -34,8 +34,8 @@ class SessionsGenerator extends React.Component {
     saveSomePoints = () => {
         let points = FlytrackHelper.getRandomPoints();
         // points = points.slice(0, 400);
-        // points = points.slice(0, 100);
-        points = points.slice(0, 50);
+        points = points.slice(0, 100);
+        // points = points.slice(0, 50);
         let {user, aircrafts, savePoints} = this.props;
         if (aircrafts.length == 0){
             return null;

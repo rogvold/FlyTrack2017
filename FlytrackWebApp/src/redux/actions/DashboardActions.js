@@ -45,6 +45,12 @@ export function setTimestampAndLoadSessions(timestamp){
     // sessionsActions
     return (dispatch, getState) => {
         dispatch(setTimestamp(timestamp));
-        dispatch(sessionsActions.loadSessionsForTheDay(timestamp))
+        dispatch(sessionsActions.loadSessionsForTheDay(timestamp)).then(
+            payload => {
+                let sessionsIds = payload.sessions.map(s => s.id);
+                console.log('sessions ids to load data from : ', sessionsIds);
+                return dispatch(sessionsActions.loadManySessionsData(sessionsIds))
+            }
+        )
     }
 }

@@ -214,7 +214,7 @@ var LoModule = {
         var q = new Parse.Query('CachePoint');
         q.limit(1000);
         q.containedIn('sessionId', sessionsIds);
-        q.addAscending('t');
+        // q.addAscending('t');
         q.find({useMasterKey: true}).then(function(results){
             if (results == undefined || results.length == 0){
                 results = [];
@@ -232,7 +232,9 @@ var LoModule = {
                 map[sessionId].push(p);
             }
             if (shouldTransform == true){
-                results = results.map(function(r){return self.transformCachePoint(r)});
+                results = results.map(function(r){return self.transformCachePoint(r)}).sort(function(a, b){
+                    return (a.timestamp - b.timestamp)
+                });
             }
             callback({
                 cachePointsSessionsMap: map,
@@ -480,13 +482,15 @@ var LoModule = {
         var q = new Parse.Query('LocationDataChunk');
         q.limit(1000);
         q.equalTo('sessionId', sessionId);
-        q.addAscending('number');
+        // q.addAscending('number');
         var self = this;
         q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
-            var arr = results.map(function(r){return self.transformDataChunk(r)});
+            var arr = results.map(function(r){return self.transformDataChunk(r)}).sort(function(a, b){
+                return (a.number - b.number)
+            });
             callback(arr);
         });
     },
@@ -499,13 +503,15 @@ var LoModule = {
         var q = new Parse.Query('LocationDataChunk');
         q.limit(1000);
         q.containedIn('sessionId', sessionsIds);
-        q.addAscending('number');
+        // q.addAscending('number');
         var self = this;
         q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
-            var arr = results.map(function(r){return self.transformDataChunk(r)});
+            var arr = results.map(function(r){return self.transformDataChunk(r)}).sort(function(a, b){
+                return (a.number - b.number)
+            });
             callback(arr);
         });
     },
@@ -513,6 +519,7 @@ var LoModule = {
     loadSessionsPointsAsMapFromChunks: function(sessionsIds, callback){
         var self = this;
         var map = {};
+        console.log('loadSessionsPointsAsMapFromChunks occured: sessionsIds = ' + JSON.stringify(sessionsIds));
         this.loadSessionsChunks(sessionsIds, function(chunks){
             for (var i in chunks){
                 var ch = chunks[i];
@@ -529,6 +536,7 @@ var LoModule = {
                 map[ch.sessionId].vel = map[ch.sessionId].vel.concat(ch.vel);
                 map[ch.sessionId].times = map[ch.sessionId].times.concat(ch.times);
             }
+            console.log('loadSessionsChunks: success');
             callback(map);
         })
     },
@@ -538,16 +546,20 @@ var LoModule = {
             callback([]);
             return;
         }
+        console.log('loadSessionsCachePoints occured: sessionsIds = ' + JSON.stringify(sessionsIds));
         var q = new Parse.Query('CachePoint');
         q.limit(10000000);
-        q.addAscending('t');
+        // q.addAscending('t');
         q.containedIn('sessionId', sessionsIds);
         var self = this;
         q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
-            results = results.map(function(r){return self.transformCachePoint(r)});
+            console.log('loadSessionsCachePoints: success');
+            results = results.map(function(r){return self.transformCachePoint(r)}).sort(function(a, b){
+                return (a.t - b.t)
+            });
             callback(results);
         });
     },
@@ -555,6 +567,7 @@ var LoModule = {
     loadSessionsCachePointsAsMap: function(sessionsIds, callback){
           var self = this;
           var map = {};
+          console.log('loadSessionsCachePointsAsMap: sessionsIds = ' + JSON.stringify(sessionsIds));
           this.loadSessionsCachePoints(sessionsIds, function(points){
               for (var i in points){
                   var p = points[i];
@@ -606,12 +619,14 @@ var LoModule = {
         var q = new Parse.Query('AirSession');
         var self = this;
         q.limit(100000);
-        q.addAscending('startTimestamp');
+        // q.addAscending('startTimestamp');
         q.greaterThan('startTimestamp', from);
         q.lessThan('startTimestamp', to);
         q.find(function(results){
             results = results.map(function(r){
                 return self.transformAirSession(r);
+            }).sort(function(a, b){
+                return (a.startTimestamp - b.startTimestamp)
             })
             callback(results);
         });
@@ -646,14 +661,16 @@ var LoModule = {
         }
         var q = new Parse.Query('CachePoint');
         q.limit(1000);
-        q.addAscending('t');
+        // q.addAscending('t');
         q.equalTo('sessionId', sessionId);
         var self = this;
         q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){
                 results = [];
             }
-            results = results.map(function(r){return self.transformCachePoint(r)});
+            results = results.map(function(r){return self.transformCachePoint(r)}).sort(function(a, b){
+                return (a.t - b.t);
+            });
             callback(results);
         });
     },

@@ -123,6 +123,36 @@ export function loadSessionData(sessionId){
     }
 }
 
+let loadManySessionsData_ = () => {
+    return {
+        type: types.LOAD_MANY_SESSIONS_DATA
+    }
+}
+
+let loadManySessionsDataFail = (err) => {
+    return {
+        type: types.LOAD_MANY_SESSIONS_DATA_FAIL,
+        error: err
+    }
+}
+let loadManySessionsDataSuccess = (data) => {
+    return {
+        type: types.LOAD_MANY_SESSIONS_DATA_SUCCESS,
+        data: data
+    }
+}
+//thunk
+export function loadManySessionsData(sessionsIds){
+    return (dispatch, getState) => {
+        dispatch(loadSessionData_());
+        return ParseAPI.runCloudFunctionAsPromise('getSessionsPoints', {sessionsIds: sessionsIds}).then(
+            pointsMap => dispatch(loadManySessionsDataSuccess(pointsMap)),
+            error => dispatch(loadManySessionsDataFail(error))
+        )
+    }
+}
+
+
 
 //select session
 export function selectSession(id){

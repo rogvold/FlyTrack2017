@@ -355,13 +355,14 @@ Parse.Cloud.define("loadSessionsInTimeSpan", function(request, response) {
 });
 
 Parse.Cloud.define("getSessionsPoints", function(request, response) {
-    var data = request.params;
+    var data = request.params.data;
+    if (data == undefined){data = request.params;}
     if (data == undefined || data.sessionsIds == undefined){
         response.error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'getSessionsPoints: sessionsIds is undefined'});
         return;
     }
-    LoModule.loadSessionsPointsMap(data.sessionsIds, function(sessions){
-        response.success(sessions);
+    LoModule.loadSessionsPointsMap(data.sessionsIds, function(pointsMap){
+        response.success(pointsMap);
     });
 });
 

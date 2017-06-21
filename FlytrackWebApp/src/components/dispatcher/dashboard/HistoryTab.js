@@ -10,6 +10,8 @@ import PlanesList from '../../map/PlanesList'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import SessionsDataPanel from './SessionsDataPanel'
+
 class HistoryTab extends React.Component {
 
     static defaultProps = {
@@ -59,6 +61,8 @@ class HistoryTab extends React.Component {
                         <div className="planes_list_placeholder">
                             <PlanesList />
                         </div>
+
+                        <SessionsDataPanel />
 
                     </div>
 

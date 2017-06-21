@@ -22,6 +22,13 @@ const stopLoading = (state, action) => {
     return { ...state, loading: false, error: action.error}
 }
 
+let consumeSessionsData = (sessionsDataMap, dataMap) => {
+    console.log('consumeSessionsData occured: dataMap = ', dataMap);
+    for (let key in dataMap){
+        sessionsDataMap = sessionsDataMap.set(key, dataMap[key]);
+    }
+    return sessionsDataMap;
+}
 
 const SessionsReducer =  (state = initialState, action = {}) => {
 
@@ -29,10 +36,12 @@ const SessionsReducer =  (state = initialState, action = {}) => {
 
         case types.LOAD_SESSION_DATA:
         case types.LOAD_SESSIONS:
+        case types.LOAD_MANY_SESSIONS_DATA:
             return startLoading(state, action)
 
         case types.LOAD_SESSIONS_FAIL:
         case types.LOAD_SESSION_DATA_FAIL:
+        case types.LOAD_MANY_SESSIONS_DATA_FAIL:
             return stopLoading(state, action)
 
         case types.LOAD_SESSIONS_SUCCESS:
@@ -50,6 +59,13 @@ const SessionsReducer =  (state = initialState, action = {}) => {
                 loading: false,
                 error: undefined,
                 sessionsDataMap: state.sessionsDataMap.set(action.sessionId, action.data)
+            }
+
+        case types.LOAD_MANY_SESSIONS_DATA_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                sessionsDataMap: consumeSessionsData(state.sessionsDataMap, action.data)
             }
 
 
