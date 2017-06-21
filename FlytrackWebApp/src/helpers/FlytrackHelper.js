@@ -50,14 +50,22 @@ const FlytrackHelper = {
         return {following, follower, followingStatus, followerStatus};
     },
 
-    getRandomPoints(coordinates, number = 100, radAngle = 0.01){
+    getRandomPoints(coordinates, number = 1000, radAngle = 0.01){
         let arr = [];
+        let bnds = this.getBounds()[0];
+        if (coordinates == undefined){
+            coordinates = {lat: bnds[0], lon: bnds[1]}
+        }
         let lat0 = coordinates.lat, lon0 = coordinates.lon, t0 = +new Date(), dt = 1000;
         for (let i = 0; i < number; i++){
             let fi = 2.0 * i * Math.PI / number;
             arr.push({
                 lat: lat0 + radAngle * Math.sin(fi),
                 lon: lon0 + radAngle * Math.cos(fi),
+                vel: Math.round(Math.random() * 50),
+                acc: Math.round(Math.random() * 10),
+                alt: Math.round(Math.random() * 200) + 50,
+                bea: 0,
                 t: (i == 0) ? t0 : arr[arr.length - 1].t + dt
             });
         }

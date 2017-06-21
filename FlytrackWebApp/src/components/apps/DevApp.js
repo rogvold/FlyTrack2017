@@ -14,6 +14,8 @@ import Infinite from 'react-infinite'
 
 import UsersSearchPanel from '../friends/panels/UsersSearchPanel'
 
+import SessionsGenerator from '../simulator/panels/SessionsGenerator'
+
 class DevApp extends React.Component {
 
     static defaultProps = {
@@ -52,7 +54,7 @@ class DevApp extends React.Component {
         return (
             <div className={'user_index_app_content'} >
 
-                <UsersSearchPanel />
+                <SessionsGenerator />
 
             </div>
         )

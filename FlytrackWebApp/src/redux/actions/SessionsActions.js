@@ -39,6 +39,17 @@ export function loadUserSessions(userId){
     }
 }
 
+export function saveSessionPoints(data){
+    return (dispatch, getState) => {
+        dispatch(loadUserSessions_());
+        return ParseAPI.runCloudFunctionAsPromise('savePoints', data).then(
+            session => dispatch(loadUserSessionsSuccess([session])),
+            error => dispatch(loadUserSessionsFail(error))
+        )
+    }
+}
+
+
 export function loadSessionsInRange(from, to){
     return (dispatch, getState) => {
         dispatch(loadUserSessions_());
@@ -111,6 +122,7 @@ export function loadSessionData(sessionId){
         )
     }
 }
+
 
 //select session
 export function selectSession(id){

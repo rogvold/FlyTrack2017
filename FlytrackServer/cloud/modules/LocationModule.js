@@ -278,11 +278,16 @@ var LocationModule = {
             p.set('t', point.t);
             arr.push(p);
         }
+        console.log('saveCachePoints: before saveAll');
         Parse.Object.saveAll(arr, {
             useMasterKey: true,
             success: function(savedPoints){
+                console.log('saveCachePoints: success');
                 var arr = savedPoints.map(function(r){return self.transformCachePoint(r)});
                 callback(arr);
+            },
+            error: function(e){
+                console.log('saveCachePoints: error occured: e = ' + JSON.stringify(e));
             }
         });
     },
@@ -300,15 +305,17 @@ var LocationModule = {
         }
         var self = this;
         var points = data.points;
+        console.log('savePoints: trying to save points = ' + JSON.stringify(points));
         if (points.length > self.CHUNK_SIZE){
             error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'savePoints: you are trying to send ' + points.length + ' points but maximum number to upload is ' + self.CHUNK_SIZE});
             return;
         }
-        this.loadLazylySessionByUserIdAndStartTimestamp(data.userId, data.startTimestamp, function(session){ // 1 req
 
-            var lastPointTime = session.get('lastPointTime');
-            var lastChunkNumber = session.get('lastChunkNumber');
-            var cachePointsNumber = session.get('cachePointsNumber');
+        this.loadLazylySessionByUserIdAndStartTimestamp(data.userId, data.startTimestamp, function(session){ // 1 req
+            console.log('session is loaded: session = ' + JSON.stringify(session));
+            var lastPointTime = +session.get('lastPointTime');
+            var lastChunkNumber = +session.get('lastChunkNumber');
+            var cachePointsNumber = +session.get('cachePointsNumber');
 
             var filteredPoints = [];
             for (var i in points){
@@ -326,12 +333,15 @@ var LocationModule = {
             if (cachePointsNumber + points.length > self.CHUNK_SIZE){
                 //create chunk with old points and then save new points and then update session
                 self.saveCachedPointsToChunk(session.id, lastChunkNumber + 1, function(){ // 3 req
+                    console.log('saveCachedPointsToChunk: success occured');
                     self.saveCachePoints(session.id, data.userId, points, function(savedCachePoints){ // 1 req
+                        console.log('saveCachePoints: success occured');
                         session.set('lastChunkNumber', lastChunkNumber + 1);
                         session.set('cachePointsNumber', points.length);
                         session.set('lastPointTime', points[points.length - 1].t);
                         session.set('aircraftId', data.aircraftId);
                         session.save(null, {useMasterKey: true}).then(function(sSession){ // 1 req
+                            console.log('[~_~]-> session saved ok');
                             //total requests number is 6
                             success(self.transformSession(sSession));
                         });
@@ -341,11 +351,13 @@ var LocationModule = {
             }else {
                 //just create CachePoints and update session
                 self.saveCachePoints(session.id, points, points, function(savedCachePoints){ // 1 req
+                    console.log('saveCachePoints: success');
                     session.set('cachePointsNumber', cachePointsNumber + points.length);
                     session.set('lastPointTime', points[points.length - 1].t);
                     session.set('aircraftId', data.aircraftId); //ffuck
                     session.save(null, {useMasterKey: true}).then(function(sSession){ // 1 req
                         //total requests number is 3
+                        console.log('session saved ok');
                         success(self.transformSession(sSession));
                     });
                 });

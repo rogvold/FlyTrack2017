@@ -302,7 +302,9 @@ Parse.Cloud.define("finishSession", function(request, response) {
 
 
 Parse.Cloud.define("savePoints", function(request, response) {
-    var data = request.params;
+    var data = request.params.data;
+    if (data == undefined){data = response.params}
+    console.log('savePoints: data = ' + JSON.stringify(data));
     //todo: check permission
     LocationModule.savePoints(data, function(session){
         response.success(session);
