@@ -625,6 +625,15 @@
     border-bottom: 1px solid whitesmoke;
     padding: 5px;
     line-height: 40px; }
+    .dispatcher_dashboard_panel .header_panel .selected_tab {
+      display: inline-block;
+      padding: 5px;
+      padding-bottom: 0px;
+      border-bottom: 3px solid #9749dc; }
+    .dispatcher_dashboard_panel .header_panel .unselected_tab {
+      text-decoration: none;
+      display: inline-block;
+      padding: 5px; }
   .dispatcher_dashboard_panel .content_panel {
     height: calc(100% - 50px);
     width: 100%; }
@@ -651,16 +660,19 @@
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list {
-        max-height: calc(100vh - 346px);
+        max-height: calc(100vh - 104px);
         overflow: auto;
         cursor: pointer;
         margin-left: 0px;
         display: inline-block;
-        text-decoration: underline; }
+        text-decoration: underline;
+        padding-top: 5px;
+        padding-bottom: 5px; }
         .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .cbox {
           cursor: default;
-          display: inline-block;
-          width: 25px; }
+          width: 20px;
+          padding-top: 10px;
+          padding-bottom: 10px; }
         .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list .plane_spoiler {
           cursor: default;
           text-decoration: none;
