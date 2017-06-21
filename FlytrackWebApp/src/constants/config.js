@@ -14,4 +14,5 @@ export const LOGO_URL = './assets/images/flytrack_white_logo.png';
 export const COMPANY_NAME = 'FlyTrack';
 export const FACELESS_AVATAR = './assets/images/faceless_avatar.png';
 
-export const REALTIME_EMULATOR_ENABLED = false;
+// export const REALTIME_EMULATOR_ENABLED = false;
+export const REALTIME_EMULATOR_ENABLED = true;

@@ -5,9 +5,11 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import DispatcherCalendar from './DispatcherCalendar'
-import LeafletMap from '../../map/LeafletMap'
-import PlanesList from '../../map/PlanesList'
+// import DispatcherCalendar from './DispatcherCalendar'
+// import LeafletMap from '../../map/LeafletMap'
+// import PlanesList from '../../map/PlanesList'
+import MonitoringTab from "./MonitoringTab";
+import HistoryTab from "./HistoryTab";
 
 class DispatcherDashboardPanel extends React.Component {
 
@@ -20,7 +22,7 @@ class DispatcherDashboardPanel extends React.Component {
     }
 
     state = {
-
+        activeTab: 'monitoring'
     }
 
     //ES5 - componentWillMount
@@ -38,37 +40,23 @@ class DispatcherDashboardPanel extends React.Component {
 
     render = () => {
 
+        let {activeTab} = this.state;
+
         return (
             <div className={'dispatcher_dashboard_panel'} >
 
                 <div className={'header_panel'} >
-                    top controls
-                </div>
-
-                <div className={'content_panel'} >
-
-                    <div className={'left_placeholder'} >
-                        <div className={'mapbox_map'}>
-                            {/*<MapApp />*/}
-                            <LeafletMap />
-                        </div>
-                            {/*<MyMap />*/}
-
+                    <div className={this.state.activeTab === 'monitoring' ? 'selected_tab':'unselected_tab pointer '} onClick={() => {this.setState({activeTab: 'monitoring'})}}>
+                        monitoring_tab
                     </div>
 
-                    <div className={'right_placeholder'} >
-
-                        <div className={'calendar_placeholder'} >
-                            <DispatcherCalendar />
-                        </div>
-
-                        <div className="planes_list">
-                            <PlanesList />
-                        </div>
-
+                    <div className={this.state.activeTab === 'history' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'history'})}}>
+                        history_tab
                     </div>
+                </div >
 
-                </div>
+                {this.state.activeTab !== 'monitoring' ? null: <MonitoringTab />}
+                {this.state.activeTab !== 'history' ? null: <HistoryTab />}
 
             </div>
         )

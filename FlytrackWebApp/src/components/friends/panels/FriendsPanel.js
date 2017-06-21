@@ -74,7 +74,7 @@ class FriendsPanel extends React.Component {
                     <div className={' item ' + (activeTab == 'following' ? 'active' : 'pointer')} onClick={() => {this.setState({activeTab: 'following'})}} >
                         Друзья, за которыми я слежу
                     </div>
-                    <div className={' item ' + (activeTab == 'followers' ? 'active' : 'pointer')}  onClick={() => {this.setState({activeTab: 'followers'})}}  >
+                    <div className={' item ' + (activeTab == 'followers' ? 'active' : 'pointer')} onClick={() => {this.setState({activeTab: 'followers'})}}  >
                         Люди, которые следят за мной
                     </div>
                 </div>

@@ -52,24 +52,27 @@ class PlanesList extends React.Component {
 
         messages = transformMessagesToDataArray(messages);
         return (
-            <div>
+            <div className={'planes_list'} >
                 {messages.map((message, index) => {
+                    let isActive = this.state.isPopupActive[message.aircraft.id];
                     return(
-                        <div key = {index}>
-                            <input className="cbox"
-                                name={message.aircraft.callName}
-                                type="checkbox"
-                                checked={this.isAircraftVisible(message.aircraft.id)}
-                                onChange={() => {
-                                    if (this.isAircraftVisible(message.aircraft.id)) {
-                                        unselectAircraft(message.aircraft.id);
-                                    } else {
-                                        selectAircraft(message.aircraft.id);
-                                    }
-                                }}
-                            />
+                        <div key = {index} className={'plane_item'} >
+                            <div className={'plane_checkbox_placeholder'} >
+                                <input className="cbox"
+                                       name={message.aircraft.callName}
+                                       type="checkbox"
+                                       checked={this.isAircraftVisible(message.aircraft.id)}
+                                       onChange={() => {
+                                           if (this.isAircraftVisible(message.aircraft.id)) {
+                                               unselectAircraft(message.aircraft.id);
+                                           } else {
+                                               selectAircraft(message.aircraft.id);
+                                           }
+                                       }}
+                                />
+                            </div>
                              <div
-                                 className="planes_list"
+                                 className={'plane_name_placeholder ' + (isActive == true ? ' bold ' : '')}
                                  onClick={() => { // логика чекбоксов
                                      if (this.state.isPopupActive[message.aircraft.id] === undefined) {
                                          let buffer = this.state.isPopupActive;
@@ -82,11 +85,12 @@ class PlanesList extends React.Component {
                                      }
                                  }}>
 
-                                 <p>{message.aircraft.callName}</p>
+                                 {message.aircraft.callName}
 
                              </div>
 
-                            {this.state.isPopupActive[message.aircraft.id] ? <div className="plane_spoiler">{popupCreator(message)}</div> : null}
+
+                            {isActive ? <div className="plane_spoiler">{popupCreator(message)}</div> : null}
 
                         </div>
                     )
@@ -176,13 +180,13 @@ let transformMessagesToDataArray = (messages) => {
 let popupCreator = (message) => {
     //language=HTML
     return (
-        <div>
-            <ul>Тип: {message.aircraft.aircraftType}</ul>
-            <ul>Последнее обновление: {moment(message.points[message.points.length - 1].t).format('LTS')}</ul>
-            <ul>Координаты:</ul>
-            <ul>Широта: {(''+message.points[message.points.length -1].lat).slice(0, 8)}</ul>
-            <ul>Долгота: {('' + message.points[message.points.length -1].lng).slice(0, 8)}</ul>
-        </div>
+        <ul>
+            <li>Тип: {message.aircraft.aircraftType}</li>
+            <li>Последнее обновление: {moment(message.points[message.points.length - 1].t).format('LTS')}</li>
+            <li>Координаты:</li>
+            <li>Широта: {(''+message.points[message.points.length -1].lat).slice(0, 8)}</li>
+            <li>Долгота: {('' + message.points[message.points.length -1].lng).slice(0, 8)}</li>
+        </ul>
     );
 };
 
