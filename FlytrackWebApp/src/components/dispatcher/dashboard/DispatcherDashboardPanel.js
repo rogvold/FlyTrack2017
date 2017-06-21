@@ -2,14 +2,19 @@
  * Created by lesha on 08.06.17.
  */
 import React, {PropTypes} from 'react';
+
+import MonitoringTab from "./MonitoringTab";
+import HistoryTab from "./HistoryTab";
+import RouteViewer from "./RouteViewer";
+
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // import DispatcherCalendar from './DispatcherCalendar'
 // import LeafletMap from '../../map/LeafletMap'
 // import PlanesList from '../../map/PlanesList'
-import MonitoringTab from "./MonitoringTab";
-import HistoryTab from "./HistoryTab";
+
 
 class DispatcherDashboardPanel extends React.Component {
 
@@ -53,10 +58,15 @@ class DispatcherDashboardPanel extends React.Component {
                     <div className={this.state.activeTab === 'history' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'history'})}}>
                         history_tab
                     </div>
+
+                    <div className={this.state.activeTab === 'route_viewer' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'route_viewer'})}}>
+                        routes
+                    </div>
                 </div >
 
                 {this.state.activeTab !== 'monitoring' ? null: <MonitoringTab />}
                 {this.state.activeTab !== 'history' ? null: <HistoryTab />}
+                {this.state.activeTab !== 'route_viewer' ? null: <RouteViewer />}
 
             </div>
         )

@@ -719,3 +719,7 @@ span.red {
 
 .right {
   text-align: right; }
+
+.routeChoiser {
+  padding: 10px;
+  font-size: 30px; }

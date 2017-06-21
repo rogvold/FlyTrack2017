@@ -173,7 +173,7 @@ class LeafletMap extends React.Component {
     callFunction = () => {
         setTimeout(() => {
             updatePlanesPositions(),
-                callFunction()}, 500);
+                callFunction()}, 1000);
     }
 
     render = () => {
