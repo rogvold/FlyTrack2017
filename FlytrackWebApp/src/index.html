@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        SabirPlatform
+        FlyTrack
     </title>
 
     <link rel="stylesheet" href="assets/css/semantic.min.css">
@@ -14,6 +14,16 @@
     <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
     <script src="assets/js/leaflet.rotatedMarker.js"></script>
 
+    <script src="assets/cesium/Build/Cesium/Cesium.js"></script>
+
+    <style>
+        @import url(../assets/cesium/Build/Cesium/Widgets/widgets.css);
+        html, body, #cesiumContainer {
+            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+        }
+    </style>
+
+    <!--<script src="../node_modules/cesium/Build/Cesium/Cesium.js"></script>-->
     <!--<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>-->
     <!--<script src="http://cdn.leafletjs.com/leaflet/v1.0.0/leaflet-src.js"></script>-->
     <!--<script src="leaflet.rotatedMarker.js"></script>-->

@@ -794,12 +794,17 @@ $calendar_bubble_size: 40px;
 .sessions_calendar_panel{
   .day_placeholder.selected{
     background-color: #F3F3F8;
+
     .calendar_spot{
       .calendar_inner{
         background-color: #343268;
       }
     }
   }
+}
+
+.dispatcher_calendar{
+  position: relative;
 }
 
 
@@ -875,12 +880,20 @@ $calendar_bubble_size: 40px;
     top: 3px;
     font-size: 14px;
     opacity: 0.8;
+    cursor: pointer;
     &.today {
-      font-weight: bold;
+      //font-weight: bold;
+      font-style: italic;
       color: #212121;
     }
     &.selected {
       font-weight: bold;
+      cursor: default;
+      background-color: #343268;
+      color: white;
+      padding-left: 3px;
+      padding-right: 3px;
+      border-radius: $box_border_radius;
     }
   }
   .day_placeholder {
@@ -1047,13 +1060,14 @@ $top_dashboard_panel_height: 50px;
         height: 100%; //100%
       }
 
-      //.map_gl{
-      //  position: relative;
-      //  display: block;
-      //  margin: 0 auto;
-      //  width: 100%;
-      //  height: 40%;
-      //}
+      .history_controlpanel {
+        width: 100%;
+        background-color: #fcfcfc;
+        border-radius: 3px;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+
     }
     .right_placeholder{
       display: inline-block;
@@ -1122,8 +1136,6 @@ $top_dashboard_panel_height: 50px;
 .friends_panel{
   position: relative;
 
-
-
 }
 
 .users_search_panel{
@@ -1142,6 +1154,7 @@ $top_dashboard_panel_height: 50px;
   }
 
 }
+
 
 span.red{
   color: red;
@@ -1162,4 +1175,120 @@ span.red{
 .routeChoiser{
   padding: 10px;
   font-size: 30px;
+}
+
+.SingleRouteMapPlaceholder {
+  display: inline-block;
+  vertical-align: top;
+  height: calc(100% - 20px); //- #{$top_dashboard_panel_height});
+  width: 100%;
+
+  padding: 2px;
+  border-right: 1px solid whitesmoke;
+  .mapbox_single_map {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.history_controlpanel{
+  width: 100%;
+  background-color: #fcfcfc;
+  border-radius: 3px;
+  display: inline-block;
+  padding-bottom: 5px;
+
+  .map_slider{
+    width: calc(100% - 298px);
+    //width: 400px;
+    display: inline-block;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .map_buttons{
+    width: 180px;
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 0px;
+  }
+
+  .map_clock{
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 8px;
+  }
+}
+
+.mapbox_single_route_map{
+  width: 100%;
+  height: 60%;
+}
+
+.recharts_placeholder {
+  width: 100%;
+  height: 20%;
+}
+
+.single_controlpanel{
+  width: 100%;
+
+  border-radius: 3px;
+  display: inline-block;
+  padding-top: 3px;
+
+  .map_slider{
+    width: calc(100% - 110px - 80px - 80px - 10px);
+    display: inline-block;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 1px;
+  }
+
+  .map_buttons{
+    width: 50px;
+    display: inline-block;
+    padding-left: 14px;
+    padding-right: 0px;
+  }
+}
+
+.altDiagram{
+  display: inline-block;
+  width: calc(100% - 110px - 80px - 40px - 20px);
+}
+
+.aircraftSingleInfo{
+  width: 240px;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  list-style-type: none;
+  padding-top: -50px;
+}
+
+
+.mapbox_single_map {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: calc(100% - 35px);
+}
+
+.history_planes_list {
+  width: calc(100% - 280px);
+  position: relative;
+  display: block;
+  vertical-align: top;
+  margin: 0 auto;
+}
+
+.cesium_map {
+  width: 500px;
+  height: 500px;
 }

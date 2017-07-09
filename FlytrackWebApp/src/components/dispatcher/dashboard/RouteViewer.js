@@ -37,9 +37,9 @@ class RouteViewer extends React.Component {
     render = () => {
 
         return (
-            <div classname="SingleRouteMapPlaceholder">
+            <div className={"SingleRouteMapPlaceholder"}>
                 {/*<div classname="SingleRouteMapPlaceholder">*/}
-                    <LeafletSingleRoute props='test'/>
+                    <LeafletSingleRoute/>
                 {/*</div>*/}
             </div>
         )

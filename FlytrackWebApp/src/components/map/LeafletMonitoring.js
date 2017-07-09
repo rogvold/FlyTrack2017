@@ -82,7 +82,7 @@ class LeafletMap extends React.Component {
         brng = (brng*180/Math.PI);
         brng = (brng + 360) % 360;
 
-        return -(brng-90);
+        return 90 - brng;
     };
 
     isAircraftVisible = (id) => {
@@ -148,6 +148,13 @@ class LeafletMap extends React.Component {
 
     }
 
+    componentWillUnmount(){
+        if (this.map != undefined){
+            console.log('removing map');
+            this.map.remove();
+        }
+    }
+
     initMap = () => {
         if (this.mapContainer == undefined) { return; }
 
@@ -160,20 +167,20 @@ class LeafletMap extends React.Component {
         let mapCenter = [56.1, 36.8];
         this.map = L.mapbox.map(this.mapContainer, 'mapbox.emerald', {
             keyboard: false,
-        }).setView(mapCenter, 12, null);
+        }).setView(mapCenter, 11.5, null);
 
         this.markers = {};
         this.polylines = {};
 
-        function onMapClick(e) { console.log("You clicked the map at " + e.latlng) }
-        this.map.on('click', onMapClick);
+        // function onMapClick(e) { console.log("You clicked the map at " + e.latlng) }
+        // this.map.on('click', onMapClick);
 
     } //end of initMap
 
     callFunction = () => {
         setTimeout(() => {
             updatePlanesPositions(),
-                callFunction()}, 1000);
+                callFunction()}, 500);
     }
 
     render = () => {
