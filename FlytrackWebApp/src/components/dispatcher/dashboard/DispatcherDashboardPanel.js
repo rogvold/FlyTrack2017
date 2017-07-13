@@ -6,15 +6,12 @@ import React, {PropTypes} from 'react';
 import MonitoringTab from "./MonitoringTab";
 import HistoryTab from "./HistoryTab";
 import RouteViewer from "./RouteViewer";
-
+import CesiumTab from "./CesiumTab";
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CesiumView from "../../map/CesiumView";
 
-// import DispatcherCalendar from './DispatcherCalendar'
-// import LeafletMap from '../../map/LeafletMap'
-// import PlanesList from '../../map/PlanesList'
+
 
 
 class DispatcherDashboardPanel extends React.Component {
@@ -64,7 +61,7 @@ class DispatcherDashboardPanel extends React.Component {
                         routes
                     </div>
 
-                    <div className={this.state.activeTab === 'cesiumView' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'cesiumView'})}}>
+                    <div className={this.state.activeTab === 'CesiumTab' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'CesiumTab'})}}>
                         cesiumView
                     </div>
 
@@ -73,7 +70,7 @@ class DispatcherDashboardPanel extends React.Component {
                 {this.state.activeTab !== 'monitoring' ? null: <MonitoringTab />}
                 {this.state.activeTab !== 'history' ? null: <HistoryTab />}
                 {this.state.activeTab !== 'route_viewer' ? null: <RouteViewer />}
-                {this.state.activeTab !== 'cesiumView' ? null: <CesiumView />}
+                {this.state.activeTab !== 'CesiumTab' ? null: <CesiumTab />}
 
             </div>
         )

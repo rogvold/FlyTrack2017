@@ -74,6 +74,7 @@ class LeafletSingleMap extends React.Component {
             width: 8,
             opacity: 0.75
         });
+
         this.markers[id] = L.marker([0, 0], {
             icon: iconsList[aircraft.aircraftType],
             rotationOrigin: 'center'
