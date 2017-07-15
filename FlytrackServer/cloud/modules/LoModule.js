@@ -727,10 +727,13 @@ var LoModule = {
     },
 
     loadUserSessions: function(data, success, error){
+        console.log('loadUserSessions: data = ' + JSON.stringify(data));
         if (data == undefined){
             error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'loadUserSessions: data is undefined'});
             return;
         }
+        var userId = data.userId;
+        console.log('userId = ' + userId);
         if (data.userId == undefined){
             error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'loadUserSessions: userId is undefined'});
             return;
@@ -738,9 +741,9 @@ var LoModule = {
 
         var q = new Parse.Query('AirSession');
         var self = this;
-        q.equalTo('userId', data.userId);
-        q.equalTo('deleted', false);
-        q.limit(1000);
+        q.equalTo('userId', userId);
+        // q.equalTo('deleted', false); //todo: fix it
+        q.limit(10000);
         q.addDescending('startTimestamp');
         q.find({useMasterKey: true}).then(function(results){
             if (results == undefined){

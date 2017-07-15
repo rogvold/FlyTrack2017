@@ -314,11 +314,15 @@ Parse.Cloud.define("savePoints", function(request, response) {
 });
 
 Parse.Cloud.define("getUserSessions", function(request, response) {
-    var data = request.params;
+    var data = request.params.data;
     var user = request.user;
+    if (data == undefined){
+        data = request.params;
+    }
     if (data == undefined && user != undefined){
         data = {userId: user.id}
     }
+    console.log('getUserSessions: data = ' + JSON.stringify(data));
     //todo: check permission
     LoModule.loadUserSessions(data, function(sessions){
         UsersModule.loadUser(data.userId, function(user){
@@ -331,7 +335,8 @@ Parse.Cloud.define("getUserSessions", function(request, response) {
 });
 
 Parse.Cloud.define("getSessionPoints", function(request, response) {
-    var data = request.params;
+    var data = request.params.data;
+    if (data == undefined){data = request.params;}
     if (data == undefined){
         response.error({code: ECR.INCORRECT_INPUT_DATA.code, message: 'loadSessionPoints: data is undefined'});
         return;
