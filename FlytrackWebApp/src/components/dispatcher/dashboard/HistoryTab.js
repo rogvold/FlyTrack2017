@@ -54,7 +54,6 @@ class HistoryTab extends React.Component {
         if (this.props.timestamp === undefined && !this.props.loading){
             return <DispatcherCalendar />;
         }
-
         // let sortedSessions = this.props.sessions.sort((e1, e2) => {
         //     if (e1.startTimestamp > e2.startTimestamp) {
         //         return 1;
@@ -68,22 +67,17 @@ class HistoryTab extends React.Component {
 
         return (
             <div className={'content_panel'}>
-
                 <div className={'left_placeholder'}>
-
                     <div className={'history_controlpanel'}>
                         <PlayPauseButton/>
                         <CurrentTime />
                         <Slider />
                         <SpeedButtons />
                     </div>
-
                     <HistoryMap/>
-                    {/*<TestinG sessions = {sortedSessions} />*/}
                 </div>
 
                 <div className={'right_placeholder'}>
-
                     <div className={'calendar_placeholder'}>
                         <DispatcherCalendar />
                     </div>
@@ -91,8 +85,6 @@ class HistoryTab extends React.Component {
                     <div className="history_planes_list">
                         <PlaneListInHistory/>
                     </div>
-
-                    {/*<SessionsDataPanel />*/}
                 </div>
 
             </div>
@@ -140,7 +132,6 @@ const mapStateToProps = (state) => {
         sessions: getSessions(state)
     }
 }
-
 
 HistoryTab = connect(mapStateToProps, null)(HistoryTab);
 

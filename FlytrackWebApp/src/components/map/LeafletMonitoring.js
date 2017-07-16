@@ -53,9 +53,7 @@ class LeafletMap extends React.Component {
     }
 
     state = {
-        aircraftsMap: {
 
-        }
     }
 
     //ES5 - componentWillMount
@@ -220,8 +218,8 @@ class LeafletMap extends React.Component {
 
     callFunction = () => {
         setTimeout(() => {
-            updatePlanesPositions(),
-                callFunction()}, 500);
+            this.updatePlanesPositions(),
+                this.callFunction()}, 500);
     }
 
     render = () => {

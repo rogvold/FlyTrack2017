@@ -67,8 +67,14 @@ class CesiumView extends React.Component {
 
         this.viewer.scene.globe.depthTestAgainstTerrain = true;
 
-        let start = Cesium.JulianDate.fromDate(new Date(this.props.props.startTimestamp));
-        let stop = Cesium.JulianDate.fromDate(new Date(this.props.props.lastPointTime));
+        let position = this.getPositions();
+        let {points, sessions} = this.props.props;
+
+        console.log(new Date(points.times[0]));
+        console.log(new Date(points.times[points.times.length-1]));
+
+        let start = Cesium.JulianDate.fromDate(new Date(points.times[0]-172800000));
+        let stop = Cesium.JulianDate.fromDate(new Date(points.times[points.times.length-1]-172800000));
 
         this.viewer.clock.startTime = start.clone();
         this.viewer.clock.stopTime = stop.clone();
@@ -82,15 +88,15 @@ class CesiumView extends React.Component {
 
     entityInit = () => {
         let position = this.getPositions();
+        let {points, session} = this.props.props;
 
-        let start = Cesium.JulianDate.fromDate(new Date(this.props.props.startTimestamp));
-        let stop = Cesium.JulianDate.fromDate(new Date(this.props.props.lastPointTime));
-
+        let start = Cesium.JulianDate.fromDate(new Date(points.times[0]-172800000));
+        let stop = Cesium.JulianDate.fromDate(new Date(points.times[points.times.length-1]-172800000));
 
         this.entity = this.viewer.entities.add({
             availability : new Cesium.TimeIntervalCollection([new Cesium.TimeInterval({
-                start: Cesium.JulianDate.fromDate(new Date(this.props.props.startTimestamp)),
-                stop: Cesium.JulianDate.fromDate(new Date(this.props.props.lastPointTime))
+                start: start,
+                stop: stop
             })]),
 
             position: position,
@@ -126,8 +132,8 @@ class CesiumView extends React.Component {
 
         return (
             <div
-                style={{width: '100%', height: '100%'}}
-                id="cesiumContainer"
+                className={'cesium_placeholder'}
+                // id="cesiumContainer"
                 ref={(Map) => {
                     this.Container = Map;
                     this.initialization();

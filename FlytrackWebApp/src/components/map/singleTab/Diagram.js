@@ -84,7 +84,7 @@ class Diagram extends React.Component {
         return (
             <div className="altDiagram">
                 <LineChart
-                    width={document.documentElement.clientWidth - (451)}
+                    width={document.documentElement.clientWidth - (371)}
                     height={
                         Math.ceil(0.25 * document.documentElement.clientHeight) > 170 ?
                             (0.25 * document.documentElement.clientHeight) : 170

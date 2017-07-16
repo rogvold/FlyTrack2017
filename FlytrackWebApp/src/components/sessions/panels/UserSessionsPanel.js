@@ -4,6 +4,7 @@
 
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import MapPreview from '../../map/MapPreview'
 import {bindActionCreators} from 'redux';
 
 import * as sessionsActions from '../../../redux/actions/SessionsActions'
@@ -12,9 +13,13 @@ import moment from 'moment'
 
 class UserSessionsPanel extends React.Component {
 
-    static defaultProps = {}
+    static defaultProps = {
+        userId: undefined
+    }
 
-    static propTypes = {}
+    static propTypes = {
+
+    }
 
     state = {}
 
@@ -28,48 +33,54 @@ class UserSessionsPanel extends React.Component {
         loadUserSessions(userId);
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
+        let {loadUserSessions} = this.props;
+        if (nextProps.userId != this.props.userId){
+            loadUserSessions(nextProps.userId);
+        }
+    }
 
+    loadFeed = () => {
+        let {sessions, selectSession} = this.props;
+        return sessions.map((session, key) => {
+            return(
+                <div className={'session_item'} key ={session.id} onClick={() => {
+                    selectSession(session.id)
+                }} >
+                    <div className={'username_placeholder'}>
+                        {session.name}
+                    </div>
+
+                    <MapPreview  />
+
+                    <div className={'datetime_placeholder'}>
+                        {moment(session.startTimestamp).format('DD.MM.YYYY HH:mm')}
+                    </div>
+                </div>
+            )
+            // return(JSON.stringify(element))
+        })
     }
 
     render = () => {
-        let {sessions} = this.props;
+        let {sessions, loadUserSessions} = this.props;
+        console.log('UserSessionsPanel: render: sessions = ', sessions);
 
         return (
             <div className={'user_sessions_panel'} >
-
-                <div className={'sessions_list'} >
-                    {sessions.map((session, k) => {
-                        let key = 'session_' + k + '_' + session.id;
-
-                        return (
-                            <div className={'session_item'} key={key}  >
-
-                                <div className={'name_placeholder'} >
-                                    <div className={'name'} >
-                                        {session.name}
-                                    </div>
-                                </div>
-
-                                <div className={'date_placeholder'} >
-                                    <div className={'date'} >
-                                        <i className={'icon calendar'} ></i> {moment(session.timestamp)}
-                                    </div>
-                                </div>
-
-                                <div className={'session_content_placeholder'} >
-
-                                </div>
-
-                            </div>
-                        )
-                    })}
-                </div>
-
+                {this.props.loading === true ? 'loading...': this.loadFeed()}
             </div>
         )
     }
 
+}
+
+let getPoints = (state, sessionId) => {
+    let points = state.sessions.sessionsDataMap.get(sessionId);
+    if (points == undefined){
+        points = [];
+    }
+    return points;
 }
 
 let getUserSessions = (state, userId) => {
@@ -84,7 +95,7 @@ let getUserSessions = (state, userId) => {
 const mapStateToProps = (state, ownProps) => {
    return {
        sessions: getUserSessions(state, ownProps.userId),
-       loading: state.sessions.loading
+       loading: state.sessions.loading,
    }
 }
 
@@ -92,6 +103,9 @@ const mapDispatchToProps = (dispatch) => {
    return {
        loadUserSessions: (userId) => {
            return dispatch(sessionsActions.loadUserSessions(userId))
+       },
+       selectSession: (id) => {
+           return dispatch(sessionsActions.selectSession(id))
        }
    }
 }

@@ -5,6 +5,7 @@
 import React, {PropTypes} from 'react';
 import InputRange from 'react-input-range';
 import Diagram from "./Diagram";
+import moment from "moment";
 
 const iconsList = {
     'PLANE': L.icon({
@@ -68,7 +69,7 @@ class LeafletSingleMap extends React.Component {
     };
 
     createPolyline = () => { //создать маркер и линию
-        let {id, aircraft} = this.props.props;
+        let {id, aircraft} = this.props.props.session;
         this.polylines[id] = L.polyline([], {
             color: '#4e4cde',
             width: 8,
@@ -76,13 +77,16 @@ class LeafletSingleMap extends React.Component {
         });
 
         this.markers[id] = L.marker([0, 0], {
-            icon: iconsList[aircraft.aircraftType],
+            // icon: iconsList[aircraft.aircraftType],
+            icon: iconsList['PLANE'],
             rotationOrigin: 'center'
         });
     }
 
     updatePolyline = () => {
-        let {aircraftId, id, points, start, startTimestamp, timestamp} = this.props.props;
+        let {aircraftId, id, start, startTimestamp, timestamp} = this.props.props.session;
+        let {points} = this.props.props;
+
         if (!this.state.changeFromSlider) {
             if (this.state.index < points.lon.length-1 && this.state.index > 0) {
                 this.setState({defaut_dt: Math.round((points.times[this.state.index+1] - points.times[this.state.index])/2 )});
@@ -149,18 +153,19 @@ class LeafletSingleMap extends React.Component {
     };
 
     getAircraftInfo = () => {
-        let message = this.props.props;
+        let {session, points} = this.props.props;
         let {index} = this.state;
         return(
             <div className="aircraftSingleInfo">
                 <ul>
-                    <li>Позывной: {message.aircraft.callName}</li>
-                    <li>Тип: {message.aircraft.aircraftType}</li>
-                    <li>Скорость: {message.points.vel[(message.points.lon[index] !== undefined ? index : message.points.lat.length-1)]} м/с</li>
-                    <li>Высота: {message.points.alt[(message.points.lon[index] !== undefined ? index : message.points.lat.length-1)]} м</li>
+                    {/*<li>Позывной: {session.aircraft.callName}</li>*/}
+                    {/*<li>Тип: {session.aircraft.aircraftType}</li>*/}
+                    <li>Время: {moment(points.times[(points.times[index] !== undefined ? index : points.times.length-1)]).format('HH:mm:ss')} </li>
+                    <li>Скорость: {points.vel[(points.lon[index] !== undefined ? index : points.lat.length-1)]} м/с</li>
+                    <li>Высота: {points.alt[(points.lon[index] !== undefined ? index : points.lat.length-1)]} м</li>
                     <li>Координаты:</li>
-                    <li>Долгота: {(''+message.points.lon[(message.points.lon[index] !== undefined ? index : message.points.lat.length-1)]).slice(0, 8)}</li>
-                    <li>Широта:  {(''+message.points.lat[(message.points.lon[index] !== undefined ? index : message.points.lat.length-1)]).slice(0, 8)}</li>
+                    <li>Долгота: {(''+points.lon[(points.lon[index] !== undefined ? index : points.lat.length-1)]).slice(0, 8)}</li>
+                    <li>Широта:  {(''+points.lat[(points.lon[index] !== undefined ? index : points.lat.length-1)]).slice(0, 8)}</li>
                 </ul>
             </div>
         )
@@ -198,7 +203,8 @@ class LeafletSingleMap extends React.Component {
     };
 
     render = () => {
-        let {aircraftId, id, lastPointTime, points, start, timestamp} = this.props.props;
+        let {aircraftId, id, start, timestamp} = this.props.props.session;
+        let {points} = this.props.props;
         return (
             <div className="mapbox_single_map">
                 <div className={'mapbox_single_route_map'} ref={(m) => {
