@@ -238,7 +238,7 @@ class HistoryMap extends React.Component {
     render = () => {
         return (
             <div
-                className={'mapbox_single_map'} ref={(m) => {
+                className={'history_map_placeholder'} ref={(m) => {
                 this.Container = m;
                 this.initMap();
             }}>

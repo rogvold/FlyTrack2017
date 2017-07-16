@@ -1048,6 +1048,11 @@ $top_dashboard_panel_height: 50px;
       padding: 10px;
       border-right: 1px solid whitesmoke;
 
+      .history_map_placeholder{
+        width: 100%;
+        height: calc(100% - 35px);
+      }
+
       .mapbox_map{
         position: relative;
         display: block;
@@ -1062,6 +1067,8 @@ $top_dashboard_panel_height: 50px;
         border-radius: 3px;
         display: inline-block;
         padding-bottom: 5px;
+
+
       }
 
     }

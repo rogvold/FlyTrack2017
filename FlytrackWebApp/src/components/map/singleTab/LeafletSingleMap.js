@@ -158,8 +158,6 @@ class LeafletSingleMap extends React.Component {
         return(
             <div className="aircraftSingleInfo">
                 <ul>
-                    {/*<li>Позывной: {session.aircraft.callName}</li>*/}
-                    {/*<li>Тип: {session.aircraft.aircraftType}</li>*/}
                     <li>Время: {moment(points.times[(points.times[index] !== undefined ? index : points.times.length-1)]).format('HH:mm:ss')} </li>
                     <li>Скорость: {points.vel[(points.lon[index] !== undefined ? index : points.lat.length-1)]} м/с</li>
                     <li>Высота: {points.alt[(points.lon[index] !== undefined ? index : points.lat.length-1)]} м</li>
@@ -189,7 +187,6 @@ class LeafletSingleMap extends React.Component {
     };
 
     initMap = () => {
-        // let {aircraftId, id, points, start, startTimestamp, timestamp} = this.props.props;
         const TOKEN = 'pk.eyJ1IjoibGVzaGEyODMyIiwiYSI6ImNqM2E0OTA5YjAwNmIzM3BwOTcxaWhpMnUifQ.YoQLyWhrj5p_r4S1GW0-Kg';
         L.mapbox.accessToken = TOKEN;
         if (this.map != undefined)  return;

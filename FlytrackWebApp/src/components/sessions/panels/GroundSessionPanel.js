@@ -46,7 +46,6 @@ class GroundSessionPanel extends React.Component {
         if (session == undefined){
             return null
         }
-        // console.log('data ==== ', session)
 
         return (//here goes panel with 2d and 3d mode
             <CoolModal onClose={() => {
@@ -54,10 +53,6 @@ class GroundSessionPanel extends React.Component {
             }} >
 
                 <div className="session_panel_placeholder">
-
-                    {/*<div className={'session_name_placeholder'} >*/}
-                        {/*{session.name} ({moment(session.startTimestamp).format('DD.MM.YYYY HH:mm')})*/}
-                    {/*</div>*/}
 
                     <SessionPanel sessionId={session.id} />
 

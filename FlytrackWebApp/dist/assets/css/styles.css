@@ -654,6 +654,9 @@
       width: calc(100% - 280px);
       padding: 10px;
       border-right: 1px solid whitesmoke; }
+      .dispatcher_dashboard_panel .content_panel .left_placeholder .history_map_placeholder {
+        width: 100%;
+        height: calc(100% - 35px); }
       .dispatcher_dashboard_panel .content_panel .left_placeholder .mapbox_map {
         position: relative;
         display: block;

@@ -47,7 +47,7 @@ class CesiumView extends React.Component {
             // let time = Cesium.JulianDate.fromDate(new Date(times[i]));  //раскомментить с нормальным временем
             let time = Cesium.JulianDate.fromDate(new Date(times[i]-172800000)); //двое суток сдвиг
 
-            // let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], alt[i]);
+            // let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], alt[i]); //раскомментить с нормальными высотами
             let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], 400);
 
             property.addSample(time, position);
@@ -81,7 +81,7 @@ class CesiumView extends React.Component {
         this.viewer.clock.currentTime = start.clone();
         this.viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP; //Loop at the end
         // this.viewer.clock.multiplier = 10;
-        this.viewer.clock.multiplier = 0.2;
+        this.viewer.clock.multiplier = 1;
         this.viewer.scene.globe.enableLighting = true;
         this.viewer.timeline.zoomTo(start, stop);
     }
@@ -133,7 +133,6 @@ class CesiumView extends React.Component {
         return (
             <div
                 className={'cesium_placeholder'}
-                // id="cesiumContainer"
                 ref={(Map) => {
                     this.Container = Map;
                     this.initialization();

@@ -51,7 +51,6 @@ class SessionPanel extends React.Component {
     };
 
     render = () => {
-        console.log('=============', this.props.session);
         let {session} = this.props;
         if (session == undefined){
             return null;
@@ -61,7 +60,6 @@ class SessionPanel extends React.Component {
         if (user != undefined){
             name = user.firstName + ' ' + user.lastName;
         }
-
 
         return (
             <div className={'session_panel'}>
@@ -74,8 +72,6 @@ class SessionPanel extends React.Component {
                         <div className={this.state.tab === '3D' ? 'selected_tab':'unselected_tab pointer'}
                              onClick={() => {this.setState({tab:'3D'})}}> 3D </div>
                     </div>
-                    {/*session = {JSON.stringify(session)}*/}
-                    {/*{this.props.loading === true ? null : `points = ${JSON.stringify(transformArr(points))}`}*/}
 
                     {this.props.loading === true ? null : this.showMap()}
 

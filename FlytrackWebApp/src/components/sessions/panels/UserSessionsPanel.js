@@ -58,7 +58,6 @@ class UserSessionsPanel extends React.Component {
                     </div>
                 </div>
             )
-            // return(JSON.stringify(element))
         })
     }
 
