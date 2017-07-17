@@ -19,6 +19,9 @@ const iconsList = {
     }),
     'GLIDER': L.icon({
         iconUrl: './assets/images/planes/glider0.png', iconSize: [40, 40],
+    }),
+    'PHOTO': L.icon({
+        iconUrl: './assets/images/photo.png', iconSize: [40, 60],
     })
 };
 
@@ -78,9 +81,28 @@ class LeafletSingleMap extends React.Component {
 
         this.markers[id] = L.marker([0, 0], {
             // icon: iconsList[aircraft.aircraftType],
-            icon: iconsList['PLANE'],
+            icon: iconsList['PLANE'], //нужно, чтобы aircraftType еще был в session, закомментить эту, раскомменить выше
             rotationOrigin: 'center'
         });
+    }
+
+    createPhotoMarkers = () => {
+        let {photos} = this.props.props.session;
+        // for (let picture of photos){
+        // L.marker([56, 36.7], {
+        //     icon: iconsList['PHOTO']
+        // }).addTo(this.map).bindPopup(`<a target ="_blank" href=${picture.url}><img
+        //     width="200" height="auto"
+        //     src=${picture.thumbnail}
+        // /></a>`);
+        // }
+
+        L.marker([56, 36.7], {
+            icon: iconsList['PHOTO']
+        }).addTo(this.map).bindPopup(`<a target ="_blank" href='https://avatars0.githubusercontent.com/u/1834389?v=4&s=460'><img
+            width="200" height="auto"
+            src='https://avatars0.githubusercontent.com/u/1834389?v=4&s=460'
+        /></a>`);
     }
 
     updatePolyline = () => {
@@ -196,6 +218,7 @@ class LeafletSingleMap extends React.Component {
         this.markers = {};
         this.polylines = {};
         this.createPolyline();
+        this.createPhotoMarkers();
         this.callFunction();
     };
 
@@ -244,7 +267,7 @@ class LeafletSingleMap extends React.Component {
                         />
                     </div>
                     {/*slider end*/}
-                    {/*speed buttons start*/}
+
                     <div className= {'map_buttons'}>
                         <div className={"ui icon buttons"}>
                             <button className={'mini ui button'} onClick={() => {this.setState({speed:1})}}>x1</button>
@@ -254,7 +277,7 @@ class LeafletSingleMap extends React.Component {
                             <button className={'mini ui button'} onClick={() => {this.setState({speed:50})}}>x50</button>
                         </div>
                     </div>
-                    {/*speed buttons end*/}
+
                 </div>
             </div>
         )
