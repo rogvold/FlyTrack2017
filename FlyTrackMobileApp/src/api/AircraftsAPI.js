@@ -3,7 +3,6 @@
  */
 
 import * as constants from '../constants/AccountConstants'
-import Parse from 'parse'
 
 const AircraftsAPI = {
 

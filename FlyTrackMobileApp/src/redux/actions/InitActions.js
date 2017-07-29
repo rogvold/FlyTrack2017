@@ -6,9 +6,11 @@ import ParseAPI from '../../api/ParseAPI';
 
 import * as organizationsActions from './OrganizationsActions'
 import * as aircraftsActions from './AircraftsActions'
+import * as gpsActions from './GPSActions'
 
 export function loadEverything(){
     return (dispatch, getState) => {
+        dispatch(gpsActions.initGPS())
         dispatch(organizationsActions.loadOrganizations());
         dispatch(aircraftsActions.loadUsersAircrafts());
     }

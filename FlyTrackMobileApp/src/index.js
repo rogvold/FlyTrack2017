@@ -17,6 +17,8 @@ import ParseAPI from './api/ParseAPI.js';
 
 //actions
 import * as actions from './redux/actions/SportActions.js';
+import * as initActions from './redux/actions/InitActions.js';
+import * as usersActions from './redux/actions/UsersActions.js';
 
 import {reducer} from './redux/reducers'
 
@@ -74,9 +76,7 @@ export default function setup() {
         }
 
     }
-
     ParseAPI.initParse();
-
     return RootApp;
 }
 
@@ -84,15 +84,16 @@ export default function setup() {
 
 let init = () => {
     return (dispatch, getState) => {
-        return dispatch(actions.loadOrganizations())
-            .then(dispatch(actions.loadForms()))
+        dispatch(usersActions.initializeAuthorization()).then(
+            () => dispatch(initActions.loadEverything())
+        )
     }
 }
 
 let startNotFirstTime = () => {
-    persistStore(store, {storage: AsyncStorage, transforms: [immutableTransform()]}, () => {
+    // persistStore(store, {storage: AsyncStorage, transforms: [immutableTransform()]}, () => {
         store.dispatch(init());
-    })
+    // })
 }
 
 let startFirstTime = () => {

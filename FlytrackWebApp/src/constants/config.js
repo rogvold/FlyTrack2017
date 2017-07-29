@@ -6,7 +6,6 @@ export const PARSE_APP_ID = 'ZhlYHr1uAjC7CJB7l1QVfuzsJIwpp51J5KpQYOco';
 export const PARSE_JS_KEY = 'kQpPbPSSJwvfnT9pJ2ZoxtEfbDdzr1bZQzxJGbzN';
 export const PARSE_REST_API_KEY = 'c66rmT6kgGpdz4QFhb86OehkCAsLxF2j2hOFxS32';
 
-
 export const PARSE_SERVER_URL = 'https://flytrackparse.sabir.pro/parse';
 
 

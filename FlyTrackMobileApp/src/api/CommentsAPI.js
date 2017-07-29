@@ -3,7 +3,6 @@
  */
 
 import * as constants from '../constants/config'
-import Parse from 'parse'
 
 const CommentsAPI = {
 
