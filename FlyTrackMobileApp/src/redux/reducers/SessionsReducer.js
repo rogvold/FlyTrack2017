@@ -37,11 +37,13 @@ const SessionsReducer =  (state = initialState, action = {}) => {
         case types.LOAD_SESSION_DATA:
         case types.LOAD_SESSIONS:
         case types.LOAD_MANY_SESSIONS_DATA:
+        case types.SAVE_SESSION_POINTS:
             return startLoading(state, action)
 
         case types.LOAD_SESSIONS_FAIL:
         case types.LOAD_SESSION_DATA_FAIL:
         case types.LOAD_MANY_SESSIONS_DATA_FAIL:
+        case types.SAVE_SESSION_POINTS_FAIL:
             return stopLoading(state, action)
 
         case types.LOAD_SESSIONS_SUCCESS:
@@ -50,6 +52,13 @@ const SessionsReducer =  (state = initialState, action = {}) => {
                 loading: false,
                 error: undefined,
                 sessionsMap: state.sessionsMap.merge(action.sessions.reduce((res, u) => {return res.set(u.id, u)}, Map()))
+            }
+
+        case types.SAVE_SESSION_POINTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                sessionsMap: state.sessionsMap.set(action.session.id, action.session)
             }
 
 

@@ -39,12 +39,32 @@ export function loadUserSessions(userId){
     }
 }
 
+let saveSessionPoints_ = () => {
+    return {
+        type: types.SAVE_SESSION_POINTS
+    }
+}
+
+let saveSessionPointsFail = (err) => {
+    return {
+        type: types.SAVE_SESSION_POINTS_FAIL,
+        error: err
+    }
+}
+let saveSessionPointsSuccess = (session, points) => {
+    return {
+        type: types.SAVE_SESSION_POINTS_SUCCESS,
+        session: session,
+        points: points
+    }
+}
+//thunk
 export function saveSessionPoints(data){
     return (dispatch, getState) => {
-        dispatch(loadUserSessions_());
+        dispatch(saveSessionPoints_());
         return ParseAPI.runCloudFunctionAsPromise('savePoints', data).then(
-            session => dispatch(loadUserSessionsSuccess([session])),
-            error => dispatch(loadUserSessionsFail(error))
+            session => dispatch(saveSessionPointsSuccess(session, data.points)),
+            error => dispatch(saveSessionPointsFail(error))
         )
     }
 }

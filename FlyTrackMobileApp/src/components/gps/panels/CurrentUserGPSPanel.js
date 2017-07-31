@@ -63,55 +63,61 @@
      }
 
      render = () => {
-         let {coordinates, startFlightTimestamp, startFlight, stopFlight} = this.props;
+         let {coordinates, startFlightTimestamp, startFlight, stopFlight, aircraft} = this.props;
          let lastCoordinate = (coordinates == undefined || coordinates.length == 0) ? undefined : coordinates[coordinates.length -1];
 
          return (
              <ScrollView style={styles.container} >
 
                  {lastCoordinate == undefined ? null :
-                    <View>
-                        <Text>
-                            Last point: {JSON.stringify(lastCoordinate)}
-                        </Text>
-                    </View>
-                 }
-
-                 {lastCoordinate == undefined ? null :
-                     <MapView style={{ width: width, height: 200}}
-                        initialRegion={{
+                     <View>
+                         <MapView style={{ width: width, height: height / 4.0}}
+                                  initialRegion={{
                           latitude: lastCoordinate.lat,
                           longitude: lastCoordinate.lon,
                           latitudeDelta: 0.0922,
                           longitudeDelta: 0.0421,
                     }}
-                                 >
-                         <MapView.Marker
-                             coordinate={{latitude: lastCoordinate.lat,
+                         >
+                             <MapView.Marker
+                                 coordinate={{latitude: lastCoordinate.lat,
                                           longitude: lastCoordinate.lon}}
-                         />
-                     </MapView>
+                             />
+                         </MapView>
+
+                         {aircraft == undefined ?
+                            <View style={{padding: 5, backgroundColor: 'red'}} >
+                                <Text style={{textAlign: 'center', fontWeight: 'bold'}} >
+                                    Please select aircraft of the settings page
+                                </Text>
+                            </View>
+                             :
+                             <TouchableOpacity
+                                 style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey', padding: 7}}
+                                 onPress={() => {
+                                     if (startFlightTimestamp == undefined){
+                                         startFlight();
+                                     }else {
+                                         stopFlight();
+                                     }
+                                }} >
+                                 <Text>
+                                     {startFlightTimestamp == undefined ? 'Start' : 'Stop'}
+                                 </Text>
+                             </TouchableOpacity>
+                         }
+
+
+                         <View style={{marginTop: 30, paddingTop: 10, borderTopWidth: 1, borderTopColor: 'black'}} >
+                             <Text>
+                                 Last point: {JSON.stringify(lastCoordinate)}
+                             </Text>
+                         </View>
+
+                     </View>
                  }
 
-                 <View>
-
-                     <TouchableOpacity
-                         style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey', padding: 7}}
-                         onPress={() => {
-                             if (startFlightTimestamp == undefined){
-                                 startFlight();
-                             }else {
-                                 stopFlight();
-                             }
-                     }} >
-                         <Text>
-                             {startFlightTimestamp == undefined ? 'Start' : 'Stop'}
-                         </Text>
-                     </TouchableOpacity>
-
-                 </View>
-
-                 <View>
+                 <View style={{marginTop: 30, paddingTop: 10, borderTopWidth: 1, borderTopColor: 'black'}} >
                      <Text>
                          All coordinates: {JSON.stringify(coordinates)}
                      </Text>
@@ -134,7 +140,9 @@
  const mapStateToProps = (state) => {
     return {
         coordinates: state.gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t)),
-        startFlightTimestamp: state.flight.startFlightTimestamp
+        startFlightTimestamp: state.flight.startFlightTimestamp,
+        selectedAircraftId: state.aircrafts.selectedAircraftId,
+        aircraft: state.aircrafts.aircraftsMap.get(state.aircrafts.selectedAircraftId)
     }
  }
 

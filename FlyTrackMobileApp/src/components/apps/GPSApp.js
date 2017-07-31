@@ -35,6 +35,7 @@
 
  import Icon from 'react-native-vector-icons/FontAwesome'
 
+
  import CurrentUserGPSPanel from '../gps/panels/CurrentUserGPSPanel'
 
 
@@ -63,19 +64,11 @@
      render = () => {
 
          return (
-             <ScrollView style={styles.container} >
+             <View style={styles.container} >
 
-                 <View>
-                     <Text>
-                         Current position
-                     </Text>
-                 </View>
+                 <CurrentUserGPSPanel />
 
-                 <View>
-                     <CurrentUserGPSPanel />
-                 </View>
-
-             </ScrollView>
+             </View>
          )
      }
 

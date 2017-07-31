@@ -36,6 +36,7 @@
  import Icon from 'react-native-vector-icons/FontAwesome'
 
  import AuthUserPanel from '../users/panels/AuthUserPanel'
+ import AircraftsPanel from '../aircrafts/panels/AircraftsPanel'
 
  class SettingsApp extends React.Component {
 
@@ -63,7 +64,13 @@
          return (
              <ScrollView style={styles.container} >
 
-                 <AuthUserPanel />
+                 <View style={{flex: 1, marginBottom: 20}} >
+                     <AuthUserPanel />
+                 </View>
+
+                 <View style={{flex: 1}} >
+                     <AircraftsPanel />
+                 </View>
 
              </ScrollView>
          )

@@ -8,8 +8,9 @@ import {Map} from 'immutable'
 
 const initialState = {
     loading: false,
+    selectedAircraftId: undefined,
     aircraftsMap: Map(),
-    error: undefined,
+    error: undefined
 }
 
 const startLoading = (state, action) => {
@@ -60,6 +61,12 @@ const AircraftsReducer =  (state = initialState, action = {}) => {
                 loading: false,
                 error: undefined,
                 aircraftsMap: state.aircraftsMap.delete(action.id)
+            }
+
+        case types.SELECT_AIRCRAFT:
+            return {
+                ...state,
+                selectedAircraftId: action.id
             }
 
         default:

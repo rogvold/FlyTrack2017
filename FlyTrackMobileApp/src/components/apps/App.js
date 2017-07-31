@@ -31,6 +31,7 @@ import GPSDaemon from '../gps/panels/GPSDaemon'
 
 import AuthUserPanel from '../users/panels/AuthUserPanel'
 import RealtimeDaemon from '../realtime/panels/RealtimeDaemon'
+import ParseSenderDaemon from '../realtime/panels/ParseSenderDaemon'
 
 import BottomNavigationPanel from '../navigation/panels/BottomNavigationPanel'
 
@@ -38,11 +39,13 @@ import SettingsApp from './SettingsApp'
 import GPSApp from './GPSApp'
 import InitializingApp from './InitializingApp'
 
-
+import {Constants} from 'expo'
 
 class App extends React.Component {
 
-    static defaultProps = {}
+    static defaultProps = {
+
+    }
 
     static propTypes = {}
 
@@ -97,15 +100,15 @@ class App extends React.Component {
 
                 </ScrollView>
 
+                <BottomNavigationPanel />
+
                 {initialized == false ? null :
                     <View style={{display: 'none'}} >
                         <GPSDaemon />
                         <RealtimeDaemon />
+                        <ParseSenderDaemon />
                     </View>
                 }
-
-
-                <BottomNavigationPanel />
 
             </View>
         )
@@ -115,8 +118,8 @@ class App extends React.Component {
 
 var styles = StyleSheet.create({
     container: {
-        paddingTop: 30,
         paddingBottom: 50,
+        paddingTop: Constants.statusBarHeight,
         flex: 1
     },
 

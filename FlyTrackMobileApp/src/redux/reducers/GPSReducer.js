@@ -26,6 +26,15 @@ const GPSReducer =  (state = initialState, action = {}) => {
                 }, Map()))
             }
 
+        case types.SAVE_SESSION_POINTS_SUCCESS:
+            return {
+                ...state,
+                coordinatesMap: state.coordinatesMap.merge(action.points.reduce((map, p) => {
+                    let pp = {...p, synced: true};
+                    return map.set(p.t, pp)
+                }, Map()))
+            }
+
         case types.INIT_GPS:
             return {
                 ...state,

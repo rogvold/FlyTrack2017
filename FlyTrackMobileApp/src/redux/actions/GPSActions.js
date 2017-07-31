@@ -45,7 +45,7 @@ export function onNewLocationsReceived(coordinates){
         for (let i in coordinates){
             arr.push({
                 ...coordinates[i],
-                id: uuid(),
+                // id: uuid(),
                 startTimestamp: startFlightTimestamp,
                 synced: false
             });

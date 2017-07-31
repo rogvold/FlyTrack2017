@@ -66,27 +66,40 @@ import moment from 'moment'
         //For Mityay: get this data from inputs
         let data = {
             name: 'plane_' + (+new Date() % 1000),
-            aircraftType: 'plane',
+            aircraftType: 'PLANE',
             callName: Math.round(Math.random() * 1000) + '_' + (+new Date() % 1000),
-            aircraftNumber: (+new Date() % 1000)
+            aircraftNumber: (+new Date() % 1000) + ''
         }
         createAircraft(data);
      }
 
      render = () => {
-         let {aircrafts, loading} = this.props;
+         let {aircrafts, loading, selectAircraft, selectedAircraftId} = this.props;
 
          return (
              <View style={styles.container} >
 
-                 <View style={styles.createAircraftPlaceholder} >
-                     <TouchableHighlight onPress={() => {
-                         this.createRandomAircraft();
-                     }} >
-                         <Text>
+                 <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}} >
+                     <Text>
+                         Aircrafts
+                     </Text>
+                 </View>
+
+                 <View  >
+                     <TouchableOpacity
+                         style={{
+                             padding: 10,
+                             alignItems: 'center',
+                             justifyContent: 'center',
+                             backgroundColor: 'pink'
+                         }}
+                         onPress={() => {
+                            this.createRandomAircraft();
+                        }} >
+                         <Text style={{textAlign: 'center', fontSize: 16}} >
                              create random plane (change it, Mityay)
                          </Text>
-                     </TouchableHighlight>
+                     </TouchableOpacity>
                  </View>
 
                  {loading == false ? null :
@@ -98,8 +111,19 @@ import moment from 'moment'
                  }
 
                  {aircrafts.map((a, k) => {
+                     let isSelected = (selectedAircraftId == a.id);
                      return (
-                         <TouchableHighlight key={a.id} >
+                         <TouchableOpacity key={a.id}
+                                             onPress={() => {
+                                                 if (isSelected == false){
+                                                    selectAircraft(a.id)
+                                                 }
+                                             }}
+                                             style={{
+                                                                padding: 5,
+                                                                borderBottomWidth: 1,
+                                                                backgroundColor: (isSelected == true) ? 'lightgrey' : 'white',
+                                                                borderBottomColor: 'lightgrey'}} >
                              <View>
                                  <Text>
                                      {a.aircraftType}
@@ -114,7 +138,7 @@ import moment from 'moment'
                                      {a.callName}
                                  </Text>
                              </View>
-                         </TouchableHighlight>
+                         </TouchableOpacity>
                      )
                  })}
 
@@ -127,10 +151,6 @@ import moment from 'moment'
  var styles = StyleSheet.create({
      container: {
          flex: 1,
-     },
-
-     createAircraftPlaceholder: {
-
      }
 
  });
@@ -139,6 +159,7 @@ import moment from 'moment'
  const mapStateToProps = (state) => {
     return {
         loading: state.aircrafts.loading,
+        selectedAircraftId: state.aircrafts.selectedAircraftId,
         aircrafts: state.aircrafts.aircraftsMap.toArray().sort(
             (a, b) => (b.timestamp - a.timestamp)
         )
@@ -152,6 +173,9 @@ import moment from 'moment'
         },
         loadAircrafts: () => {
             return dispatch(actions.loadUsersAircrafts())
+        },
+        selectAircraft: (id) => {
+            return dispatch(actions.selectAircraft(id))
         }
     }
  }

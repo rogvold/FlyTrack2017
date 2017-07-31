@@ -70,6 +70,7 @@ export function createAircraft(data){
         if (data == undefined || data.userId == undefined){
             return;
         }
+        console.log('createAircraft occured: data = ', data);
         dispatch(createAircraft_());
         return ParseAPI.createObject('Aircraft', data, AircraftsAPI.transformAircraft).then(
             aircraft => dispatch(createAircraftSuccess(aircraft)),
@@ -134,5 +135,14 @@ export function deleteAircraft(id){
             a => dispatch(updateAircraftSuccess(id)),
             err => dispatch(updateAircraftFail(err))
         )
+    }
+}
+
+export function selectAircraft(id){
+    return (dispatch, getState) => {
+        return dispatch({
+            type: types.SELECT_AIRCRAFT,
+            id: id
+        })
     }
 }

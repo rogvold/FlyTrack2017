@@ -274,12 +274,14 @@ const ParseAPI = {
                 if (key == 'id' || key == 'timestamp'){
                     continue;
                 }
+                console.log('createObject: key - value = ', key, data[key]);
                 obj.set(key, data[key]);
             }
             obj.save().then((savedObject) => {
+                console.log('successfully saved: savedObject = ', savedObject);
                 let sObj = transformFun(savedObject);
                 resolve(sObj);
-            });
+            }).catch(err => {reject(err)});
         });
     },
 
