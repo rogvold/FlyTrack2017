@@ -1,5 +1,5 @@
 /**
- * Created by sabir on 29.07.17.
+ * Created by sabir on 31.07.17.
  */
 
 
@@ -35,11 +35,7 @@
 
  import Icon from 'react-native-vector-icons/FontAwesome'
 
- import CurrentUserGPSPanel from '../gps/panels/CurrentUserGPSPanel'
-
-
-
- class GPSApp extends React.Component {
+ class InitializingApp extends React.Component {
 
      static defaultProps = {}
 
@@ -63,19 +59,13 @@
      render = () => {
 
          return (
-             <ScrollView style={styles.container} >
+             <View style={styles.container} >
 
-                 <View>
-                     <Text>
-                         Current position
-                     </Text>
-                 </View>
+                 <Text style={styles.text} >
+                     loading...
+                 </Text>
 
-                 <View>
-                     <CurrentUserGPSPanel />
-                 </View>
-
-             </ScrollView>
+             </View>
          )
      }
 
@@ -84,7 +74,14 @@
  var styles = StyleSheet.create({
      container: {
          flex: 1,
+         padding: 50,
+         justifyContent: 'center',
+         alignItems: 'center'
      },
+
+     text: {
+         textAlign: 'center'
+     }
 
  });
 
@@ -104,6 +101,6 @@
  //    }
  //}
 
- //GPSApp = connect(mapStateToProps, mapDispatchToProps)(GPSApp)
+ //InitializingApp = connect(mapStateToProps, mapDispatchToProps)(InitializingApp)
 
- export default GPSApp
+ export default InitializingApp

@@ -35,6 +35,12 @@
 
  import Icon from 'react-native-vector-icons/FontAwesome'
 
+ import { MapView } from 'expo';
+
+ let {height, width} = Dimensions.get('window')
+
+ import * as flightActions from '../../../redux/actions/FlightActions'
+
  class CurrentUserGPSPanel extends React.Component {
 
      static defaultProps = {}
@@ -57,7 +63,7 @@
      }
 
      render = () => {
-         let {coordinates} = this.props;
+         let {coordinates, startFlightTimestamp, startFlight, stopFlight} = this.props;
          let lastCoordinate = (coordinates == undefined || coordinates.length == 0) ? undefined : coordinates[coordinates.length -1];
 
          return (
@@ -70,6 +76,40 @@
                         </Text>
                     </View>
                  }
+
+                 {lastCoordinate == undefined ? null :
+                     <MapView style={{ width: width, height: 200}}
+                        initialRegion={{
+                          latitude: lastCoordinate.lat,
+                          longitude: lastCoordinate.lon,
+                          latitudeDelta: 0.0922,
+                          longitudeDelta: 0.0421,
+                    }}
+                                 >
+                         <MapView.Marker
+                             coordinate={{latitude: lastCoordinate.lat,
+                                          longitude: lastCoordinate.lon}}
+                         />
+                     </MapView>
+                 }
+
+                 <View>
+
+                     <TouchableOpacity
+                         style={{alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey', padding: 7}}
+                         onPress={() => {
+                             if (startFlightTimestamp == undefined){
+                                 startFlight();
+                             }else {
+                                 stopFlight();
+                             }
+                     }} >
+                         <Text>
+                             {startFlightTimestamp == undefined ? 'Start' : 'Stop'}
+                         </Text>
+                     </TouchableOpacity>
+
+                 </View>
 
                  <View>
                      <Text>
@@ -93,13 +133,19 @@
 
  const mapStateToProps = (state) => {
     return {
-        coordinates: state.gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t))
+        coordinates: state.gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t)),
+        startFlightTimestamp: state.flight.startFlightTimestamp
     }
  }
 
  const mapDispatchToProps = (dispatch) => {
     return {
-
+        startFlight: () => {
+            return dispatch(flightActions.startFlight())
+        },
+        stopFlight: () => {
+            return dispatch(flightActions.stopFlight())
+        }
     }
  }
 

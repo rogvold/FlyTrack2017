@@ -1,5 +1,5 @@
 /**
- * Created by sabir on 29.07.17.
+ * Created by sabir on 31.07.17.
  */
 
 
@@ -35,11 +35,7 @@
 
  import Icon from 'react-native-vector-icons/FontAwesome'
 
- import CurrentUserGPSPanel from '../gps/panels/CurrentUserGPSPanel'
-
-
-
- class GPSApp extends React.Component {
+ class FlightApp extends React.Component {
 
      static defaultProps = {}
 
@@ -63,19 +59,9 @@
      render = () => {
 
          return (
-             <ScrollView style={styles.container} >
+             <View style={styles.container} >
 
-                 <View>
-                     <Text>
-                         Current position
-                     </Text>
-                 </View>
-
-                 <View>
-                     <CurrentUserGPSPanel />
-                 </View>
-
-             </ScrollView>
+             </View>
          )
      }
 
@@ -104,6 +90,6 @@
  //    }
  //}
 
- //GPSApp = connect(mapStateToProps, mapDispatchToProps)(GPSApp)
+ //FlightApp = connect(mapStateToProps, mapDispatchToProps)(FlightApp)
 
- export default GPSApp
+ export default FlightApp

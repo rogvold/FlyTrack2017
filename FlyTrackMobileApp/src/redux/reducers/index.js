@@ -9,6 +9,8 @@ import OrganizationsReducer from './OrganizationsReducer.js';
 import SessionsReducer from './SessionsReducer.js';
 import UsersReducer from './UsersReducer.js';
 import GPSReducer from './GPSReducer.js';
+import FlightReducer from './FlightReducer.js';
+import NavigationReducer from './NavigationReducer.js';
 
 export const reducer = combineReducers({
     realtime: PusherReducer,
@@ -16,5 +18,7 @@ export const reducer = combineReducers({
     organizations: OrganizationsReducer,
     sessions: SessionsReducer,
     users: UsersReducer,
-    gps: GPSReducer
+    gps: GPSReducer,
+    navigation: NavigationReducer,
+    flight: FlightReducer
 });

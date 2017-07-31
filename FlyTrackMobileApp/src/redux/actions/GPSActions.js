@@ -5,6 +5,7 @@ import * as types from '../ActionTypes'
 import ParseAPI from '../../api/ParseAPI';
 import GPSAPI from '../../api/GPSAPI';
 
+import uuid from 'uuid';
 
 import {Map} from 'immutable'
 
@@ -39,9 +40,19 @@ export function initGPS(){
 
 export function onNewLocationsReceived(coordinates){
     return (dispatch, getState) => {
+        let arr = [];
+        let {startFlightTimestamp} = getState().flight;
+        for (let i in coordinates){
+            arr.push({
+                ...coordinates[i],
+                id: uuid(),
+                startTimestamp: startFlightTimestamp,
+                synced: false
+            });
+        }
         return dispatch({
             type: types.ON_GPS_POINTS_RECEIVED,
-            coordinates: coordinates
+            coordinates: arr
         })
     }
 }

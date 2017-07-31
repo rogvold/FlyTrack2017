@@ -37,6 +37,7 @@
  import { Constants, Location, Permissions } from 'expo';
 
  import GPSAPI from '../../../api/GPSAPI'
+ // import RealmAPI from '../../../api/RealmAPI'
 
 import * as actions from '../../../redux/actions/GPSActions'
 
@@ -85,7 +86,7 @@ import * as actions from '../../../redux/actions/GPSActions'
      }
 
      componentWillReceiveProps(nextProps) {
-        let {initialized} = nextProps;
+        let {initialized, user} = nextProps;
         let {onPoint} = this.props;
         let oldInitialized = this.props.initialized;
         if (oldInitialized == false && initialized == true){
@@ -98,19 +99,11 @@ import * as actions from '../../../redux/actions/GPSActions'
      }
 
      render = () => {
-         let {initialized, loading, coordinates} = this.props;
+         let {initialized, loading, coordinates, user} = this.props;
 
          return (
              <View style={styles.container}>
-                 <Text style={styles.paragraph}>
-                     initialized = {JSON.stringify(initialized)}
-                 </Text>
-                 <Text style={styles.paragraph}>
-                     loading = {JSON.stringify(loading)}
-                 </Text>
-                 <Text style={styles.paragraph}>
-                     coordinates = {JSON.stringify(coordinates)}
-                 </Text>
+
              </View>
          );
      }
@@ -119,11 +112,12 @@ import * as actions from '../../../redux/actions/GPSActions'
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#ecf0f1',
+            display: 'none'
+        // flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // paddingTop: Constants.statusBarHeight,
+        // backgroundColor: '#ecf0f1',
     },
     paragraph: {
         margin: 24,
@@ -136,6 +130,7 @@ const styles = StyleSheet.create({
  const mapStateToProps = (state) => {
     return {
         currentUserId: state.users.currentUserId,
+        user: state.users.usersMap.get(state.users.currentUserId),
         coordinates: state.gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t)),
         initialized: state.gps.initialized,
         loading: state.gps.loading

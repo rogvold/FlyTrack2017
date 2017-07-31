@@ -19,10 +19,13 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "expo": "^19.0.0",
     "immutable": "^3.8.1",
     "moment": "^2.18.1",
     "parse": "^1.10.0",
+    "pouchdb-adapter-react-native-sqlite": "^1.0.3",
+    "pouchdb-react-native": "^6.2.6",
     "pusher-js": "^4.1.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
@@ -30,6 +33,7 @@
     "redux": "^3.7.2",
     "redux-persist": "^4.8.2",
     "redux-persist-transform-immutable": "^4.3.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.1.0"
   }
 }

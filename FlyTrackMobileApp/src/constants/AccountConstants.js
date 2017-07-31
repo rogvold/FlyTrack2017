@@ -16,4 +16,21 @@ export const COMPANY_NAME = 'FlyTrack';
 export const EMPTY_AVATAR = 'https://pre00.deviantart.net/1fa9/th/pre/i/2010/182/2/d/facebook_avatar_3_by_cynfullpryde.jpg'
 
 //realtime
-export const PUSHER_KEY = 'fe30ee437924f2b7251d';
+export const PUSHER_KEY = 'f4adb3a1aed31d09bfda';
+export const PUSHER_SECRET = '40a5e59a117555ee6014';
+export const PUSHER_CLUSTER = 'mt1';
+
+export const NAVIGATION_TABS = [
+    {
+        name: 'index',
+        label: 'Sessions'
+    },
+    {
+        name: 'flight',
+        label: 'Flight'
+    },
+    {
+        name: 'settings',
+        label: 'Settings'
+    }
+]

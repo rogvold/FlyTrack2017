@@ -133,3 +133,11 @@ export const ON_GPS_POINTS_RECEIVED = 'ON_GPS_POINTS_RECEIVED'
 export const INIT_GPS = 'INIT_GPS'
 export const INIT_GPS_SUCCESS = 'INIT_GPS_SUCCESS'
 export const INIT_GPS_FAIL = 'INIT_GPS_FAIL'
+
+//flight
+export const START_FLIGHT = 'START_FLIGHT'
+export const STOP_FLIGHT = 'STOP_FLIGHT'
+
+//tab
+export const SELECT_NAVIGATION_TAB = 'SELECT_NAVIGATION_TAB'
+

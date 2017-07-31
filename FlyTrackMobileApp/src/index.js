@@ -33,15 +33,13 @@ const store = (__DEV__ ? createStore(
             reducer,
             undefined,
             compose(
-                applyMiddleware(thunkMiddleware, loggerMiddleware),
-                autoRehydrate()
+                applyMiddleware(thunkMiddleware, loggerMiddleware)
             )
         ) : createStore(
             reducer,
             undefined,
             compose(
-                applyMiddleware(thunkMiddleware),
-                autoRehydrate()
+                applyMiddleware(thunkMiddleware)
             )
         )
 )

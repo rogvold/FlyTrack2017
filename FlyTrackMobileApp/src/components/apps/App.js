@@ -30,6 +30,15 @@ import * as actions from '../../redux/actions/SportActions'
 import GPSDaemon from '../gps/panels/GPSDaemon'
 
 import AuthUserPanel from '../users/panels/AuthUserPanel'
+import RealtimeDaemon from '../realtime/panels/RealtimeDaemon'
+
+import BottomNavigationPanel from '../navigation/panels/BottomNavigationPanel'
+
+import SettingsApp from './SettingsApp'
+import GPSApp from './GPSApp'
+import InitializingApp from './InitializingApp'
+
+
 
 class App extends React.Component {
 
@@ -59,15 +68,46 @@ class App extends React.Component {
 
 
     render = () => {
+        let {initialized, tab, user} = this.props;
+
+        if (initialized == false){
+            return <InitializingApp />
+        }
+
+        if (user == undefined){
+            return (
+                <View style={{flex: 1, padding: 50}} >
+                    <AuthUserPanel />
+                </View>
+            )
+        }
 
         return (
-            <ScrollView style={styles.container} >
+            <View style={styles.container} >
 
-                <AuthUserPanel />
+                <ScrollView>
 
-                <GPSDaemon />
+                    {tab != 'settings' ? null :
+                        <SettingsApp />
+                    }
 
-            </ScrollView>
+                    {tab != 'flight' ? null :
+                        <GPSApp />
+                    }
+
+                </ScrollView>
+
+                {initialized == false ? null :
+                    <View style={{display: 'none'}} >
+                        <GPSDaemon />
+                        <RealtimeDaemon />
+                    </View>
+                }
+
+
+                <BottomNavigationPanel />
+
+            </View>
         )
     }
 
@@ -76,7 +116,8 @@ class App extends React.Component {
 var styles = StyleSheet.create({
     container: {
         paddingTop: 30,
-        paddingBottom: 40
+        paddingBottom: 50,
+        flex: 1
     },
 
 });
@@ -84,7 +125,10 @@ var styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        organizations: state.organizations.organizationsMap.toArray().sort((a, b) => (b.timestamp - a.timestamp))
+        organizations: state.organizations.organizationsMap.toArray().sort((a, b) => (b.timestamp - a.timestamp)),
+        initialized: state.users.initialized,
+        tab: state.navigation.tab,
+        user: state.users.usersMap.get(state.users.currentUserId)
     }
 }
 
