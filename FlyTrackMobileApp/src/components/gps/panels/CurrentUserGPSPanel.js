@@ -47,7 +47,9 @@
 
      static propTypes = {}
 
-     state = {}
+     state = {
+         tab: 'my_points'
+     }
 
      //ES5 - componentWillMount
      constructor(props) {
@@ -63,8 +65,12 @@
      }
 
      render = () => {
-         let {coordinates, startFlightTimestamp, startFlight, stopFlight, aircraft} = this.props;
+         let {coordinates, startFlightTimestamp,
+             parseBufferPoints, pusherNotMinePoints,
+             startFlight, stopFlight, aircraft, pusherPoints} = this.props;
          let lastCoordinate = (coordinates == undefined || coordinates.length == 0) ? undefined : coordinates[coordinates.length -1];
+
+         let {tab} = this.state;
 
          return (
              <ScrollView style={styles.container} >
@@ -117,11 +123,73 @@
                      </View>
                  }
 
-                 <View style={{marginTop: 30, paddingTop: 10, borderTopWidth: 1, borderTopColor: 'black'}} >
-                     <Text>
-                         All coordinates: {JSON.stringify(coordinates)}
-                     </Text>
+                 <View style={{
+                     flexDirection: 'row',
+                     padding: 10,
+                     paddingLeft: 0,
+                     paddingRight: 0,
+                     borderTopWidth: 1,
+                     borderBottomWidth: 1,
+                     borderColor: 'lightgrey',
+                     alignItems: 'center',
+                     justifyContent: 'center',
+                     marginTop: 80
+                 }} >
+                     <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center', flex: 1}} onPress={() => {this.setState({tab: 'my_points'})}} >
+                         <Text style={{textAlign: 'center', fontWeight: (tab == 'my_points') ? 'bold' : 'normal'}} >
+                             GPS
+                         </Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center', flex: 1}} onPress={() => {this.setState({tab: 'pusher_not_mine_points'})}} >
+                         <Text style={{textAlign: 'center', fontWeight: (tab == 'pusher_not_mine_points') ? 'bold' : 'normal'}} >
+                             Pusher ({pusherNotMinePoints.length})
+                         </Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center', flex: 1}} onPress={() => {this.setState({tab: 'parse_buffer'})}} >
+                         <Text style={{textAlign: 'center', fontWeight: (tab == 'parse_buffer') ? 'bold' : 'normal'}} >
+                             Parse buffer ({parseBufferPoints.length})
+                         </Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={{justifyContent: 'center', alignItems: 'center', flex: 1}} onPress={() => {this.setState({tab: 'pusher_points'})}} >
+                         <Text style={{textAlign: 'center', fontWeight: (tab == 'pusher_points') ? 'bold' : 'normal'}} >
+                             Pusher buffer ({pusherPoints.length})
+                         </Text>
+                     </TouchableOpacity>
                  </View>
+
+                 {tab != 'my_points' ? null :
+                     <View style={{paddingTop: 10}} >
+                         <Text>
+                             {coordinates.length}
+                         </Text>
+                     </View>
+                 }
+
+                 {tab != 'pusher_points' ? null :
+                     <View style={{paddingTop: 10}} >
+                         <Text>
+                             {JSON.stringify(pusherPoints)}
+                         </Text>
+                     </View>
+                 }
+
+                 {tab != 'parse_buffer' ? null :
+                     <View style={{paddingTop: 10}} >
+                         <Text>
+                             {JSON.stringify(parseBufferPoints)}
+                         </Text>
+                     </View>
+                 }
+
+                 {tab != 'pusher_not_mine_points' ? null  :
+                    <View>
+                        <Text>
+                            {JSON.stringify(pusherNotMinePoints)}
+                        </Text>
+                    </View>
+                 }
+
+
 
              </ScrollView>
          )
@@ -142,7 +210,21 @@
         coordinates: state.gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t)),
         startFlightTimestamp: state.flight.startFlightTimestamp,
         selectedAircraftId: state.aircrafts.selectedAircraftId,
-        aircraft: state.aircrafts.aircraftsMap.get(state.aircrafts.selectedAircraftId)
+        aircraft: state.aircrafts.aircraftsMap.get(state.aircrafts.selectedAircraftId),
+
+        pusherPoints: state.gps.coordinatesMap.toArray()
+                      .filter((a) => (a.t > state.realtime.lastTimestamp))
+                      .sort((a, b) => (a.t - b.t)),
+
+        parseBufferPoints: state.gps.coordinatesMap.toArray()
+                            .filter((a) => ((a.synced == false) && (a.startTimestamp != undefined)))
+                            .sort((a, b) => (a.t - b.t)),
+
+        pusherNotMinePoints: state.realtime.pointsMap.toArray()
+            .filter((a) => {
+                return ((a.user != undefined) && (a.user.id != state.users.currentUserId))})
+                        .sort((a, b) => (a.t - b.t)),
+
     }
  }
 

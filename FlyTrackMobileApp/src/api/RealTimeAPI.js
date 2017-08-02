@@ -30,6 +30,10 @@ const RealTimeAPI = {
                     };
                 }
             });
+            pusher.connection.bind('state_change', function(states) {
+                console.log('pusher: state_change: states = ', states);
+                // states = {previous: 'oldState', current: 'newState'}
+            });
             global.pusher = pusher;
             return pusher;
         }
@@ -103,24 +107,30 @@ const RealTimeAPI = {
     },
 
     sendEvent(channelName, eventName, data){
-        let pusher = this.getPusherInstance();
-        // console.log('sendEvent: channelName = ', channelName);
-        // console.log('sendEvent: eventName, data = ', eventName, data);
-        if (channelName.indexOf('private-') == -1){
-            channelName = 'private-' + channelName;
-        }
-        // console.log('sendEvent: after checking: channelName = ', channelName);
-        let channel = this.getChannelByName(channelName);
-        if (channel == undefined){
-            channel = this.subscribeOnChannel(channelName);
-        }
-        // console.log('triggering channel = ', channel);
-        try{
-            channel.trigger(eventName, data);
-        }catch(exc){
-            console.log('Exception: ', exc);
-        }
-
+        return new Promise((resolve, reject) => {
+            let pusher = this.getPusherInstance();
+            console.log('sendEvent: channelName = ', channelName);
+            // console.log('sendEvent: eventName, data = ', eventName, data);
+            if (channelName.indexOf('private-') == -1){
+                channelName = 'private-' + channelName;
+            }
+            // console.log('sendEvent: after checking: channelName = ', channelName);
+            let channel = this.getChannelByName(channelName);
+            if (channel == undefined){
+                channel = this.subscribeOnChannel(channelName);
+            }
+            // console.log('triggering channel = ', channel);
+            try{
+                let triggered = channel.trigger(eventName, data);
+                if (triggered == false){
+                    reject({message: 'can not trigger event'});
+                }else {
+                    resolve();
+                }
+            }catch(exc){
+                reject(exc);
+            }
+        })
     }
 
 }

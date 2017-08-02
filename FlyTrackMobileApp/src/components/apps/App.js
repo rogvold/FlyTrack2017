@@ -2,6 +2,7 @@
  * Created by sabir on 19.07.17.
  */
 
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -79,7 +80,7 @@ class App extends React.Component {
 
         if (user == undefined){
             return (
-                <View style={{flex: 1, padding: 50}} >
+                <View style={{flex: 1}} >
                     <AuthUserPanel />
                 </View>
             )
@@ -109,6 +110,8 @@ class App extends React.Component {
                         <ParseSenderDaemon />
                     </View>
                 }
+
+                <KeyboardSpacer />
 
             </View>
         )

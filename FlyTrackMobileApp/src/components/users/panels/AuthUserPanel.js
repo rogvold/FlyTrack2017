@@ -36,6 +36,8 @@
 
  import * as usersActions from '../../../redux/actions/UsersActions'
 
+ import LoginPanel from '../../auth/panels/LoginPanel'
+
  class AuthUserPanel extends React.Component {
 
      static defaultProps = {}
@@ -72,19 +74,7 @@
                  }
 
                  {currentUserId != undefined ? null :
-                     <TouchableHighlight
-                         style={{
-                         padding: 10,
-                         backgroundColor: 'pink',
-                         marginBottom: 10
-                     }}
-                         onPress={() => {
-                        login('test@test.ru', 'test');
-                 }} >
-                         <Text>
-                             login as test user (email = test@test.ru, password = test)
-                         </Text>
-                     </TouchableHighlight>
+                     <LoginPanel />
                  }
 
                  {currentUserId == undefined ? null :

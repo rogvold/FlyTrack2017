@@ -40,6 +40,8 @@ import LocalDatabaseAPI from '../../../api/LocalDatabaseAPI'
 // import RealmAPI from '../../../api/RealmAPI'
 import FlytrackHelper from '../../../helpers/FlytrackHelper'
 
+import * as actions from '../../../redux/actions/PusherActions'
+
  class RealtimeDaemon extends React.Component {
 
      static defaultProps = {
@@ -77,8 +79,8 @@ import FlytrackHelper from '../../../helpers/FlytrackHelper'
      }
 
      sendCoordinateToPusher(){
-         let {coordinates, user} = this.props;
-         if (coordinates == undefined || coordinates.length == 0 || user == undefined){
+         let {coordinates, user, sendNewPointsEvent, loading} = this.props;
+         if (coordinates == undefined || coordinates.length == 0 || user == undefined || loading == true){
              return null;
          }
          let c = coordinates[coordinates.length -1];
@@ -87,10 +89,20 @@ import FlytrackHelper from '../../../helpers/FlytrackHelper'
          //     () => {console.log('saved points to db');},
          //     err => {console.log('error while saving point to db: err = ', err);}
          // );
-         RealTimeAPI.sendEvent(channel.name, 'client-position', {
-             coordinate: c,
-             user: user
-         });
+
+         sendNewPointsEvent();
+
+         // RealTimeAPI.sendEvent(channel.name, 'client-position', {
+         //     coordinate: c,
+         //     user: user
+         // }).then(
+         //     () => {
+         //         console.log('successfully triggered event');
+         //     },
+         //     err => {
+         //         console.log('error while triggering event');
+         //     }
+         // );
      }
 
      initTimer = () => {
@@ -130,14 +142,19 @@ import FlytrackHelper from '../../../helpers/FlytrackHelper'
 
  const mapStateToProps = (state) => {
     return {
-        coordinates: state.gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t)),
-        user: state.users.usersMap.get(state.users.currentUserId)
+        coordinates: state.gps.coordinatesMap.toArray()
+            .filter((a) => (a.t > state.realtime.lastTimestamp))
+            .sort((a, b) => (a.t - b.t)),
+        user: state.users.usersMap.get(state.users.currentUserId),
+        loading: state.realtime.loading
     }
  }
 
  const mapDispatchToProps = (dispatch) => {
     return {
-
+        sendNewPointsEvent: () => {
+            return dispatch(actions.sendPusherEvent())
+        }
     }
  }
 

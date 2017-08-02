@@ -22,13 +22,13 @@ export const PUSHER_CLUSTER = 'mt1';
 
 export const NAVIGATION_TABS = [
     {
-        name: 'index',
-        label: 'Sessions'
-    },
-    {
         name: 'flight',
         label: 'Flight'
     },
+    // {
+    //     name: 'index',
+    //     label: 'Sessions'
+    // },
     {
         name: 'settings',
         label: 'Settings'

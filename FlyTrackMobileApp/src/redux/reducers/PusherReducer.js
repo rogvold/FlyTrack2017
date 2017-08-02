@@ -7,8 +7,10 @@ import * as types from '../ActionTypes.js'
 import {Map} from 'immutable'
 
 const initialState = {
-    channelsMap: Map(),
-    realtimeCalcMap: Map() //userId - calc data
+    // channelsMap: Map(),
+    pointsMap: Map(),
+    loading: false,
+    lastTimestamp: 0
 }
 
 
@@ -17,20 +19,34 @@ const PusherReducer =  (state = initialState, action = {}) => {
     switch (action.type) {
 
         case types.PUSHER_MESSAGE_RECEIVED:
-            // let data = action.data;
-            // let channelName = data.channelName;
-            // let channelsMap = Object.assign({}, state.channelsMap);
-            // if (channelsMap[channelName] == undefined){
-            //     channelsMap[channelName] = [];
-            // }
-            // data.t = +new Date();
-            // channelsMap[channelName].push(data.message);
-
             return {
                 ...state,
-                channelsMap: (state.channelsMap.get(action.data.channelName) == undefined) ?
-                                state.channelsMap.set(action.data.channelName, [action.data.message]) :
-                                state.channelsMap.set(action.data.channelName, state.channelsMap.get(action.data.channelName).concat([action.data.message]))
+                pointsMap: state.pointsMap.merge(action.points.reduce((map, p) => map.set(p.t, p), Map()))
+                // channelsMap: (state.channelsMap.get(action.data.channelName) == undefined) ?
+                //                 state.channelsMap.set(action.data.channelName, [action.data.message]) :
+                //                 state.channelsMap.set(action.data.channelName, state.channelsMap.get(action.data.channelName).concat([action.data.message]))
+            }
+
+        case types.SEND_EVENT:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case types.SEND_EVENT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
+
+        case types.SEND_EVENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                pointsMap: state.pointsMap.merge(action.points.reduce((map, p) => map.set(p.t, p), Map())),
+                lastTimestamp: (action.points.length == 0) ? state.lastTimestamp : action.points[action.points.length - 1].t
             }
 
 

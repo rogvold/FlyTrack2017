@@ -4,7 +4,7 @@
 import * as types from '../ActionTypes'
 
 const initialState = {
-    tab: 'index'
+    tab: 'flight'
 }
 
 const NavigationReducer =  (state = initialState, action = {}) => {
