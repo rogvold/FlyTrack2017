@@ -32,6 +32,22 @@ class SessionsDataPanel extends React.Component {
     render = () => {
         let {sessions, loading} = this.props;
 
+        let sortedSessions = sessions.sort((e1, e2) => {
+
+            if (e1.startTimestamp > e2.startTimestamp) {
+                return 1;
+            }
+
+            if (e1.startTimestamp < e2.startTimestamp) {
+                return -1;
+            }
+
+                return 0;
+
+        });
+
+        // console.log('sorted ', sortedSessions);
+
         return (
             <div className={'sessions_data_panel'} >
                 sessions = {JSON.stringify(sessions)}
@@ -43,6 +59,7 @@ class SessionsDataPanel extends React.Component {
 
 let getSessions = (state) => {
     let {timestamp} = state.dashboard;
+    let {aircraftsMap} = state.aircrafts;
     if (timestamp == undefined){
         return [];
     }
@@ -56,7 +73,7 @@ let getSessions = (state) => {
     }).map((session) => {
         let pts = sessionsDataMap.get(session.id);
         if (pts == undefined){pts = {lat: [], lon: [], alt: [], acc: [], times: [], bea: [], vel: []}}
-        return Object.assign({}, session, {points: pts});
+        return Object.assign({}, session, {points: pts, aircraft: aircraftsMap.get(session.aircraftId)});
     })
 }
 
@@ -74,6 +91,6 @@ const mapDispatchToProps = (dispatch) => {
    }
 }
 
-SessionsDataPanel = connect(mapStateToProps, mapDispatchToProps)(SessionsDataPanel)
+SessionsDataPanel = connect(mapStateToProps, mapDispatchToProps)(SessionsDataPanel);
 
 export default SessionsDataPanel

@@ -5,6 +5,8 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import moment from '../../../node_modules/moment/moment';
+import airfields from './airfield.json'
+
 // import { bindActionCreators } from 'redux';
 
 import * as dashboardActions from '../../redux/actions/DashboardActions'
@@ -27,6 +29,14 @@ const iconsList = {
     'GLIDER': L.icon({
         iconUrl: './assets/images/planes/glider0.png',
         iconSize: [40, 40],
+    }),
+    'AIRDROME': L.icon({
+        iconUrl: './assets/images/airdrome.png',
+        iconSize: [30, 30],
+    }),
+    'VERT': L.icon({
+        iconUrl: './assets/images/vert.png',
+        iconSize: [30, 30],
     })
 };
 
@@ -43,9 +53,7 @@ class LeafletMap extends React.Component {
     }
 
     state = {
-        aircraftsMap: {
 
-        }
     }
 
     //ES5 - componentWillMount
@@ -82,7 +90,7 @@ class LeafletMap extends React.Component {
         brng = (brng*180/Math.PI);
         brng = (brng + 360) % 360;
 
-        return -(brng-90);
+        return 90 - brng;
     };
 
     isAircraftVisible = (id) => {
@@ -97,9 +105,7 @@ class LeafletMap extends React.Component {
 
         messages = transformMessagesToDataArray(messages);
 
-        if (messages.length == 0) {
-            return;
-        }
+        if (messages.length == 0) return;
 
         let planes = getAircraftsByMessages(messages);
         let aircraftsIdsToSelect = [];
@@ -128,7 +134,6 @@ class LeafletMap extends React.Component {
 
             } else { //рисую маркер и полилайн
                 this.markers[message.aircraft.id] = L.marker([0, 0], {
-                    draggable: true,
                     icon: iconsList[message.aircraft.aircraftType],
                     rotationOrigin: 'center'
                 }).addTo(this.map);
@@ -145,7 +150,13 @@ class LeafletMap extends React.Component {
             selectManyAircrafts(aircraftsIdsToSelect);
         }
 
+    }
 
+    componentWillUnmount(){
+        if (this.map != undefined){
+            console.log('removing map');
+            this.map.remove();
+        }
     }
 
     initMap = () => {
@@ -160,20 +171,55 @@ class LeafletMap extends React.Component {
         let mapCenter = [56.1, 36.8];
         this.map = L.mapbox.map(this.mapContainer, 'mapbox.emerald', {
             keyboard: false,
-        }).setView(mapCenter, 12, null);
+        }).setView(mapCenter, 11.5, null);
+
+        this.loadAirfields();
 
         this.markers = {};
         this.polylines = {};
 
-        function onMapClick(e) { console.log("You clicked the map at " + e.latlng) }
-        this.map.on('click', onMapClick);
-
     } //end of initMap
+
+    loadAirfields = () => {
+        for (let drome of airfields.airdromes){
+            L.marker([drome.lat, drome.lon],
+                {opacity: 0.8,
+                icon: iconsList[(drome.type === 'airport' ? 'AIRDROME':'VERT')]})
+                .addTo(this.map)
+                .bindPopup(this.getDromeInfo(drome));
+        }
+    }
+
+    getDromeInfo = (d) => {
+        let freqStr = undefined;
+        let fieldType = (d.type === 'vert' ? 'Вертодром': 'Аэродром');
+
+        if (d.freq !== undefined){
+            if (Array.isArray(d.freq.item) === false) {
+                freqStr = d.freq.item.freq;
+            } else {
+                freqStr = '';
+                for (let i of d.freq.item){
+                    freqStr+= i.freq + ' ';
+                }
+            }
+        }
+
+        return (
+            `<b>Наименование: ${d.name}/${d.name_ru}</b> <br/>
+         Тип: ${fieldType}<br/>
+         Индекс: ${d.index}/${d.index_ru}<br/>
+         Частота: ${freqStr}<br/>
+         Координаты:<br/> 
+         [Широта: ${(''+d.lat).slice(0, 8)}, 
+         Долгота: ${(''+d.lon).slice(0, 8)}]`
+        );
+    }
 
     callFunction = () => {
         setTimeout(() => {
-            updatePlanesPositions(),
-                callFunction()}, 500);
+            this.updatePlanesPositions(),
+                this.callFunction()}, 500);
     }
 
     render = () => {
@@ -189,7 +235,6 @@ class LeafletMap extends React.Component {
 }
 
 let popupCreator = (message) => {
-    //language=HTML
     return (
         `Позывной: ${message.aircraft.callName}<br/>
          Тип: ${message.aircraft.aircraftType}<br/> 
@@ -296,6 +341,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap)
+LeafletMap = connect(mapStateToProps, mapDispatchToProps)(LeafletMap);
 
 export default LeafletMap

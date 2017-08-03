@@ -74,6 +74,6 @@ const mapDispatchToProps = (dispatch) => {
    }
 }
 
-DispatcherCalendar = connect(mapStateToProps, mapDispatchToProps)(DispatcherCalendar)
+DispatcherCalendar = connect(mapStateToProps, mapDispatchToProps)(DispatcherCalendar);
 
 export default DispatcherCalendar

@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import GroundUsersSearchComponent from '../friends/panels/GroundUsersSearchComponent'
+import GroundSessionPanel from '../sessions/panels/GroundSessionPanel'
 
 class GroundComponent extends React.Component {
 
@@ -35,6 +36,8 @@ class GroundComponent extends React.Component {
             <div>
 
                 <GroundUsersSearchComponent />
+
+                <GroundSessionPanel />
 
             </div>
         )

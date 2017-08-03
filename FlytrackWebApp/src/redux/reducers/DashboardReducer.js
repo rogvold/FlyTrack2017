@@ -10,14 +10,19 @@ const initialState = {
     loading: false,
     error: undefined,
     selectedAircraftsSet: Set(),
-    timestamp: undefined
+    timestamp: undefined,
+
+    activePlanes: {},
+    activeAircrafts: new Set(),
+    currentTime: 0,
+    default_dt: 200,
+    speed: 1,
 }
 
 
 const DashboardReducer =  (state = initialState, action = {}) => {
 
     switch (action.type) {
-
 
 
         case types.SELECT_AIRCRAFT_IN_DASHBOARD:
@@ -46,6 +51,29 @@ const DashboardReducer =  (state = initialState, action = {}) => {
                 }, Set()))
             }
 
+
+        case types.SET_AIRCRAFTS_FROM_HISTORY:
+            return{
+                ...state,
+                activeAircrafts: action.activeAircrafts,
+                currentTime: action.currentTime,
+                speed: action.speed
+            }
+
+
+        case types.SET_CURRENT_TIME:
+            return {
+                ...state,
+                currentTime: action.currentTime,
+                default_dt: action.default_dt,
+                speed: action.speed,
+            }
+
+        case types.SHOW_ACTIVE_PLANES:
+            return {
+                ...state,
+                activePlanes: action.activePlanes,
+            }
 
         default:
             return state;

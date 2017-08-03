@@ -37,6 +37,7 @@ class MonitoringTab extends React.Component {
 
     }
 
+
     render = () => {
 
         return (
@@ -50,21 +51,14 @@ class MonitoringTab extends React.Component {
                     </div>
 
                     <div className={'right_placeholder'} >
-
-                        {/*<div className={'calendar_placeholder'} >*/}
-                            {/*<DispatcherCalendar />*/}
-                        {/*</div>*/}
-
                         <div className="planes_list_placeholder">
+                            Активные самолеты:<br/>
                             <PlanesList />
                         </div>
-
                     </div>
-
                 </div>
         )
     }
-
 }
 
 

@@ -88,10 +88,7 @@ class PlanesList extends React.Component {
                                  {message.aircraft.callName}
 
                              </div>
-
-
                             {isActive ? <div className="plane_spoiler">{popupCreator(message)}</div> : null}
-
                         </div>
                     )
                 })}
@@ -178,7 +175,6 @@ let transformMessagesToDataArray = (messages) => {
 };
 
 let popupCreator = (message) => {
-    //language=HTML
     return (
         <ul>
             <li>Тип: {message.aircraft.aircraftType}</li>

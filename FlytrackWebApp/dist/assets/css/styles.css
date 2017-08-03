@@ -654,12 +654,21 @@
       width: calc(100% - 280px);
       padding: 10px;
       border-right: 1px solid whitesmoke; }
+      .dispatcher_dashboard_panel .content_panel .left_placeholder .history_map_placeholder {
+        width: 100%;
+        height: calc(100% - 35px); }
       .dispatcher_dashboard_panel .content_panel .left_placeholder .mapbox_map {
         position: relative;
         display: block;
         margin: 0 auto;
         width: 100%;
         height: 100%; }
+      .dispatcher_dashboard_panel .content_panel .left_placeholder .history_controlpanel {
+        width: 100%;
+        background-color: #fcfcfc;
+        border-radius: 3px;
+        display: inline-block;
+        padding-bottom: 5px; }
     .dispatcher_dashboard_panel .content_panel .right_placeholder {
       display: inline-block;
       vertical-align: top;
@@ -728,4 +737,157 @@ span.red {
   margin-left: 5px; }
 
 .right {
+  text-align: right; }
+
+.routeChoiser {
+  padding: 10px;
+  font-size: 30px; }
+
+.SingleRouteMapPlaceholder {
+  display: inline-block;
+  vertical-align: top;
+  height: calc(100% - 20px);
+  width: 100%;
+  padding: 2px;
+  border-right: 1px solid whitesmoke; }
+
+.history_controlpanel {
+  width: 100%;
+  background-color: #fcfcfc;
+  border-radius: 3px;
+  display: inline-block;
+  padding-bottom: 5px; }
+  .history_controlpanel .map_slider {
+    width: calc(100% - 298px);
+    display: inline-block;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px; }
+  .history_controlpanel .map_buttons {
+    width: 180px;
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 0px; }
+  .history_controlpanel .map_clock {
+    display: inline-block;
+    padding-left: 2px;
+    padding-right: 8px; }
+
+.session_panel_placeholder {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  padding-top: 0px; }
+  .session_panel_placeholder .session_panel {
+    width: 100%;
+    height: 100%;
+    display: inline-block; }
+    .session_panel_placeholder .session_panel .session_user_name {
+      display: inline-block;
+      text-align: left; }
+    .session_panel_placeholder .session_panel .session_datetime {
+      width: 76%;
+      text-align: center;
+      display: inline-block;
+      margin: 0 auto;
+      position: absolute;
+      opacity: 0.5; }
+    .session_panel_placeholder .session_panel .session_tabs_placeholder {
+      display: inline-block;
+      float: right;
+      padding-bottom: 1px; }
+      .session_panel_placeholder .session_panel .session_tabs_placeholder .selected_tab {
+        display: inline-block;
+        font-weight: bold;
+        padding-right: 3px;
+        padding-left: 3px;
+        padding-top: 0px;
+        padding-bottom: 3px;
+        border-bottom: 3px solid #9749dc; }
+      .session_panel_placeholder .session_panel .session_tabs_placeholder .unselected_tab {
+        text-decoration: none;
+        display: inline-block;
+        padding: 2px;
+        padding-top: 0px;
+        padding-bottom: 3px; }
+    .session_panel_placeholder .session_panel .mapbox_single_map {
+      display: block;
+      width: 100%;
+      height: calc(100% - 35px);
+      padding-top: 1px; }
+      .session_panel_placeholder .session_panel .mapbox_single_map .mapbox_single_route_map {
+        width: 100%;
+        height: calc(75% - 55px);
+        padding-bottom: 5px; }
+      .session_panel_placeholder .session_panel .mapbox_single_map .altDiagram {
+        padding-top: 5px;
+        display: inline-block;
+        width: calc(100% - 110px - 80px - 40px); }
+      .session_panel_placeholder .session_panel .mapbox_single_map .single_controlpanel {
+        width: 100%;
+        border-radius: 3px;
+        display: inline-block;
+        padding-top: 3px; }
+        .session_panel_placeholder .session_panel .mapbox_single_map .single_controlpanel .map_slider {
+          width: calc(100% - 110px - 80px - 60px - 10px);
+          display: inline-block;
+          text-align: left;
+          padding-left: 5px;
+          padding-right: 1px; }
+        .session_panel_placeholder .session_panel .mapbox_single_map .single_controlpanel .map_buttons {
+          width: 50px;
+          display: inline-block;
+          padding-left: 14px;
+          padding-right: 0px; }
+    .session_panel_placeholder .session_panel .cesium_placeholder {
+      padding-top: 1px;
+      width: 100%;
+      height: calc(100% - 25px); }
+
+.recharts_placeholder {
+  width: 100%;
+  height: 20%; }
+
+.aircraftSingleInfo {
+  width: 200px;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  list-style-type: none;
+  padding-top: -50px; }
+
+.history_planes_list {
+  width: calc(100% - 280px);
+  position: relative;
+  display: block;
+  vertical-align: top;
+  margin: 0 auto; }
+
+.cesium_map {
+  width: 500px;
+  height: 500px; }
+
+.user_sessions_panel {
+  margin: auto;
+  padding-bottom: 40px;
+  width: 100%;
+  height: 100%;
+  position: relative; }
+  .user_sessions_panel .session_item {
+    margin: auto;
+    vertical-align: top;
+    position: relative;
+    width: 70%;
+    height: 50%;
+    border: 1px solid powderblue;
+    border-radius: 3px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-top: 5px; }
+    .user_sessions_panel .session_item .preview_map {
+      padding: 5px;
+      height: 92%; }
+
+.datetime_placeholder {
   text-align: right; }

@@ -2,14 +2,17 @@
  * Created by lesha on 08.06.17.
  */
 import React, {PropTypes} from 'react';
+
+import UserSessionsPanel from "../../sessions/panels/UserSessionsPanel"
+
+import MonitoringTab from "./MonitoringTab";
+import HistoryTab from "./HistoryTab";
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-// import DispatcherCalendar from './DispatcherCalendar'
-// import LeafletMap from '../../map/LeafletMap'
-// import PlanesList from '../../map/PlanesList'
-import MonitoringTab from "./MonitoringTab";
-import HistoryTab from "./HistoryTab";
+
+
 
 class DispatcherDashboardPanel extends React.Component {
 
@@ -22,7 +25,7 @@ class DispatcherDashboardPanel extends React.Component {
     }
 
     state = {
-        activeTab: 'monitoring'
+        activeTab: 'feed'
     }
 
     //ES5 - componentWillMount
@@ -46,6 +49,10 @@ class DispatcherDashboardPanel extends React.Component {
             <div className={'dispatcher_dashboard_panel'} >
 
                 <div className={'header_panel'} >
+                    <div className={this.state.activeTab === 'feed' ? 'selected_tab':'unselected_tab pointer '} onClick={() => {this.setState({activeTab: 'feed'})}}>
+                        feed
+                    </div>
+
                     <div className={this.state.activeTab === 'monitoring' ? 'selected_tab':'unselected_tab pointer '} onClick={() => {this.setState({activeTab: 'monitoring'})}}>
                         monitoring_tab
                     </div>
@@ -53,8 +60,10 @@ class DispatcherDashboardPanel extends React.Component {
                     <div className={this.state.activeTab === 'history' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'history'})}}>
                         history_tab
                     </div>
+
                 </div >
 
+                {this.state.activeTab !== 'feed' ? null: <UserSessionsPanel userId={'HegpmMKJjp'} />}
                 {this.state.activeTab !== 'monitoring' ? null: <MonitoringTab />}
                 {this.state.activeTab !== 'history' ? null: <HistoryTab />}
 
