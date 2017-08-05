@@ -22,9 +22,6 @@ const PusherReducer =  (state = initialState, action = {}) => {
             return {
                 ...state,
                 pointsMap: state.pointsMap.merge(action.points.reduce((map, p) => map.set(p.t, p), Map()))
-                // channelsMap: (state.channelsMap.get(action.data.channelName) == undefined) ?
-                //                 state.channelsMap.set(action.data.channelName, [action.data.message]) :
-                //                 state.channelsMap.set(action.data.channelName, state.channelsMap.get(action.data.channelName).concat([action.data.message]))
             }
 
         case types.SEND_EVENT:

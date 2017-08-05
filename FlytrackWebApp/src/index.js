@@ -21,6 +21,7 @@ import ParseAPI from './api/ParseAPI.js';
 import * as usersActions from './redux/actions/UsersActions.js';
 
 import * as initActions from './redux/actions/InitActions'
+import * as organizationsActions from './redux/actions/OrganizationsActions'
 
 import {reducer} from './redux/reducers'
 
@@ -76,6 +77,7 @@ let init = () => {
         return dispatch(usersActions.initializeAuthorization())
             .then(
                 (payload) => {
+                    dispatch(organizationsActions.loadOrganizations());
                     if (payload == undefined || payload.user == undefined){
                         return Promise.resolve();
                     }

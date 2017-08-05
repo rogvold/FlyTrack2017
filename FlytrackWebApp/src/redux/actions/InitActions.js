@@ -10,7 +10,6 @@ import * as realtimeActions from './RealtimeActions'
 
 export function loadEverything(){
     return (dispatch, getState) => {
-        dispatch(organizationsActions.loadOrganizations());
         dispatch(aircraftsActions.loadUsersAircrafts());
     }
 }

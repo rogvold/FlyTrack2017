@@ -37,9 +37,11 @@
  import { Constants, Location, Permissions } from 'expo';
 
  import GPSAPI from '../../../api/GPSAPI'
+ import RealTimeAPI from '../../../api/RealTimeAPI'
  // import RealmAPI from '../../../api/RealmAPI'
 
 import * as actions from '../../../redux/actions/GPSActions'
+import * as pusherActions from '../../../redux/actions/PusherActions'
 
  class GPSDaemon extends React.Component {
 
@@ -58,28 +60,8 @@ import * as actions from '../../../redux/actions/GPSActions'
      }
 
      componentWillMount() {
-         // if (Platform.OS === 'android' && !Constants.isDevice) {
-         //     this.setState({
-         //         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-         //     });
-         // } else {
-         //     this._getLocationAsync();
-         // }
+
      }
-
-     // _getLocationAsync = async () => {
-     //     // let { status } = await Permissions.askAsync(Permissions.LOCATION);
-     //     // if (status !== 'granted') {
-     //     //     this.setState({
-     //     //         errorMessage: 'Permission to access location was denied',
-     //     //     });
-     //     // }
-     //     //
-     //     // let location = await Location.getCurrentPositionAsync({});
-     //     // this.setState({ location });
-     // };
-
-
 
      componentDidMount() {
 
@@ -87,13 +69,21 @@ import * as actions from '../../../redux/actions/GPSActions'
 
      componentWillReceiveProps(nextProps) {
         let {initialized, user} = nextProps;
-        let {onPoint} = this.props;
+        let {onPoint, onPusherMessageReceived} = this.props;
         let oldInitialized = this.props.initialized;
         if (oldInitialized == false && initialized == true){
             console.log('trying to subscribe on points receiving');
             GPSAPI.subscribeOnLocationUpdate((p) => {
                 onPoint(p)
             })
+        }
+        if (this.props.coordinates.length == 0 && nextProps.coordinates.length > 0){
+            RealTimeAPI.subscribeOnCellChannelsByLatAndLon(
+                nextProps.coordinates[0].lat,
+                nextProps.coordinates[0].lon, function(data){
+                    // console.log('data received from Pusher: data = ', data);
+                    onPusherMessageReceived(data);
+                })
         }
 
      }
@@ -141,6 +131,9 @@ const styles = StyleSheet.create({
     return {
         onPoint: (data) => {
             return dispatch(actions.onNewLocationsReceived([data]))
+        },
+        onPusherMessageReceived: (data) => {
+            return dispatch(pusherActions.onPusherMessageReceived(data))
         }
     }
  }

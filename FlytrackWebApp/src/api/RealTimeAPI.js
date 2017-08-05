@@ -2,17 +2,16 @@
  * Created by sabir on 22.07.17.
  */
 
-import * as constants from '../constants/AccountConstants'
+import * as constants from '../constants/config'
 
-import Pusher from 'pusher-js/react-native';
+// import Pusher from 'pusher-js/react-native';
+import Pusher from 'pusher-js';
 import CryptoJS from 'crypto-js'
-
-import FlytrackHelper from '../helpers/FlytrackHelper'
 
 const RealTimeAPI = {
 
     getPusherInstance(){
-        let pusher = global.pusher;
+        let pusher = window.pusher;
         if (pusher == undefined){
             pusher = new Pusher(constants.PUSHER_KEY, {
                 cluster: constants.PUSHER_CLUSTER,
@@ -34,21 +33,21 @@ const RealTimeAPI = {
             });
             pusher.connection.bind('state_change', function(states) {
                 console.log('pusher: state_change: states = ', states);
-
                 // states = {previous: 'oldState', current: 'newState'}
             });
-            global.pusher = pusher;
+            window.pusher = pusher;
             return pusher;
         }
         return pusher;
     },
 
-    subscribeOnChannel(channelName, onDataReceivedCallback){
+    subscribeOnChannel(channelName){
         console.log('subscribeOnChannel: channelName = ', channelName);
         if (channelName.indexOf('private-') == -1){
             channelName = 'private-' + channelName;
         }
         console.log('subscribeOnChannel: after checking channelName = ', channelName);
+
         console.log('subscribing on channel: channelName = ', channelName);
         let pusher = this.getPusherInstance();
         let channels = pusher.allChannels();
@@ -62,33 +61,8 @@ const RealTimeAPI = {
         }
         console.log('channelName = ', channelName);
         if (f == false){
-            let ch = global.pusher.subscribe(channelName);
-            ch.bind('client-position', function(data){
-                if (onDataReceivedCallback != undefined){
-                    onDataReceivedCallback(data);
-                }
-            })
-            return ch;
+            return window.pusher.subscribe(channelName);
         }
-    },
-
-    subscribeOnManyChannels(channelNames, onDataReceivedCallback){
-        let self = this;
-        for (let i in channelNames){
-            let chName = channelNames[i];
-            ((name, interval) => {
-                setTimeout(() => {
-                    self.subscribeOnChannel(name, onDataReceivedCallback);
-                }, interval)
-            })(chName, 20 * i);
-        }
-    },
-
-    subscribeOnCellChannelsByLatAndLon(lat, lon, onDataReceivedCallback){
-        console.log('subscribeOnCellChannelsByLatAndLon: lat, lon = ', lat, lon);
-        let channels = FlytrackHelper.getSubscribeChannelsByLocation(lat, lon);
-        let names = channels.map(c => c.name);
-        this.subscribeOnManyChannels(names, onDataReceivedCallback);
     },
 
     getChannelByName(channelName){
@@ -113,7 +87,7 @@ const RealTimeAPI = {
         }
         console.log('unsubscribeFromChannel: after checking channelName = ', channelName);
         let pusher = this.getPusherInstance();
-        global.pusher.unsubscribe(channelName);
+        window.pusher.unsubscribe(channelName);
     },
 
     bindEvent(channelName, eventName, callback){
