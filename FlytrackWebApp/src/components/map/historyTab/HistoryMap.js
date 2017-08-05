@@ -52,6 +52,10 @@ class HistoryMap extends React.Component {
     componentWillReceiveProps(){
     }
 
+    componentWillUnmount(){
+        if (this.map != undefined) this.map.remove();
+    }
+
     getActivePlanesSet = () => {
         let {currentTime, loading, sessions} = this.props;
         if (loading) return new Set();
@@ -164,22 +168,22 @@ class HistoryMap extends React.Component {
 
                     if (this.polylines[route.id]._latlngs.length > 0) {
                         this.markers[route.id].setRotationAngle(this.getAngle({
-                            'lat': route.points.lon[i-1],
-                            'lng': route.points.lat[i-1]
+                            'lat': route.points.lat[i],
+                            'lng': route.points.lon[i]
                         }, {
-                            'lat': route.points.lon[i],
-                            'lng': route.points.lat[i]
+                            'lat': route.points.lat[i],
+                            'lng': route.points.lon[i]
                         }));
                         this.markers[route.id].bindPopup(this.getPopupInfo(route,i));
                     }
                     this.markers[route.id].setLatLng({
-                        'lat': route.points.lon[i],
-                        'lng': route.points.lat[i]
+                        'lat': route.points.lat[i],
+                        'lng': route.points.lon[i]
                     }).addTo(this.map);
 
                     this.polylines[route.id].addLatLng({
-                        'lat': route.points.lon[i],
-                        'lng': route.points.lat[i]
+                        'lat': route.points.lat[i],
+                        'lng': route.points.lon[i]
                     }).addTo(this.map);
                 }
             }
@@ -214,6 +218,7 @@ class HistoryMap extends React.Component {
     }
 
     updateMap  = () => {
+        if (this.map === undefined) return;
         let activePlanesSet = this.getActivePlanesSet();
         if (activePlanesSet.length == 0) return;
         this.clearMapIfLoading(activePlanesSet);

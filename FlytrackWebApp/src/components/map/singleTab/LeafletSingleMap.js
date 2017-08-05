@@ -114,26 +114,26 @@ class LeafletSingleMap extends React.Component {
                 this.setState({defaut_dt: Math.round((points.times[this.state.index+1] - points.times[this.state.index])/2 )});
 
                 this.markers[id].setLatLng({ // добавили текущую точку
-                    'lat': points.lon[this.state.index],
-                    'lng': points.lat[this.state.index]
+                    'lat': points.lat[this.state.index],
+                    'lng': points.lon[this.state.index]
                 }).addTo(this.map);
 
                 if (this.polylines[id]._latlngs.length > 1) { //поворот, если точек больше одной
                     this.markers[id].setRotationAngle(this.getAngle({
-                        'lat': points.lon[this.state.index-1],
-                        'lng': points.lat[this.state.index-1]
+                        'lat': points.lat[this.state.index-1],
+                        'lng': points.lon[this.state.index-1]
                     }, {
-                        'lat': points.lon[this.state.index],
-                        'lng': points.lat[this.state.index]
+                        'lat': points.lat[this.state.index],
+                        'lng': points.lon[this.state.index]
                     }));
                 }
                 this.polylines[id].addLatLng({ // добавили текущую точку
-                    'lat': points.lon[this.state.index],
-                    'lng': points.lat[this.state.index]
+                    'lat': points.lat[this.state.index],
+                    'lng': points.lon[this.state.index]
                 }).addTo(this.map);
                 this.map.setView({
-                    'lat': points.lon[this.state.index],
-                    'lng': points.lat[this.state.index]
+                    'lat': points.lat[this.state.index],
+                    'lng': points.lon[this.state.index]
                 });
             }
 
@@ -154,17 +154,17 @@ class LeafletSingleMap extends React.Component {
 
             if (this.state.index > 1) { //ПОВОРОТ
                 this.markers[id].setRotationAngle(this.getAngle({
-                    'lat': points.lon[this.state.index-1],
-                    'lng': points.lat[this.state.index-1]
+                    'lat': points.lat[this.state.index-1],
+                    'lng': points.lon[this.state.index-1]
                 }, {
-                    'lat': points.lon[this.state.index],
-                    'lng': points.lat[this.state.index]
+                    'lat': points.lat[this.state.index],
+                    'lng': points.lon[this.state.index]
                 }));
             }
         }
         this.markers[id].setLatLng({ // добавили текущую точку
-            'lat': points.lon[this.state.index],
-            'lng': points.lat[this.state.index]
+            'lat': points.lat[this.state.index],
+            'lng': points.lon[this.state.index]
         }).addTo(this.map);
 
         this.setState({

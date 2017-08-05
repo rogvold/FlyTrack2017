@@ -52,7 +52,11 @@ class HistoryTab extends React.Component {
     render = () => {
 
         if (this.props.timestamp === undefined && !this.props.loading){
-            return <DispatcherCalendar />;
+            return (
+                <div className={'history_calendar_placeholder'}>
+                    <DispatcherCalendar />
+                </div>
+            )
         }
         // let sortedSessions = this.props.sessions.sort((e1, e2) => {
         //     if (e1.startTimestamp > e2.startTimestamp) {

@@ -7,6 +7,7 @@ import UserSessionsPanel from "../../sessions/panels/UserSessionsPanel"
 
 import MonitoringTab from "./MonitoringTab";
 import HistoryTab from "./HistoryTab";
+import CalendarTab from "./CalendarTab";
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,7 +26,7 @@ class DispatcherDashboardPanel extends React.Component {
     }
 
     state = {
-        activeTab: 'feed'
+        activeTab: 'calendar'
     }
 
     //ES5 - componentWillMount
@@ -61,11 +62,16 @@ class DispatcherDashboardPanel extends React.Component {
                         history_tab
                     </div>
 
+                    <div className={this.state.activeTab === 'calendar' ? 'selected_tab':'unselected_tab pointer'} onClick={() => {this.setState({activeTab: 'calendar'})}}>
+                        calendar
+                    </div>
+
                 </div >
 
                 {this.state.activeTab !== 'feed' ? null: <UserSessionsPanel userId={'HegpmMKJjp'} />}
                 {this.state.activeTab !== 'monitoring' ? null: <MonitoringTab />}
                 {this.state.activeTab !== 'history' ? null: <HistoryTab />}
+                {this.state.activeTab !== 'calendar' ? null: <CalendarTab />}
 
             </div>
         )
