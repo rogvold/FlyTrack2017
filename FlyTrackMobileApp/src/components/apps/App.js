@@ -82,7 +82,7 @@ class App extends React.Component {
 
 
     render = () => {
-        let {initialized, tab, user} = this.props;
+        let {initialized, tab, user, isLoggedIn} = this.props;
         Expo.ScreenOrientation.allow('PORTRAIT_UP');
 
         if (this.state.fontLoaded == false){
@@ -124,7 +124,7 @@ class App extends React.Component {
                     <BottomNavigationPanel />
                 }
 
-                {initialized == false ? null :
+                {(initialized == false || isLoggedIn == false) ? null :
                     <View style={{display: 'none'}} >
                         <GPSDaemon />
                         <RealtimeDaemon />
@@ -155,7 +155,10 @@ const mapStateToProps = (state) => {
         organizations: state.organizations.organizationsMap.toArray().sort((a, b) => (b.timestamp - a.timestamp)),
         initialized: state.users.initialized,
         tab: state.navigation.tab,
-        user: state.users.usersMap.get(state.users.currentUserId)
+        user: state.users.usersMap.get(state.users.currentUserId),
+
+        isLoggedIn: (state.users.currentUserId != undefined)
+
     }
 }
 
