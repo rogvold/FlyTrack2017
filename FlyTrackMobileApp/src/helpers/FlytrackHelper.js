@@ -2,6 +2,8 @@
  * Created by sabir on 09.06.17.
  */
 
+import {Map} from 'immutable'
+
 const FlytrackHelper = {
 
     getFriendsListByLinksAndUsers(linksMap, usersMap, currentUserId){
@@ -303,7 +305,31 @@ const FlytrackHelper = {
         let minutes = Math.floor(seconds / 60);
         seconds = seconds % 60;
         return (this.getGoodTime(minutes) + ':' + this.getGoodTime(seconds));
+    },
+
+    getRealtimeAircrafts(realtimePointsMap, currentUserId){
+        let messages = realtimePointsMap.toArray()
+                        .filter((a) => ((a.user != undefined) && (a.user.id != currentUserId)))
+                        .sort((a, b) => (a.t - b.t));
+        return messages.reduce((map, message) => {
+            let points = map.get(message.aircraft.id) == undefined ? [] : map.get(message.aircraft.id).points;
+            points = points.concat([{
+                t: message.t,
+                lat: message.lat,
+                lon: message.lon,
+                alt: message.alt,
+                acc: message.acc,
+                bea: message.bea,
+                vel: message.vel
+            }])
+            return map.set(message.aircraft.id, {
+                user: message.user,
+                points: points,
+                aircraft: message.aircraft
+            })
+        }, Map()).toArray()
     }
+
 
 }
 

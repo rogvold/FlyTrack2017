@@ -81,7 +81,7 @@ import * as pusherActions from '../../../redux/actions/PusherActions'
             RealTimeAPI.subscribeOnCellChannelsByLatAndLon(
                 nextProps.coordinates[0].lat,
                 nextProps.coordinates[0].lon, function(data){
-                    // console.log('data received from Pusher: data = ', data);
+                    console.log('data received from Pusher: data = ', data);
                     onPusherMessageReceived(data);
                 })
         }

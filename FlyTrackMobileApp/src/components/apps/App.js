@@ -7,6 +7,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import MityayApp from '../AppArchitecture/App'
+
 import {
     AppRegistry,
     StyleSheet,
@@ -40,7 +42,7 @@ import SettingsApp from './SettingsApp'
 import GPSApp from './GPSApp'
 import InitializingApp from './InitializingApp'
 
-import {Constants} from 'expo'
+import {Constants, Font} from 'expo'
 
 class App extends React.Component {
 
@@ -50,15 +52,13 @@ class App extends React.Component {
 
     static propTypes = {}
 
-    state = {}
+    state = {
+        fontLoaded: false
+    }
 
     //ES5 - componentWillMount
     constructor(props) {
         super(props);
-    }
-
-    componentDidMount() {
-
     }
 
     componentWillReceiveProps() {
@@ -69,39 +69,60 @@ class App extends React.Component {
 
     }
 
+    async componentDidMount() {
+        await Font.loadAsync({
+            'segoeui': require('../../../assets/fonts/segoeui.ttf'),
+            'segoeuib': require('../../../assets/fonts/segoeuib.ttf'),
+            'seguisb': require('../../../assets/fonts/seguisb.ttf'),
+        });
+
+        this.setState({ fontLoaded: true });
+    }
+
 
 
     render = () => {
         let {initialized, tab, user} = this.props;
+        Expo.ScreenOrientation.allow('PORTRAIT_UP');
+
+        if (this.state.fontLoaded == false){
+            return <View style={styles.container}></View>;
+        }
 
         if (initialized == false){
             return <InitializingApp />
         }
 
-        if (user == undefined){
-            return (
-                <View style={{flex: 1}} >
-                    <AuthUserPanel />
-                </View>
-            )
-        }
+        // if (user == undefined){
+        //     return (
+        //         <View style={{flex: 1}} >
+        //             <AuthUserPanel />
+        //         </View>
+        //     )
+        // }
 
         return (
             <View style={styles.container} >
 
-                <ScrollView>
+                <MityayApp />
 
-                    {tab != 'settings' ? null :
-                        <SettingsApp />
-                    }
+                {true == true ? null :
+                    <ScrollView>
 
-                    {tab != 'flight' ? null :
-                        <GPSApp />
-                    }
+                        {tab != 'settings' ? null :
+                            <SettingsApp />
+                        }
 
-                </ScrollView>
+                        {tab != 'flight' ? null :
+                            <GPSApp />
+                        }
 
-                <BottomNavigationPanel />
+                    </ScrollView>
+                }
+
+                {true == true ? null :
+                    <BottomNavigationPanel />
+                }
 
                 {initialized == false ? null :
                     <View style={{display: 'none'}} >
@@ -121,8 +142,8 @@ class App extends React.Component {
 
 var styles = StyleSheet.create({
     container: {
-        paddingBottom: 50,
-        paddingTop: Constants.statusBarHeight,
+        // paddingBottom: 50,
+        // paddingTop: Constants.statusBarHeight,
         flex: 1
     },
 

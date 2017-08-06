@@ -8,10 +8,10 @@ import RealTimeAPI from '../../api/RealTimeAPI'
 import FlytrackHelper from '../../helpers/FlytrackHelper'
 
 export function onPusherMessageReceived(data){
-    let {points, user} = data;
+    let {points, user, aircraft} = data;
     if (points != undefined){
         points = points.map((p) => {
-            return {...p, user: user}
+            return {...p, user: user, aircraft: aircraft}
         })
     }
     return {
@@ -52,9 +52,11 @@ export function sendPusherEvent(){
         }
         let channelName = FlytrackHelper.getPublishChannelByLocation(c.lat, c.lon).name;
         let user = getState().users.usersMap.get(getState().users.currentUserId)
+        let aircraft = getState().aircrafts.aircraftsMap.get(getState().aircrafts.selectedAircraftId)
         return RealTimeAPI.sendEvent(channelName, 'client-position', {
             points: coordinates,
-            user: user
+            user: user,
+            aircraft: aircraft
         }).then(
             () => dispatch(sendPusherEventSuccess(coordinates)),
             err => dispatch(sendPusherEventFail(err))
