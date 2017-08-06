@@ -147,8 +147,8 @@ class LeafletSingleMap extends React.Component {
 
             for (let i = 0; i < this.state.index; i++){
                 this.polylines[id].addLatLng({ // добавили точки до текущей
-                    'lat': points.lon[i],
-                    'lng': points.lat[i]
+                    'lat': points.lat[i],
+                    'lng': points.lon[i]
                 }).addTo(this.map);
             }
 

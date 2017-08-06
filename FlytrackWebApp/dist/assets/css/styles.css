@@ -835,7 +835,7 @@ span.red {
     .session_panel_placeholder .session_panel .mapbox_single_map {
       display: block;
       width: 100%;
-      height: calc(100% - 35px);
+      height: calc(100% - 40px);
       padding-top: 1px; }
       .session_panel_placeholder .session_panel .mapbox_single_map .mapbox_single_route_map {
         width: 100%;
@@ -934,7 +934,8 @@ span.red {
     text-align: center; }
     .calendar_tab_placeholder .calendar_sessions_list .calendar_element {
       width: auto;
-      margin: 3px;
+      margin: 8px;
+      cursor: pointer;
       border: 1px solid #ededed;
       border-radius: 3px;
       background-color: #f9f9f9;
@@ -942,6 +943,8 @@ span.red {
       margin: 0 auto;
       padding: 10px;
       margin-bottom: 10px; }
+      .calendar_tab_placeholder .calendar_sessions_list .calendar_element.selected {
+        opacity: 0.8; }
       .calendar_tab_placeholder .calendar_sessions_list .calendar_element:hover {
         background-color: #f5f5f5; }
 

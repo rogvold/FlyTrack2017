@@ -47,9 +47,9 @@ class CesiumView extends React.Component {
             let time = Cesium.JulianDate.fromDate(new Date(times[i]));  //раскомментить с нормальным временем
             // let time = Cesium.JulianDate.fromDate(new Date(times[i]-172800000)); //двое суток сдвиг
 
-            let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], alt[i]); //раскомментить с нормальными высотами
-            // let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], 400);
-            // let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], 400);
+            // let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], alt[i]); //раскомментить с нормальными высотами
+            // let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], 600);
+            let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], 50);
 
             property.addSample(time, position);
         }
@@ -74,8 +74,8 @@ class CesiumView extends React.Component {
         console.log(new Date(points.times[0]));
         console.log(new Date(points.times[points.times.length-1]));
 
-        let start = Cesium.JulianDate.fromDate(new Date(points.times[0]-172800000));
-        let stop = Cesium.JulianDate.fromDate(new Date(points.times[points.times.length-1]-172800000));
+        let start = Cesium.JulianDate.fromDate(new Date(points.times[0]));
+        let stop = Cesium.JulianDate.fromDate(new Date(points.times[points.times.length-1]));
 
         this.viewer.clock.startTime = start.clone();
         this.viewer.clock.stopTime = stop.clone();
@@ -91,8 +91,8 @@ class CesiumView extends React.Component {
         let position = this.getPositions();
         let {points, session} = this.props.props;
 
-        let start = Cesium.JulianDate.fromDate(new Date(points.times[0]-172800000));
-        let stop = Cesium.JulianDate.fromDate(new Date(points.times[points.times.length-1]-172800000));
+        let start = Cesium.JulianDate.fromDate(new Date(points.times[0]));
+        let stop = Cesium.JulianDate.fromDate(new Date(points.times[points.times.length-1]));
 
         this.entity = this.viewer.entities.add({
             availability : new Cesium.TimeIntervalCollection([new Cesium.TimeInterval({
