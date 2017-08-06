@@ -692,11 +692,14 @@
       display: inline-block;
       vertical-align: top;
       height: 100%;
-      width: 280px; }
+      width: 280px;
+      max-height: calc(100vh - 104px);
+      overflow-y: auto; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .calendar_placeholder {
         margin-bottom: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid lightgray; }
+        border-bottom: 1px solid lightgray;
+        height: 380px; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list {
         max-height: calc(100vh - 104px);
         overflow: auto;
@@ -876,11 +879,14 @@ span.red {
   padding-top: -50px; }
 
 .history_planes_list {
-  width: calc(100% - 320px);
+  height: calc(100% - 380px);
   position: relative;
   display: block;
   vertical-align: top;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 5px; }
+  .history_planes_list .plane_oneline {
+    cursor: pointer; }
 
 .cesium_map {
   width: 500px;

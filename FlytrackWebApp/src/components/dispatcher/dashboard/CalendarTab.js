@@ -87,8 +87,11 @@ class CalendarTab extends React.Component {
                         selectedTimestamp={selectedTimestamp == undefined ? null:selectedTimestamp}
 
                         onDayClick={(t) => {
-                            if ((+moment(t).startOf('day') == +moment(this.state.selectedTimestamp)) && (this.state.selectedTimestamp != undefined)){
-                                t = undefined;
+                            if ((+moment(t).startOf('day') == +moment(this.state.selectedTimestamp).startOf('day')) && (this.state.selectedTimestamp != undefined)){
+                                this.setState({
+                                    selectedTimestamp: undefined
+                                });
+                                return;
                             }
                             this.setState({
                                 selectedTimestamp: t

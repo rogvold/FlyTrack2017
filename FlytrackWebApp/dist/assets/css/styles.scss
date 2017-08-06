@@ -1116,10 +1116,15 @@ $top_dashboard_panel_height: 50px;
       vertical-align: top;
       height: 100%;
       width: $right_dashboard_panel_width;
+      max-height: calc(100vh - 104px);
+      overflow-y: auto;
       .calendar_placeholder{
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray;
+        //todo: fix it
+        height: 380px;
+
       }
       .planes_list{
         max-height: calc(100vh - 104px);
@@ -1378,11 +1383,16 @@ span.red{
 }
 
 .history_planes_list {
-  width: calc(100% - 320px);
+  //width: calc(100% - 320px);
+  height: calc(100% - 380px);
   position: relative;
   display: block;
   vertical-align: top;
   margin: 0 auto;
+  padding: 5px;
+  .plane_oneline{
+    cursor: pointer;
+  }
 }
 
 .cesium_map {

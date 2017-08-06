@@ -41,8 +41,9 @@ class UserSessionsPanel extends React.Component {
     }
 
     loadFeed = () => {
-        let {sessions, selectSession} = this.props;
+        let {sessions, selectSession, getSessionPoints} = this.props;
         return sessions.map((session, key) => {
+            // let points = getSessionPoints(session.id);
             return(
                 <div className={'session_item'} key ={session.id} onClick={() => {
                     selectSession(session.id)
@@ -95,6 +96,9 @@ const mapStateToProps = (state, ownProps) => {
    return {
        sessions: getUserSessions(state, ownProps.userId),
        loading: state.sessions.loading,
+       getSessionPoints: (sessionId) => {
+           return getPoints(state, sessionId)
+       }
    }
 }
 
