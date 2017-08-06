@@ -37,6 +37,8 @@ import LanguageSetter from './LanguageSetter'
 
 import * as usersActions from '../../../redux/actions/UsersActions'
 
+import CurrentUserGPSPanel from '../../gps/panels/CurrentUserGPSPanel'
+
 // Component
 class SettingsSc extends Component {
 
@@ -58,7 +60,7 @@ class SettingsSc extends Component {
 
     render() {
 
-        let { store, session, user} = this.props;
+        let { store, session, user, currentAircraft} = this.props;
 
         let MapType = (
             <View style={{width: '100%', padding: '2%', marginBottom: window.height * 0.02, backgroundColor: mvConsts.tabBackColor, borderRadius: mvConsts.littleRadius, alignItems: 'center', justifyContent: 'center', shadowColor: mvConsts.shadowColor, shadowRadius: mvConsts.shadowRadius, shadowOpacity: mvConsts.shadowOpacity, shadowOffset: mvConsts.shadowOffset, }}>
@@ -104,8 +106,17 @@ class SettingsSc extends Component {
                             {user.email}
                         </Text>
                     </View>
+                    {currentAircraft == undefined ? null :
+                        <View style={{paddingTop: 5, paddingBottom: 5, flexDirection: 'row'}} >
+                            <Text style={{flex: 1, textAlign: 'center'}} >
+                                {currentAircraft.name} | {currentAircraft.callName} | {currentAircraft.number} | {currentAircraft.aircraftType}
+                            </Text>
+                        </View>
+                    }
 
                     {SignOut}
+
+                    <CurrentUserGPSPanel />
 
                 </ScrollView>
             </View>
@@ -119,7 +130,8 @@ let mapStateToProps = (state) => {
         store: state.store,
         session: state.session,
 
-        user: state.users.usersMap.get(state.users.currentUserId)
+        user: state.users.usersMap.get(state.users.currentUserId),
+        currentAircraft: state.aircrafts.aircraftsMap.get(state.aircrafts.selectedAircraftId)
 
     }
 };

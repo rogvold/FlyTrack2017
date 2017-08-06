@@ -18,6 +18,7 @@ import store from './store.js';
 
 export const reducer = combineReducers({
     realtime: PusherReducer,
+
     aircrafts: AircraftsReducer,
     organizations: OrganizationsReducer,
     sessions: SessionsReducer,

@@ -3,6 +3,21 @@
     "sdkVersion": "19.0.0",
     "name": "FlyTrack",
     "slug": "flytrack",
-    "privacy": "public"
+    "privacy": "public",
+
+    "icon": "./assets/logo_512_android-01.png",
+    "loading": {
+      "icon": "./assets/logo_512_android-01.png",
+      "backgroundColor": "#E2E2E2"
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
+    "ios": {
+      "icon": "./assets/logo_512_ios.png"
+    },
+    "android": {
+      "icon": "./assets/logo_512_android-01.png"
+    }
   }
 }

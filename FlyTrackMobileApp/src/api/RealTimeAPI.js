@@ -136,7 +136,7 @@ const RealTimeAPI = {
     sendEvent(channelName, eventName, data){
         return new Promise((resolve, reject) => {
             let pusher = this.getPusherInstance();
-            console.log('sendEvent: channelName = ', channelName);
+            console.log('sendEvent: channelName, eventName, data = ', channelName, eventName, data);
             // console.log('sendEvent: eventName, data = ', eventName, data);
             if (channelName.indexOf('private-') == -1){
                 channelName = 'private-' + channelName;
@@ -152,9 +152,11 @@ const RealTimeAPI = {
                 if (triggered == false){
                     reject({message: 'can not trigger event'});
                 }else {
+                    console.log('successfully triggered event');
                     resolve();
                 }
             }catch(exc){
+                console.log('can not trigger event: exception = ', exc);
                 reject(exc);
             }
         })

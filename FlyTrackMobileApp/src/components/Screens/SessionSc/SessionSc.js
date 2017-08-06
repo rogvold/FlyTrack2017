@@ -35,6 +35,10 @@ import MVButton from '../ProfileSc/MVButton'
 
 import FlytrackHelper from '../../../helpers/FlytrackHelper'
 
+import * as flightActions from '../../../redux/actions/FlightActions'
+
+import * as constants from '../../../constants/AccountConstants'
+
 // Component
 class SessionSc extends Component {
 
@@ -55,6 +59,9 @@ class SessionSc extends Component {
         textleft: new Animated.Value(-window.width),
         infomode: false,
         followingmode: true,
+
+        selectedTrackAircraftId: undefined
+
     }
 
 
@@ -63,34 +70,16 @@ class SessionSc extends Component {
     }
 
     mapToMyAircraft = () => {
-        let { store, session } = this.props;
-        let myAircraft = session.aircrafts[session.myAircraftNumber]
+        let { store, session , myPosition} = this.props;
+        if (myPosition == undefined){return;}
         let newRegion = {
-            latitude: myAircraft.latitude,
-            longitude: myAircraft.longitude,
+            latitude: myPosition.lat,
+            longitude: myPosition.lon,
             latitudeDelta: 0.03,
             longitudeDelta: 0.03,
         }
         this.setState({region: newRegion})
         this.refs.MapView.animateToRegion(region=newRegion, duration=mvConsts.animationOpcityScDuration)
-    }
-
-    move = () => {
-        let {session} = this.props
-        let aircrafts = session.aircrafts
-        let delta = 0.001
-        if (this.state.moving) {
-            for (let i in aircrafts) {
-                this.props.pushTrack(i, aircrafts[i].latitude, aircrafts[i].longitude)
-                this.props.moveAircraft(i, aircrafts[i].latitude + delta, aircrafts[i].longitude)
-            }
-        }
-
-        // if (this.state.moving && this.state.followingmode) {
-        //     this.mapToMyAircraft()
-        // }
-        //
-        setTimeout(() => {this.move()}, 1000)
     }
 
     initialRegion = () => {
@@ -117,7 +106,6 @@ class SessionSc extends Component {
             longitude: (minlongtitude + maxlongtitude) / 2,
             latitudeDelta: maxlatitude - minlatitude,
             longitudeDelta: maxlongtitude - minlongtitude,
-
         }
     }
 
@@ -149,16 +137,18 @@ class SessionSc extends Component {
     }
 
     onButtonPress = () => {
-        let {store} = this.props
+        let {store, startFlight, stopFlight} = this.props
         this.setState({moving: !this.state.moving})
         if (this.state.moving) {
             this.hidemode()
-            this.props.setEndDate(Date.now())
-            this.props.opacityPush(mvConsts.opacityLayers.sessionedit, {})
+            stopFlight();
+            // this.props.setEndDate(Date.now())
+            // this.props.opacityPush(mvConsts.opacityLayers.sessionedit, {})
         } else {
             this.shortmode()
-            this.props.setStartDate(Date.now())
-            this.props.setEndDate(undefined)
+            startFlight();
+            // this.props.setStartDate(Date.now())
+            // this.props.setEndDate(undefined)
         }
     }
 
@@ -170,16 +160,30 @@ class SessionSc extends Component {
             this.hidemode();
         }
 
-        this.move();
+
         if (this.props.session.showenTrackFlightId !== undefined) {
             this.setState({region: this.initialRegion()})
+        }
+
+        this.refreshIntervalId = setInterval(() => {
+            this.forceUpdate();
+        }, 2000);
+
+    }
+
+    componentWillUnmount(){
+        if (this.refreshIntervalId != undefined){
+            clearInterval(this.refreshIntervalId);
         }
     }
 
     render() {
-
-        let { store, session, myPosition, currentUser, realtimeAircrafts} = this.props;
+        let { store, session, myPosition, currentUser, myRotation,
+            realtimeAircrafts, startFlightTimestamp, myCoordinates,
+            getAircraftTrack, currentAircraft, getTimeFromLastMessage} = this.props;
         let iconSide = window.height * 0.08;
+        let {selectedTrackAircraftId} = this.state;
+        let selectedTrackAircraftPoints = getAircraftTrack(selectedTrackAircraftId);
 
         let scaleRegion = (index) => {
             let newRegion = {
@@ -194,26 +198,6 @@ class SessionSc extends Component {
             }
         }
 
-        let track = (aircraftNumber) => {
-            let track = []
-            for (let i in session.aircrafts[aircraftNumber].track) {
-                track.push(
-                    {
-                        latitude : session.aircrafts[aircraftNumber].track[i].latitude,
-                        longitude : session.aircrafts[aircraftNumber].track[i].longitude,
-                    }
-                )
-            }
-            track.push(
-                {
-                    latitude : session.aircrafts[aircraftNumber].latitude,
-                    longitude : session.aircrafts[aircraftNumber].longitude,
-                }
-            )
-            return (
-                track
-            )
-        }
 
         let buttons = [
             {
@@ -261,23 +245,19 @@ class SessionSc extends Component {
             return distance + store.dictionary.km
         }
 
-        let time = () => {
 
-            let startTime = session.startDate
-            let currentTime = Date.now()
+        let timeElapsed = (startFlightTimestamp == undefined) ? 0 : (+new Date() - startFlightTimestamp);
+        let seconds = Math.floor((timeElapsed / 1000 )) % 60;
+        let minutes = Math.floor(timeElapsed / 60000.0);
+        if (seconds < 10){seconds = '0' + seconds}
+        if (minutes < 10){minutes = '0' + minutes}
+        let timeElapsedString = minutes + ':' + seconds;
+        let myPointsFromStart = myCoordinates.filter(a => (a.t > startFlightTimestamp));
+        let distanceFromStart = FlytrackHelper.getTrackDistance(myPointsFromStart);
+        distanceFromStart = Math.round(distanceFromStart * 10.0) / 10.0;
+        distanceFromStart = distanceFromStart + ' ' + store.dictionary.km;
+        let realtimeTimeout = constants.FLIGHT_REALTIME_TIMEOUT;
 
-            let duration = (currentTime - startTime)/60000;
-            let hours = Math.trunc(duration / 60);
-            let minutes = duration % 60;
-            if (minutes === 0) {
-                minutes = '00';
-            }
-            let seconds = Math.round(60 * (minutes%1))
-            minutes = Math.trunc(minutes)
-            let time = hours + ':' + minutes + ':' + seconds
-
-            return time
-        }
 
         return (
             <View style={{width: '100%', height: '100%', borderRadius: mvConsts.littleRadius, }}>
@@ -298,29 +278,46 @@ class SessionSc extends Component {
 
                     {realtimeAircrafts.map((aircraft, index) => {
                         let pos = aircraft.points[aircraft.points.length - 1];
+                        let angle = (aircraft.points.length < 2) ? 0 : FlytrackHelper.angleFromCoordinates(pos.lat, pos.lon, aircraft.points[aircraft.points.length - 2].lat, aircraft.points[aircraft.points.length - 2].lon);
+                        let timeFromLast = getTimeFromLastMessage(aircraft.aircraft.id);
+                        timeFromLast = Math.floor(timeFromLast / 1000.0);
 
                         if (mvConsts.distance(pos.lat, pos.lon, myPosition.lat, myPosition.lon ) < session.visibleRadius) {
                             return(
                                 <MapView.Marker
-                                    key={aircraft.id}
+                                    key={aircraft.aircraft.id + '_' + index}
                                     coordinate={
                                         {
                                             latitude: pos.lat,
                                             longitude: pos.lon,
                                         }
                                     }
-
-
+                                    image={require('../../../../assets/aircraft-01.png')}
+                                    rotation={angle}
                                     identifier={aircraft.id}
                                     onPress={() => {
-                                        {/*if (this.state.showing === index) {*/}
-                                            {/*this.setState({showing: undefined})*/}
-                                        {/*} else {*/}
-                                            {/*this.setState({showing: index})*/}
-                                        {/*}*/}
+                                        console.log('onPlane press occured: aircraft = ', aircraft);
+                                        if (selectedTrackAircraftId == aircraft.aircraft.id){
+                                           this.setState({
+                                                selectedTrackAircraftId: undefined
+                                            });
+                                            return;
+                                        }
+                                        this.setState({
+                                            selectedTrackAircraftId: aircraft.aircraft.id
+                                        });
                                     }}
                                 >
-                                    <Image ref='image' style={{transform: [ { rotate: `${0}deg` } ]}} source={require('../../../../assets/aircraft-01.png')} />
+                                    <View style={{backgroundColor: ((timeFromLast < realtimeTimeout) ? 'rgba(255, 255, 255, 0.6)' : 'red' ), padding: 3, borderRadius: 3}} >
+                                        <Text style={{flex: 1, fontWeight: 'bold', fontSize: 14, textAlign: 'center'}} >
+                                            {aircraft.aircraft.callName}
+                                        </Text>
+                                        {timeFromLast < realtimeTimeout ? null :
+                                            <Text>
+                                                {timeFromLast} s
+                                            </Text>
+                                        }
+                                    </View>
                                 </MapView.Marker>
                             )
                         }
@@ -334,35 +331,43 @@ class SessionSc extends Component {
                                             longitude: myPosition.lon,
                                         }
                                     }
-
-
+                            image={require('../../../../assets/aircraft-my.png')}
+                            rotation={myRotation}
                             identifier={(currentUser == undefined ? 'guest' : currentUser.id)}
                             onPress={() => {
-
+                                        console.log('my aircraft clicked: currentAircraft = ', currentAircraft);
+                                        if (currentAircraft == undefined){return}
+                                        if (selectedTrackAircraftId == currentAircraft.id){
+                                           this.setState({
+                                                selectedTrackAircraftId: undefined
+                                            });
+                                            return;
+                                        }
+                                        this.setState({
+                                            selectedTrackAircraftId: currentAircraft.id
+                                        });
                                     }}
-                        >
-                            <Image ref='image' style={{transform: [ { rotate: `${0}deg` } ]}} source={require('../../../../assets/aircraft-my.png')} />
-                        </MapView.Marker>
+                        />
+                    }
+                    {myPosition == undefined ? null :
+                        <MapView.Circle
+                            center={{
+                            latitude: myPosition.lat,
+                            longitude: myPosition.lon,
+                        }}
+                            radius={session.warningRadius * 1000}
+                            strokeWidth={0}
+                            fillColor={'rgba(223, 62, 63, 0.3)'}
+                        />
                     }
 
-                    <MapView.Circle
-                        center={{
-                            latitude: session.aircrafts[session.myAircraftNumber].latitude,
-                            longitude: session.aircrafts[session.myAircraftNumber].longitude,
-                        }}
-                        radius={session.warningRadius * 1000}
-                        strokeWidth={0}
-                        fillColor={'rgba(223, 62, 63, 0.3)'}
-                    />
-
                     {
-                        this.state.showing !== undefined ?
+                        selectedTrackAircraftPoints.length == 0 ? undefined :
                             <MapView.Polyline
                                 strokeWidth={4}
                                 strokeColor={mvConsts.fontColorSecondary}
-                                coordinates={track(this.state.showing)}
+                                coordinates={selectedTrackAircraftPoints.map(p => {return {latitude: p.lat, longitude: p.lon}})}
                             />
-                            : null
                     }
 
                     {
@@ -410,10 +415,10 @@ class SessionSc extends Component {
                         />
                         <Animated.View style={{left: this.state.textleft, position: 'absolute', flexDirection: 'row', }}>
                             <View style={{width: window.width * 0.24, borderRadius: mvConsts.littleRadius, alignItems: 'center', justifyContent: 'center', }}>
-                                <Text style={{fontFamily: mvConsts.fontFamilyRegular, fontSize: mvConsts.fontSizeMiddle * 1.2, color: mvConsts.fontColorMain, }} >{distance()}</Text>
+                                <Text style={{fontFamily: mvConsts.fontFamilyRegular, fontSize: mvConsts.fontSizeMiddle * 1.2, color: mvConsts.fontColorMain, }} >{distanceFromStart}</Text>
                             </View>
                             <View style={{width: window.width * 0.24, borderRadius: mvConsts.littleRadius, alignItems: 'center', justifyContent: 'center', }}>
-                                <Text style={{fontFamily: mvConsts.fontFamilyRegular, fontSize: mvConsts.fontSizeMiddle * 1.2, color: mvConsts.fontColorMain, }} >{time()}</Text>
+                                <Text style={{fontFamily: mvConsts.fontFamilyRegular, fontSize: mvConsts.fontSizeMiddle * 1.2, color: mvConsts.fontColorMain, }} >{timeElapsedString}</Text>
                             </View>
                         </Animated.View>
                     </Animated.View>
@@ -442,6 +447,16 @@ let getMyPosition = (state) => {
     return coords[coords.length -1];
 }
 
+let getMyRotation = (state) => {
+    let coords = state.gps.coordinatesMap.toArray()
+        .sort((a, b) => (a.t - b.t));
+    if (coords == undefined || coords.length < 2){
+        return undefined;
+    }
+    return FlytrackHelper.angleFromCoordinates(coords[coords.length - 2].lat, coords[coords.length - 2].lon,
+                                               coords[coords.length - 1].lat, coords[coords.length - 1].lon)
+}
+
 let mapStateToProps = (state) => {
     return {
         store: state.store,
@@ -449,26 +464,55 @@ let mapStateToProps = (state) => {
 
         myCoordinates: state.gps.coordinatesMap.toArray()
             .sort((a, b) => (a.t - b.t)),
-        myPosition: getMyPosition(state),
-        currentUser: state.users.usersMap.get(state.users.currentUserId),
 
-        realtimeAircrafts: FlytrackHelper.getRealtimeAircrafts(state.realtime.pointsMap, state.users.currentUserId)
+        myPosition: getMyPosition(state),
+        myRotation: getMyRotation(state),
+        currentUser: state.users.usersMap.get(state.users.currentUserId),
+        currentAircraft: state.aircrafts.aircraftsMap.get(state.aircrafts.selectedAircraftId),
+
+        realtimeAircrafts: FlytrackHelper.getRealtimeAircrafts(state.realtime.pointsMap, state.users.currentUserId),
+
+        startFlightTimestamp: state.flight.startFlightTimestamp,
+
+        getAircraftTrack: (aircraftId) => {
+            console.log('getAircraftTrack: aircraftId = ', aircraftId);
+            if (aircraftId == undefined){
+                return [];
+            }
+            if (aircraftId == state.aircrafts.selectedAircraftId){
+                console.log('aircraftId == selectedAircraftId ');
+                return state.gps.coordinatesMap.toArray()
+                    .sort((a, b) => (a.t - b.t))
+            }
+            let airs = FlytrackHelper.getRealtimeAircrafts(state.realtime.pointsMap, state.users.currentUserId).filter(
+                dd => (dd.aircraft.id == aircraftId)
+            )
+            console.log('getAircraftTrack: airs = ', airs);
+            if (airs.length > 0){
+                return airs[0].points;
+            }
+            return [];
+        },
+
+        getTimeFromLastMessage: (aircraftId) => {
+            let airs = FlytrackHelper.getRealtimeAircrafts(state.realtime.pointsMap, state.users.currentUserId).filter(
+                dd => (dd.aircraft.id == aircraftId)
+            )
+            console.log('getTimeFromLastMessage: aircraftId = ', aircraftId);
+            if (airs.length == 0){
+                return 0;
+            }
+            let points = airs[0].points;
+            if (points.length == 0){return 0}
+            let now = +new Date();
+            return (now - +points[points.length - 1].t);
+        }
 
     }
 };
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        pushTrack: (index, latitude, longitude) => {
-            return dispatch({
-                type: 'pushTrack',
-                index: index,
-                coordinates: {
-                    latitude: latitude,
-                    longitude: longitude
-                }
-            })
-        },
         moveAircraft: (index, latitude, longitude) => {
             return dispatch({
                 type: 'moveAircraft',
@@ -496,6 +540,15 @@ let mapDispatchToProps = (dispatch) => {
                 endDate: endDate,
             })
         },
+
+        startFlight: () => {
+            return dispatch(flightActions.startFlight())
+        },
+
+        stopFlight: () => {
+            return dispatch(flightActions.stopFlight())
+        }
+
     }
 }
 

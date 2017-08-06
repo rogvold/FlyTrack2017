@@ -312,6 +312,7 @@ const FlytrackHelper = {
                         .filter((a) => ((a.user != undefined) && (a.user.id != currentUserId)))
                         .sort((a, b) => (a.t - b.t));
         return messages.reduce((map, message) => {
+            if (message == undefined || message.aircraft == undefined){return map}
             let points = map.get(message.aircraft.id) == undefined ? [] : map.get(message.aircraft.id).points;
             points = points.concat([{
                 t: message.t,
@@ -328,7 +329,41 @@ const FlytrackHelper = {
                 aircraft: message.aircraft
             })
         }, Map()).toArray()
-    }
+    },
+
+    getDistanceBetweenPoints(lat1, long1, lat2, long2){
+        let distance = 111.2 * (Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2-long1)))
+        return(distance)
+    },
+
+    getTrackDistance(points){
+        let res = 0.0;
+        if (points.length < 2){
+            return 0;
+        }
+        for (let i = 1; i < points.length - 1; i++){
+            res = res + this.getDistanceBetweenPoints(points[i-1].lat, points[i-1].lon, points[i].lat, points[i].lon);
+        }
+        return res;
+    },
+
+    angleFromCoordinates( lat1,  long1,  lat2, long2) {
+
+     let dLon = (long2 - long1);
+
+     let y = Math.sin(dLon) * Math.cos(lat2);
+     let x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+        * Math.cos(lat2) * Math.cos(dLon);
+
+    let brng = Math.atan2(y, x);
+        brng = (180.0 / Math.PI) * brng;
+    // brng = Math.toDegrees(brng);
+
+    brng = (brng + 360) % 360;
+    brng = 360 - brng;
+
+    return brng;
+}
 
 
 }

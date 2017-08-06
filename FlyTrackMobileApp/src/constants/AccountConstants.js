@@ -20,6 +20,11 @@ export const PUSHER_KEY = 'f4adb3a1aed31d09bfda';
 export const PUSHER_SECRET = '40a5e59a117555ee6014';
 export const PUSHER_CLUSTER = 'mt1';
 
+// export const MAXIMUM_PUSHER_INPUT_ACCURACY = 15;
+// export const MAXIMUM_PUSHER_INPUT_ACCURACY = 100;
+export const MAXIMUM_PUSHER_INPUT_ACCURACY = 10000;
+export const FLIGHT_REALTIME_TIMEOUT = 10; //seconds
+
 export const NAVIGATION_TABS = [
     {
         name: 'flight',

@@ -22,6 +22,7 @@ const stopLoading = (state, action) => {
 }
 
 const getLoadedUserDefaultAircraftId = (state, action) => {
+    console.log('getLoadedUserDefaultAircraftId occured');
     if (state.selectedAircraftId != undefined){
         return state.selectedAircraftId;
     }
@@ -29,6 +30,7 @@ const getLoadedUserDefaultAircraftId = (state, action) => {
     if (aircrafts == undefined || aircrafts.length == 0){
         return state.selectedAircraftId;
     }
+    console.log('returning ', aircrafts[0].id);
     return aircrafts[0].id;
 }
 

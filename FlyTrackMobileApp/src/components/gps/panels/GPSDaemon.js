@@ -43,6 +43,8 @@
 import * as actions from '../../../redux/actions/GPSActions'
 import * as pusherActions from '../../../redux/actions/PusherActions'
 
+ import * as constants from '../../../constants/AccountConstants'
+
  class GPSDaemon extends React.Component {
 
      static defaultProps = {}
@@ -80,8 +82,14 @@ import * as pusherActions from '../../../redux/actions/PusherActions'
         if (this.props.coordinates.length == 0 && nextProps.coordinates.length > 0){
             RealTimeAPI.subscribeOnCellChannelsByLatAndLon(
                 nextProps.coordinates[0].lat,
-                nextProps.coordinates[0].lon, function(data){
+                nextProps.coordinates[0].lon, (data) => {
                     console.log('data received from Pusher: data = ', data);
+                    let {points} = data;
+                    let pts = points.filter(p => (p.acc < constants.MAXIMUM_PUSHER_INPUT_ACCURACY))
+                    if (pts.length == 0){
+                        console.log('onPusherMessageReceived: bad accuracy');
+                        return;
+                    }
                     onPusherMessageReceived(data);
                 })
         }
@@ -133,6 +141,7 @@ const styles = StyleSheet.create({
             return dispatch(actions.onNewLocationsReceived([data]))
         },
         onPusherMessageReceived: (data) => {
+            console.log('-->> dispatching onPusherMessageReceived: data = ', data);
             return dispatch(pusherActions.onPusherMessageReceived(data))
         }
     }

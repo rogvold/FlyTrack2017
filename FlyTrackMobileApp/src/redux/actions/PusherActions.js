@@ -42,14 +42,20 @@ let sendPusherEventSuccess = (points) => {
 //thunk
 export function sendPusherEvent(){
     return (dispatch, getState) => {
+        console.log('sendPusherEvent occured: loading = ', getState().realtime.loading);
         dispatch(sendPusherEvent_());
-        let coordinates = getState().gps.coordinatesMap.toArray()
-            .filter(a => (a.t > getState().realtime.lastTimestamp))
-            .sort((a, b) => (a.t - b.t));
-        let c = (coordinates.length == 0) ? undefined : coordinates[coordinates.length - 1];
-        if (c == undefined){
+        let allCoordinates = getState().gps.coordinatesMap.toArray().sort((a, b) => (a.t - b.t));
+        let coordinates = allCoordinates.filter(a => (a.t > getState().realtime.lastTimestamp));
+        if (allCoordinates.length == 0){
+            console.log('sendPusherEvent: error: nothing to send');
             return dispatch(sendPusherEventFail({message: 'nothing to send'}))
         }
+        let c = (allCoordinates.length == 0) ? undefined : allCoordinates[allCoordinates.length - 1];
+        if (coordinates.length == 0){
+            console.log('no new coordinates');
+            coordinates = [allCoordinates[allCoordinates.length -1]];
+        }
+        console.log('new coordinates to send = ', coordinates);
         let channelName = FlytrackHelper.getPublishChannelByLocation(c.lat, c.lon).name;
         let user = getState().users.usersMap.get(getState().users.currentUserId)
         let aircraft = getState().aircrafts.aircraftsMap.get(getState().aircrafts.selectedAircraftId)
