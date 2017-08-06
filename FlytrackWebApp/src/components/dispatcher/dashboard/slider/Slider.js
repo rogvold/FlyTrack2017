@@ -26,10 +26,14 @@ class Slider extends React.Component {
     }
 
     componentDidMount(){
-        this.moveTimestamp()
+        this.interval = setInterval(() => this.moveTimestamp(), 200)
     }
 
     componentWillReceiveProps(){
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval);
     }
 
     moveTimestamp = () => {
@@ -44,32 +48,39 @@ class Slider extends React.Component {
             currentTime += default_dt * speed
         }
 
-        if (currentTime + default_dt* speed > timestamp + 86400000 - 1) speed = 0;
+        if (currentTime + default_dt * speed > timestamp + 86400000 - 1) speed = 0;
 
         updateCurrentTime(currentTime, default_dt, speed);
+        console.log('sometext', currentTime, default_dt, speed);
 
-        setTimeout(() => {
-            this.moveTimestamp();
-        }, default_dt)
+        // if (speed > 0 && currentTime === this.props.currentTime) this.tryToRender = false;
+
+        // setTimeout(() => {
+        //     this.moveTimestamp();
+        // }, default_dt)
     }
+
 
 
     render = () => {
         let {updateCurrentTime, currentTime, timestamp, default_dt, speed} = this.props;
+        if (typeof this.tryToRender === 'undefined') this.tryToRender = true;
 
-        return (
-            <div className={"map_slider"}>
-                <InputRange
-                    minValue={timestamp}
-                    maxValue={timestamp + 86400000 - 1}
-                    value={currentTime}
-                    formatLabel={value => ''}
-                    onChange={(value) => {
-                        updateCurrentTime(value, default_dt, speed)
-                    }}
-                />
-            </div>
-        )
+        if (this.tryToRender){
+            return (
+                <div className={"map_slider"}>
+                    <InputRange
+                        minValue={timestamp}
+                        maxValue={timestamp + 86400000 - 1}
+                        value={currentTime}
+                        formatLabel={value => ''}
+                        onChange={(value) => {
+                            updateCurrentTime(value, default_dt, speed)
+                        }}
+                    />
+                </div>
+            )
+        }
     }
 }
 

@@ -5,11 +5,12 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import CalendarPanel from '../../calendar/CalendarPanel'
+
 
 import * as dashboardActions from '../../../redux/actions/DashboardActions'
 
 import CoolPreloader from '../../preloader/CoolPreloader'
+import CalendarPanel from '../../calendar/CalendarPanel'
 
 class DispatcherCalendar extends React.Component {
 
@@ -35,7 +36,7 @@ class DispatcherCalendar extends React.Component {
     onDayClick = (t) => {
         let {setTimestampAndLoadSessions} = this.props;
         console.log('DispatcherCalendar: onDayClick: timestamp = ', t);
-        setTimestampAndLoadSessions(t)
+        setTimestampAndLoadSessions(t);
     }
 
     render = () => {

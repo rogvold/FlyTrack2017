@@ -805,6 +805,7 @@ $calendar_bubble_size: 40px;
 
 .dispatcher_calendar{
   position: relative;
+  height: 600px;
 }
 
 
@@ -862,6 +863,9 @@ $calendar_bubble_size: 40px;
     /*padding: 10px;*/
     position: relative;
     width: 14.2%;
+    &.selected{
+      background: #e6eef5;
+    }
   }
   &.has_total_week {
     .week_placeholder .day_placeholder, .header_column {
@@ -887,16 +891,16 @@ $calendar_bubble_size: 40px;
       color: #212121;
     }
     &.selected {
-      font-weight: bold;
+      //font-weight: bold;
       cursor: default;
-      background-color: #343268;
-      color: white;
+      //background-color: #343268;
+      //color: white;
       padding-left: 3px;
       padding-right: 3px;
       border-radius: $box_border_radius;
     }
   }
-  .day_placeholder {
+  .day_placeholder_selected {
     &.not_this_month .dayNumber {
       opacity: 0.4;
     }
@@ -904,6 +908,41 @@ $calendar_bubble_size: 40px;
     min-height: 30px;
     &:hover {}
   }
+
+  .day_placeholder {
+    &.not_this_month .dayNumber {
+      opacity: 0.4;
+    }
+    min-height: 52px;
+    //min-height: 30px;
+    &:hover {
+      border-radius: 3px;
+      background-color: #e9eef9;
+    }
+
+    .number_for_circle{
+      //text-align: center;
+      margin: 0 auto;
+      //top: 30%;
+      //width: 30px;
+      //height: 30px;
+      //background: red;
+      //border-radius: 30px;
+      ////margin-top: 20px;
+
+      margin-top: 2px;
+      text-align: center;
+      background: #8aacff;
+      border-radius: 50px;
+      opacity: 0.75;
+      font-weight: bold;
+      width: 48px;
+      height: 48px;
+      font-size: 18px;
+      line-height: 48px;
+    }
+  }
+
   .month_switcher_placeholder {
     text-align: center;
     .month_name_placeholder {
@@ -1339,7 +1378,7 @@ span.red{
 }
 
 .history_planes_list {
-  width: calc(100% - 280px);
+  width: calc(100% - 320px);
   position: relative;
   display: block;
   vertical-align: top;
@@ -1382,3 +1421,43 @@ span.red{
 .datetime_placeholder{
   text-align: right;
 }
+
+.calendar_tab_placeholder{
+  margin: 3px;
+  padding: 10px;
+  border: 1px solid whitesmoke;
+  border-radius: 3px;
+
+  .calendar_month{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
+
+  .calendar_sessions_list{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+
+
+    .calendar_element{
+      width: auto;
+      margin: 3px;
+      border: 1px solid #ededed;
+      border-radius: 3px;
+      background-color: #f9f9f9;
+
+      &:hover{
+        //font-weight: bold;
+        background-color: #f5f5f5;
+      }
+    }
+  }
+}
+
+.history_calendar_placeholder{
+  padding: 5px;
+}
+
