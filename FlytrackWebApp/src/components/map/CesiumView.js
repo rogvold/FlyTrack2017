@@ -49,7 +49,7 @@ class CesiumView extends React.Component {
 
             // let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], alt[i]); //раскомментить с нормальными высотами
             // let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], 600);
-            let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], 400);
+            let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], 50);
 
             property.addSample(time, position);
         }
