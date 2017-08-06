@@ -1444,10 +1444,14 @@ span.red{
 
     .calendar_element{
       width: auto;
-      margin: 3px;
+      margin: 8px;
+      cursor: pointer;
       border: 1px solid #ededed;
       border-radius: 3px;
       background-color: #f9f9f9;
+      &.selected{
+        opacity: 0.8;
+      }
 
       &:hover{
         //font-weight: bold;
