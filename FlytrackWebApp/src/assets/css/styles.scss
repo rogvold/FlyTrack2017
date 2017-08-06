@@ -1449,6 +1449,11 @@ span.red{
       border-radius: 3px;
       background-color: #f9f9f9;
 
+      width: 520px;
+      margin: 0 auto;
+      padding: 10px;
+      margin-bottom: 10px;
+
       &:hover{
         //font-weight: bold;
         background-color: #f5f5f5;
@@ -1461,3 +1466,24 @@ span.red{
   padding: 5px;
 }
 
+
+.user_calendar_placeholder{
+  .number_for_circle{
+    cursor: pointer;
+  }
+
+  .selectedContent{
+    padding: 10px;
+    border-top: 1px solid whitesmoke;
+    border-bottom: 1px solid whitesmoke;
+  }
+
+  .calendar_element{
+    margin-bottom: 10px;
+    cursor: pointer;
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+
+}

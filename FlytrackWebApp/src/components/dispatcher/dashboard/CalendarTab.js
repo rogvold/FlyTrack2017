@@ -67,7 +67,7 @@ class CalendarTab extends React.Component {
 
         if (this.isDateSelected) {
             return (
-                <div className={'calendar_tab_placeholder'}>
+                <div className={'calendar_tab_placeholder user_calendar_placeholder '}>
                     <CalendarPanel
 
                         contentFunction={(t) => {
@@ -87,6 +87,9 @@ class CalendarTab extends React.Component {
                         selectedTimestamp={selectedTimestamp == undefined ? null:selectedTimestamp}
 
                         onDayClick={(t) => {
+                            if ((+moment(t).startOf('day') == +moment(this.state.selectedTimestamp)) && (this.state.selectedTimestamp != undefined)){
+                                t = undefined;
+                            }
                             this.setState({
                                 selectedTimestamp: t
                             });
