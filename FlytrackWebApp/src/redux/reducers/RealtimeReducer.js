@@ -4,13 +4,14 @@
 
 import * as types from '../ActionTypes.js'
 
-import {Map} from 'immutable'
+import {Map, Set} from 'immutable'
 
 const initialState = {
     // channelsMap: Map(),
     pointsMap: Map(),
     loading: false,
-    lastTimestamp: 0
+    lastTimestamp: 0,
+    messagesSet: Set()
 }
 
 

@@ -21,6 +21,18 @@ const stopLoading = (state, action) => {
     return { ...state, loading: false, error: action.error}
 }
 
+const getLoadedUserDefaultAircraftId = (state, action) => {
+    console.log('getLoadedUserDefaultAircraftId occured');
+    if (state.selectedAircraftId != undefined){
+        return state.selectedAircraftId;
+    }
+    let {aircrafts} = action;
+    if (aircrafts == undefined || aircrafts.length == 0){
+        return state.selectedAircraftId;
+    }
+    console.log('returning ', aircrafts[0].id);
+    return aircrafts[0].id;
+}
 
 const AircraftsReducer =  (state = initialState, action = {}) => {
 
@@ -43,7 +55,8 @@ const AircraftsReducer =  (state = initialState, action = {}) => {
                 ...state,
                 loading: false,
                 error: undefined,
-                aircraftsMap: state.aircraftsMap.merge(action.aircrafts.reduce((res, u) => {return res.set(u.id, u)}, Map()))
+                aircraftsMap: state.aircraftsMap.merge(action.aircrafts.reduce((res, u) => {return res.set(u.id, u)}, Map())),
+                selectedAircraftId: getLoadedUserDefaultAircraftId(state, action)
             }
 
         case types.CREATE_AIRCRAFT_SUCCESS:

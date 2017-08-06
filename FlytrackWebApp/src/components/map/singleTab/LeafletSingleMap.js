@@ -147,8 +147,8 @@ class LeafletSingleMap extends React.Component {
 
             for (let i = 0; i < this.state.index; i++){
                 this.polylines[id].addLatLng({ // добавили точки до текущей
-                    'lat': points.lon[i],
-                    'lng': points.lat[i]
+                    'lat': points.lat[i],
+                    'lng': points.lon[i]
                 }).addTo(this.map);
             }
 
@@ -177,12 +177,22 @@ class LeafletSingleMap extends React.Component {
     getAircraftInfo = () => {
         let {session, points} = this.props.props;
         let {index} = this.state;
+        let h = points.alt[(points.lon[index] !== undefined ? index : points.lat.length-1)];
+        let vel = points.vel[(points.lon[index] !== undefined ? index : points.lat.length-1)];
+        if (h != undefined){
+            h = Math.round(h * 10.0) / 10.0;
+        }
+        if (vel != undefined){
+            vel = Math.round(10.0 * vel) / 10.0;
+        }
+
+
         return(
             <div className="aircraftSingleInfo">
                 <ul>
                     <li>Время: {moment(points.times[(points.times[index] !== undefined ? index : points.times.length-1)]).format('HH:mm:ss')} </li>
-                    <li>Скорость: {points.vel[(points.lon[index] !== undefined ? index : points.lat.length-1)]} м/с</li>
-                    <li>Высота: {points.alt[(points.lon[index] !== undefined ? index : points.lat.length-1)]} м</li>
+                    <li>Скорость: {vel} м/с</li>
+                    <li>Высота: {h} м</li>
                     <li>Координаты:</li>
                     <li>Долгота: {(''+points.lon[(points.lon[index] !== undefined ? index : points.lat.length-1)]).slice(0, 8)}</li>
                     <li>Широта:  {(''+points.lat[(points.lon[index] !== undefined ? index : points.lat.length-1)]).slice(0, 8)}</li>

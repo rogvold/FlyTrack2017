@@ -692,11 +692,14 @@
       display: inline-block;
       vertical-align: top;
       height: 100%;
-      width: 280px; }
+      width: 280px;
+      max-height: calc(100vh - 104px);
+      overflow-y: auto; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .calendar_placeholder {
         margin-bottom: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid lightgray; }
+        border-bottom: 1px solid lightgray;
+        height: 380px; }
       .dispatcher_dashboard_panel .content_panel .right_placeholder .planes_list {
         max-height: calc(100vh - 104px);
         overflow: auto;
@@ -832,7 +835,7 @@ span.red {
     .session_panel_placeholder .session_panel .mapbox_single_map {
       display: block;
       width: 100%;
-      height: calc(100% - 35px);
+      height: calc(100% - 40px);
       padding-top: 1px; }
       .session_panel_placeholder .session_panel .mapbox_single_map .mapbox_single_route_map {
         width: 100%;
@@ -876,11 +879,14 @@ span.red {
   padding-top: -50px; }
 
 .history_planes_list {
-  width: calc(100% - 320px);
+  height: calc(100% - 380px);
   position: relative;
   display: block;
   vertical-align: top;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding: 5px; }
+  .history_planes_list .plane_oneline {
+    cursor: pointer; }
 
 .cesium_map {
   width: 500px;
@@ -932,7 +938,11 @@ span.red {
       cursor: pointer;
       border: 1px solid #ededed;
       border-radius: 3px;
-      background-color: #f9f9f9; }
+      background-color: #f9f9f9;
+      width: 520px;
+      margin: 0 auto;
+      padding: 10px;
+      margin-bottom: 10px; }
       .calendar_tab_placeholder .calendar_sessions_list .calendar_element.selected {
         opacity: 0.8; }
       .calendar_tab_placeholder .calendar_sessions_list .calendar_element:hover {
@@ -940,3 +950,17 @@ span.red {
 
 .history_calendar_placeholder {
   padding: 5px; }
+
+.user_calendar_placeholder .number_for_circle {
+  cursor: pointer; }
+
+.user_calendar_placeholder .selectedContent {
+  padding: 10px;
+  border-top: 1px solid whitesmoke;
+  border-bottom: 1px solid whitesmoke; }
+
+.user_calendar_placeholder .calendar_element {
+  margin-bottom: 10px;
+  cursor: pointer; }
+  .user_calendar_placeholder .calendar_element:hover {
+    opacity: 0.8; }

@@ -45,7 +45,8 @@ import * as actions from '../../../redux/actions/PusherActions'
  class RealtimeDaemon extends React.Component {
 
      static defaultProps = {
-         interval: 3 * 1000
+         // interval: 3 * 1000
+         interval: 2 * 1000
      }
 
      static propTypes = {}
@@ -80,11 +81,11 @@ import * as actions from '../../../redux/actions/PusherActions'
 
      sendCoordinateToPusher(){
          let {coordinates, user, sendNewPointsEvent, loading} = this.props;
-         if (coordinates == undefined || coordinates.length == 0 || user == undefined || loading == true){
-             return null;
+         if (user == undefined || loading == true){
+             return;
          }
-         let c = coordinates[coordinates.length -1];
-         let channel = FlytrackHelper.getPublishChannelByLocation(c.lat, c.lon);
+         // let c = coordinates[coordinates.length -1];
+         // let channel = FlytrackHelper.getPublishChannelByLocation(c.lat, c.lon);
          // LocalDatabaseAPI.saveGeoPoint({...c, userId: user.id}).then(
          //     () => {console.log('saved points to db');},
          //     err => {console.log('error while saving point to db: err = ', err);}

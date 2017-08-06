@@ -1116,10 +1116,15 @@ $top_dashboard_panel_height: 50px;
       vertical-align: top;
       height: 100%;
       width: $right_dashboard_panel_width;
+      max-height: calc(100vh - 104px);
+      overflow-y: auto;
       .calendar_placeholder{
         margin-bottom: 10px;
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray;
+        //todo: fix it
+        height: 380px;
+
       }
       .planes_list{
         max-height: calc(100vh - 104px);
@@ -1317,7 +1322,7 @@ span.red{
     .mapbox_single_map {
       display: block;
       width: 100%;
-      height: calc(100% - 35px);
+      height: calc(100% - 40px);
       padding-top: 1px;
 
       .mapbox_single_route_map {
@@ -1378,11 +1383,16 @@ span.red{
 }
 
 .history_planes_list {
-  width: calc(100% - 320px);
+  //width: calc(100% - 320px);
+  height: calc(100% - 380px);
   position: relative;
   display: block;
   vertical-align: top;
   margin: 0 auto;
+  padding: 5px;
+  .plane_oneline{
+    cursor: pointer;
+  }
 }
 
 .cesium_map {
@@ -1453,6 +1463,11 @@ span.red{
         opacity: 0.8;
       }
 
+      width: 520px;
+      margin: 0 auto;
+      padding: 10px;
+      margin-bottom: 10px;
+
       &:hover{
         //font-weight: bold;
         background-color: #f5f5f5;
@@ -1465,3 +1480,24 @@ span.red{
   padding: 5px;
 }
 
+
+.user_calendar_placeholder{
+  .number_for_circle{
+    cursor: pointer;
+  }
+
+  .selectedContent{
+    padding: 10px;
+    border-top: 1px solid whitesmoke;
+    border-bottom: 1px solid whitesmoke;
+  }
+
+  .calendar_element{
+    margin-bottom: 10px;
+    cursor: pointer;
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+
+}

@@ -1,0 +1,352 @@
+{
+  "users": [
+    {
+      "name": "Dmytro ",
+      "surname": "Beldii",
+      "follower": true,
+      "following": false,
+      "uri": "https://pp.userapi.com/c639820/v639820090/a375/AqUSywn7NRc.jpg"
+    },
+    {
+      "name": "Сабир",
+      "surname": "Шайхлисламов",
+      "follower": true,
+      "following": true,
+      "uri": "https://pp.userapi.com/c625117/v625117992/31a08/VK8HBPb-A00.jpg"
+    },
+    {
+      "name": "Ivan",
+      "surname": "Koval",
+      "follower": true,
+      "following": false,
+      "uri": "https://pp.userapi.com/c413826/v413826342/3dac/LZ_XGCNaAXM.jpg"
+    },
+    {
+      "name": "Sasha",
+      "surname": "Dzhus",
+      "follower": true,
+      "following": true,
+      "uri": "https://pp.userapi.com/c636516/v636516172/4827f/pGo-yZ8DO_g.jpg"
+    }
+  ],
+  "flights": [
+    {
+      "name": "Flight to Zaporizhzhya",
+      "startDate": 1495786800000,
+      "endDate": 1495789200000,
+      "distance": 24,
+      "mapcover" :"https://pp.userapi.com/c840133/v840133090/bc3f/QjxDt6Se2Ms.jpg",
+      "photos": [
+        "https://pp.userapi.com/c840133/v840133090/bc3f/QjxDt6Se2Ms.jpg",
+        "https://pp.userapi.com/c622923/v622923992/307f6/Niu9GtV8g7w.jpg",
+        "https://pp.userapi.com/c616131/v616131992/20155/Iga6CmZwjds.jpg"
+      ],
+      "comments": [
+        {
+          "authorId": 0,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 1,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 2,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 3,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 0,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 1,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 2,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 3,
+          "text": "Awesome flight!"
+        }
+      ],
+      "track": [
+        {
+          "latitude": 55.929489,
+          "longitude": 37.518258,
+          "altitude": 0
+        },
+        {
+          "latitude": 55.930488999999994,
+          "longitude": 37.518258,
+          "altitude": 0
+        },
+        {
+          "latitude": 55.93148899999999,
+          "longitude": 37.518258,
+          "altitude": 0
+        },
+        {
+          "latitude": 55.93248899999999,
+          "longitude": 37.518258,
+          "altitude": 0
+        }
+      ]
+    },
+    {
+      "name": "Flight to Moscow",
+      "startDate": 1495969200000,
+      "endDate": 1495978200000,
+      "distance": 25,
+      "mapcover" :"https://pp.userapi.com/c840133/v840133090/bc3f/QjxDt6Se2Ms.jpg",
+      "photos": [
+        "https://pp.userapi.com/c622923/v622923992/307f6/Niu9GtV8g7w.jpg",
+        "https://pp.userapi.com/c616131/v616131992/20155/Iga6CmZwjds.jpg"
+      ],
+      "comments": [
+        {
+          "authorId": 0,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 1,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 2,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 3,
+          "text": "Awesome flight!"
+        }
+      ],
+      "track": [
+        {
+          "latitude": -6.951082,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.950082,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.949082,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.948081999999999,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.947081999999999,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.946081999999999,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.945081999999998,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.944081999999998,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.943081999999998,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.942081999999997,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.941081999999997,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.940081999999997,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.939081999999996,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.938081999999996,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.937081999999996,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.936081999999995,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.935081999999995,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.934081999999995,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.933081999999994,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.932081999999994,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.931081999999994,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.930081999999993,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.929081999999993,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.928081999999993,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.927081999999992,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.926081999999992,
+          "longitude": -70.781406,
+          "altitude": 0
+        },
+        {
+          "latitude": -6.925081999999992,
+          "longitude": -70.781406,
+          "altitude": 0
+        }
+      ]
+    },
+    {
+      "name": "Flight to London",
+      "startDate": 1496134800000,
+      "endDate": 1496156400000,
+      "distance": 305,
+      "mapcover" :"https://pp.userapi.com/c840133/v840133090/bc3f/QjxDt6Se2Ms.jpg",
+      "photos": [
+        "https://pp.userapi.com/c840133/v840133090/bc3f/QjxDt6Se2Ms.jpg",
+        "https://pp.userapi.com/c622923/v622923992/307f6/Niu9GtV8g7w.jpg",
+        "https://pp.userapi.com/c616131/v616131992/20155/Iga6CmZwjds.jpg"
+      ],
+      "comments": [
+        {
+          "authorId": 0,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 1,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 2,
+          "text": "Awesome flight!"
+        },
+        {
+          "authorId": 3,
+          "text": "Awesome flight!"
+        }
+      ]
+    }
+  ],
+  "airports": [
+    "Zaporizhzhya",
+    "Moscow",
+    "Kyiv",
+    "Lviv",
+    "London"
+  ],
+  "aircrafts": [
+    {
+      "latitude" : 55.929478,
+      "longitude": 37.518004,
+      "altitude": 110,
+      "number": 0,
+      "name": "mityabeldii",
+      "track": [],
+      "angel": 0
+    },
+    {
+      "latitude" : 55.930775,
+      "longitude": 37.521580,
+      "altitude": 50,
+      "number": 1,
+      "name": "Sabir",
+      "track": [],
+      "angel": 0
+    },
+    {
+      "latitude" : 55.951633,
+      "longitude": 37.557923,
+      "altitude": 300,
+      "number": 2,
+      "name": "IvanKoval",
+      "track": [],
+      "angel": 0
+    },
+    {
+      "latitude" : 55.806089,
+      "longitude": 37.602167,
+      "altitude": 200,
+      "number": 3,
+      "name": "SashaDjus",
+      "track": [],
+      "angel": 0
+    },
+    {
+      "latitude" : 55.430873,
+      "longitude": 37.245706,
+      "altitude": 400,
+      "number": 4,
+      "name": "Lesha",
+      "track": [],
+      "angel": 0
+    }
+  ]
+}

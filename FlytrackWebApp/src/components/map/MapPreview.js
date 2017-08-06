@@ -38,6 +38,8 @@ class MapPreview extends React.Component {
     initMap = () => {
         if (this.mapContainer == undefined) return;
         if (this.map != undefined) { return; }
+        let {points} = this.props;
+        // console.log('MapPreview: initMap: points = ', points);
 
         L.mapbox.accessToken = TOKEN;
 
@@ -46,9 +48,12 @@ class MapPreview extends React.Component {
         }).setView([56.1, 36.8], 10.5, null);
 
         //todo: draw polyline from props;
+
+
     }
 
     render = () => {
+        let {points} = this.props;
 
         return (
             <div

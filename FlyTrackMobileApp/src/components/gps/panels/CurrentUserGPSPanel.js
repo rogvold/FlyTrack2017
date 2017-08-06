@@ -65,17 +65,20 @@
      }
 
      render = () => {
-         let {coordinates, startFlightTimestamp,
+         let {coordinates, startFlightTimestamp, pusherLoading,
              parseBufferPoints, pusherNotMinePoints,
              startFlight, stopFlight, aircraft, pusherPoints} = this.props;
          let lastCoordinate = (coordinates == undefined || coordinates.length == 0) ? undefined : coordinates[coordinates.length -1];
 
          let {tab} = this.state;
+         let shouldShowMap = false;
+
+         console.log('CurrentUserGPSPanel: render: pusherLoading = ', pusherLoading);
 
          return (
              <ScrollView style={styles.container} >
 
-                 {lastCoordinate == undefined ? null :
+                 {(lastCoordinate == undefined || shouldShowMap == false) ? null :
                      <View>
                          <MapView style={{ width: width, height: height / 4.0}}
                                   initialRegion={{
@@ -122,6 +125,15 @@
 
                      </View>
                  }
+
+
+                 <View>
+                     {pusherLoading == false ? <Text>pusher: not sending</Text> :
+                         <Text>
+                             <ActivityIndicator /> loading
+                         </Text>
+                     }
+                 </View>
 
                  <View style={{
                      flexDirection: 'row',
@@ -224,6 +236,8 @@
             .filter((a) => {
                 return ((a.user != undefined) && (a.user.id != state.users.currentUserId))})
                         .sort((a, b) => (a.t - b.t)),
+
+        pusherLoading: state.realtime.loading
 
     }
  }

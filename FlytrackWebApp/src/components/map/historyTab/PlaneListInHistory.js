@@ -80,7 +80,7 @@ class PlaneListInHistory extends React.Component {
         return(
             <ul>
                 <li>Тип: {message.aircraft.aircraftType}</li>
-                <li>Скорость: {message.points.vel[timePoint]} м/с</li>
+                <li>Скорость: {(''+message.points.vel[timePoint]).slice(0, 5)} м/с</li>
                 <li>Координаты:</li>
                 <li>Широта: {(''+message.points.lat[timePoint]).slice(0, 8)}</li>
                 <li>Долгота: {('' +message.points.lon[timePoint]).slice(0, 8)}</li>
