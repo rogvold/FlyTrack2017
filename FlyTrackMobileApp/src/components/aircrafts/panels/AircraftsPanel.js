@@ -39,13 +39,20 @@ import * as actions from '../../../redux/actions/AircraftsActions'
 
 import moment from 'moment'
 
+ import UpdateAircraftPanel from './UpdateAircraftPanel'
+
  class AircraftsPanel extends React.Component {
 
      static defaultProps = {}
 
      static propTypes = {}
 
-     state = {}
+     state = {
+         createMode: false,
+
+         selectedUpdateAircraftId: undefined
+
+     }
 
      //ES5 - componentWillMount
      constructor(props) {
@@ -75,30 +82,85 @@ import moment from 'moment'
 
      render = () => {
          let {aircrafts, loading, selectAircraft, selectedAircraftId} = this.props;
+         let {selectedUpdateAircraftId} = this.state;
 
          return (
              <View style={styles.container} >
 
-                 <View style={{padding: 5, alignItems: 'center', justifyContent: 'center'}} >
-                     <Text>
+                 <View style={{padding: 5, justifyContent: 'center'}} >
+                     <Text style={{fontSize: 16, fontWeight: 'bold'}} >
                          Aircrafts
                      </Text>
                  </View>
 
-                 <View  >
-                     <TouchableOpacity
-                         style={{
-                             padding: 10,
-                             alignItems: 'center',
-                             justifyContent: 'center',
-                             backgroundColor: 'pink'
-                         }}
-                         onPress={() => {
-                            this.createRandomAircraft();
-                        }} >
-                         <Text style={{textAlign: 'center', fontSize: 16}} >
-                             create random plane (change it, Mityay)
-                         </Text>
+                 <Modal visible={(selectedUpdateAircraftId != undefined)} >
+                     <View style={{
+                         marginTop: 22,
+                         padding: 10
+                     }} >
+
+                         <View style={{height: 360}} >
+                             <UpdateAircraftPanel id={selectedUpdateAircraftId} onSaved={() => {
+                                 this.setState({
+                                     selectedUpdateAircraftId: undefined
+                                 });
+                             }} />
+                         </View>
+
+                         <TouchableOpacity
+                             style={{position: 'absolute', bottom: 5, left: 5, right: 5, padding: 10, backgroundColor: 'whitesmoke'}}
+                             onPress={() => {
+                                 this.setState({
+                                     selectedUpdateAircraftId: undefined
+                                 });
+                            }} >
+                             <Text style={{textAlign: 'center', fontSize: 16, paddingBottom: 5, paddingTop: 5}} >
+                                 Close
+                             </Text>
+                         </TouchableOpacity>
+
+                     </View>
+                 </Modal>
+
+                 <Modal visible={this.state.createMode} animationType={"slide"} transparent={false} >
+                     <View style={{
+                         marginTop: 22,
+                         padding: 10
+                     }} >
+
+                         <View style={{height: 360}} >
+                             <UpdateAircraftPanel onSaved={() => {
+                                 this.setState({
+                                     createMode: false
+                                 });
+                             }} />
+                         </View>
+
+                         <TouchableOpacity
+                             style={{position: 'absolute', bottom: 5, left: 5, right: 5, padding: 10, backgroundColor: 'whitesmoke'}}
+                             onPress={() => {
+                                 this.setState({
+                                     createMode: false
+                                 });
+                            }} >
+                             <Text style={{textAlign: 'center', fontSize: 16, paddingBottom: 5, paddingTop: 5}} >
+                                 Close
+                             </Text>
+                         </TouchableOpacity>
+
+                     </View>
+                 </Modal>
+
+                 <View>
+                     <TouchableOpacity style={{padding: 5, borderBottomWidth: 1, borderBottomColor: 'whitesmoke'}}
+                                       onPress={() => {
+                                                     this.setState({
+                                                         createMode: true
+                                                     });
+                                                }} >
+                        <Text style={{textAlign: 'right', fontWeight: 'bold'}} >
+                            + Create new aircraft
+                        </Text>
                      </TouchableOpacity>
                  </View>
 
@@ -138,6 +200,19 @@ import moment from 'moment'
                                      {a.callName}
                                  </Text>
                              </View>
+
+                             <View>
+                                 <TouchableOpacity onPress={() => {
+                                     this.setState({
+                                         selectedUpdateAircraftId: a.id
+                                     });
+                                 }} >
+                                     <Text style={{textAlign: 'right'}} >
+                                         Edit
+                                     </Text>
+                                 </TouchableOpacity>
+                             </View>
+
                          </TouchableOpacity>
                      )
                  })}
@@ -151,6 +226,10 @@ import moment from 'moment'
  var styles = StyleSheet.create({
      container: {
          flex: 1,
+         backgroundColor: 'white',
+         borderRadius: 5,
+         padding: 5,
+         marginTop: 10
      }
 
  });

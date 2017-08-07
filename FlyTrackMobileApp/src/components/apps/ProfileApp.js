@@ -37,6 +37,8 @@
 
 import UpdateUserProfilePanel from '../profile/panels/UpdateUserProfilePanel'
 
+import AircraftsPanel from '../aircrafts/panels/AircraftsPanel'
+
  class ProfileApp extends React.Component {
 
      static defaultProps = {}
@@ -64,6 +66,8 @@ import UpdateUserProfilePanel from '../profile/panels/UpdateUserProfilePanel'
              <View style={styles.container} >
 
                  <UpdateUserProfilePanel />
+
+                 <AircraftsPanel />
 
              </View>
          )
