@@ -48,7 +48,7 @@
      }
 
      static propTypes = {
-         id: PropTypes.string.isRequired
+
      }
 
      state = {}

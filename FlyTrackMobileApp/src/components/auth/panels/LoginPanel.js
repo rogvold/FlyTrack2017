@@ -27,7 +27,8 @@
      Platform,
      Alert,
      BackAndroid,
-     ActivityIndicator
+     ActivityIndicator,
+     Keyboard
  } from 'react-native';
 
  import ReactNative from 'react-native';
@@ -40,6 +41,8 @@
  let {width, height} = Dimensions.get('window');
 
  import {Constants, AppLoading} from 'expo';
+
+ import navigationActions from '../../../redux/actions/NavigationActions'
 
  class LoginPanel extends React.Component {
 
@@ -109,9 +112,9 @@
                                  Email
                              </Text>
                          }
-                         <TextInput placeholder={'Email'} value={email} onChangeText={(txt) => {
+                         <TextInput keyboardType='email' placeholder={'Email'} value={email} onChangeText={(txt) => {
                              this.setState({
-                                 email: txt
+                                 email: txt.toLowerCase()
                              });
                          }} />
                      </View>
@@ -119,11 +122,11 @@
                      <View style={styles.field} >
                          {password.length == 0 ? null :
                              <Text>
-                                 Password
+                                 Пароль
                              </Text>
                          }
 
-                         <TextInput placeholder={'Password'} value={password} onChangeText={(txt) => {
+                         <TextInput placeholder={'Пароль'} value={password} onChangeText={(txt) => {
                              this.setState({
                                  password: txt
                              });
@@ -139,13 +142,13 @@
                                                     justifyContent: 'center'}}
 
                                            onPress={() => {
-                                               if (login == true){return}
                                                this.login();
+                                               Keyboard.dismiss();
                                            }}
                          >
                              {loading == false ?
                                  <Text>
-                                     Login
+                                     Вход
                                  </Text>
                                  :
                                  <ActivityIndicator />
@@ -195,7 +198,9 @@
             return dispatch(actions.logIn({
                 email: email,
                 password: password
-            }))
+            })).then(
+                () => dispatch(navigationActions.selectTab('profile'))
+            )
         }
     }
  }

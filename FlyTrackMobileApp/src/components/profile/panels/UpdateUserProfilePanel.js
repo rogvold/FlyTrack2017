@@ -39,9 +39,13 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
 
  import * as usersActions from '../../../redux/actions/UsersActions'
 
+ import * as organizationsActions from '../../../redux/actions/OrganizationsActions'
+
  class UpdateUserProfilePanel extends React.Component {
 
-     static defaultProps = {}
+     static defaultProps = {
+
+     }
 
      static propTypes = {}
 
@@ -53,7 +57,8 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
      }
 
      componentDidMount() {
-
+        let {loadOrganizations} = this.props;
+         loadOrganizations();
      }
 
      componentWillReceiveProps() {
@@ -61,7 +66,7 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
      }
 
      render = () => {
-         let {user, onSave, loading} = this.props;
+         let {user, onSave, loading, organizations} = this.props;
          if (user == undefined){
              return null;
          }
@@ -71,6 +76,7 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
 
                  <View>
                      <UpdateUserProfileForm {...user}
+                         organizations={organizations}
                          onSave={(data) => {
                              let d = Object.assign({}, {id: user.id}, data);
                              onSave(d);
@@ -109,7 +115,9 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
  const mapStateToProps = (state) => {
     return {
         user: state.users.usersMap.get(state.users.currentUserId),
-        loading: state.users.loading
+        loading: state.users.loading,
+        organizations: state.organizations.organizationsMap.toArray()
+                       .sort((a, b) => (a.timestamp - b.timestamp))
     }
  }
 
@@ -117,6 +125,9 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
     return {
         onSave: (data) => {
             return dispatch(usersActions.updateUser(data))
+        },
+        loadOrganizations: () => {
+            return dispatch(organizationsActions.loadOrganizations())
         }
     }
  }

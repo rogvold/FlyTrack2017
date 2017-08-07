@@ -40,6 +40,7 @@ import * as actions from '../../../redux/actions/AircraftsActions'
 import moment from 'moment'
 
  import UpdateAircraftPanel from './UpdateAircraftPanel'
+ import NoAircraftsPanel from './NoAircraftsPanel'
 
  class AircraftsPanel extends React.Component {
 
@@ -83,13 +84,16 @@ import moment from 'moment'
      render = () => {
          let {aircrafts, loading, selectAircraft, selectedAircraftId} = this.props;
          let {selectedUpdateAircraftId} = this.state;
+         if (aircrafts.length == 0){
+             return (<NoAircraftsPanel />)
+         }
 
          return (
              <View style={styles.container} >
 
                  <View style={{padding: 5, justifyContent: 'center'}} >
                      <Text style={{fontSize: 16, fontWeight: 'bold'}} >
-                         Aircrafts
+                         Мои воздушные судна
                      </Text>
                  </View>
 
@@ -159,7 +163,7 @@ import moment from 'moment'
                                                      });
                                                 }} >
                         <Text style={{textAlign: 'right', fontWeight: 'bold'}} >
-                            + Create new aircraft
+                            + Добавить
                         </Text>
                      </TouchableOpacity>
                  </View>
@@ -184,31 +188,47 @@ import moment from 'moment'
                                              style={{
                                                                 padding: 5,
                                                                 borderBottomWidth: 1,
+                                                                position: 'relative',
                                                                 backgroundColor: (isSelected == true) ? 'lightgrey' : 'white',
                                                                 borderBottomColor: 'lightgrey'}} >
                              <View>
+
+                                 <View style={{flexDirection: 'row'}} >
+                                     <Text style={{fontWeight: 'bold', fontSize: 16, flex: 1}} >
+                                         {a.name}
+                                     </Text>
+                                     <Text style={{flex: 1, textAlign: 'right', opacity: 0.5}} >
+                                         ({a.aircraftNumber})
+                                     </Text>
+                                 </View>
+
                                  <Text>
-                                     {a.aircraftType}
+                                     <Text style={{fontWeight: 'bold'}} >
+                                         Тип:
+                                     </Text>
+                                     <Text>
+                                         {a.aircraftType}
+                                     </Text>
                                  </Text>
+
                                  <Text>
-                                     {a.aircraftNumber}
-                                 </Text>
-                                 <Text>
-                                     {a.name}
-                                 </Text>
-                                 <Text>
-                                     {a.callName}
+                                     <Text style={{fontWeight: 'bold'}} >
+                                         Позывной:
+                                     </Text>
+                                     <Text>
+                                         {a.callName}
+                                     </Text>
                                  </Text>
                              </View>
 
-                             <View>
+                             <View style={{position: 'absolute', right: 5, bottom: 5}} >
                                  <TouchableOpacity onPress={() => {
                                      this.setState({
                                          selectedUpdateAircraftId: a.id
                                      });
                                  }} >
                                      <Text style={{textAlign: 'right'}} >
-                                         Edit
+                                         <Icon name="pencil" size={30} color="#eeeeee" />
                                      </Text>
                                  </TouchableOpacity>
                              </View>

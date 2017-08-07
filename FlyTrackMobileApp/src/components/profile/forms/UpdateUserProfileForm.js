@@ -38,6 +38,8 @@
  class UpdateUserProfileForm extends React.Component {
 
      static defaultProps = {
+         organizations: [],
+
          onSave: (data) => {
 
          }
@@ -48,6 +50,7 @@
      state = {
          firstName: this.props.firstName,
          lastName: this.props.lastName,
+         organizationId: this.props.organizationId,
          changed: false
      }
 
@@ -61,21 +64,23 @@
      }
 
      componentWillReceiveProps(nextProps) {
-         let {firstName, lastName} = nextProps;
-         if (this.props.firstName != firstName || lastName != this.props.lastName){
+         let {firstName, lastName, organizationId} = nextProps;
+         if (this.props.firstName != firstName || lastName != this.props.lastName || organizationId != this.props.organizationId){
              this.setState({
                  firstName,
                  lastName,
+                 organizationId,
                  changed: false
              });
          }
      }
 
      onSave = () => {
-         let {firstName, lastName} = this.state;
+         let {firstName, lastName, organizationId} = this.state;
          this.props.onSave({
              firstName: firstName,
-             lastName: lastName
+             lastName: lastName,
+             organizationId: organizationId
          });
          this.setState({
              changed: false
@@ -83,7 +88,8 @@
      }
 
      render = () => {
-         let {firstName, lastName, changed} = this.state;
+         let {firstName, lastName, organizationId, changed} = this.state;
+         let {organizations} = this.props;
 
          return (
              <View style={styles.container} >
@@ -91,11 +97,11 @@
                  <View style={styles.field} >
                      {(firstName == undefined || firstName.trim() == '') ? null :
                          <Text style={styles.label} >
-                            First name
+                            Имя
                          </Text>
                      }
                      <View>
-                         <TextInput placeholder={'First name'}  style={styles.input}
+                         <TextInput placeholder={'Имя'}  style={styles.input}
                                     value={firstName} onChangeText={(newText) => {
                              this.setState({
                                  firstName: newText,
@@ -108,11 +114,11 @@
                  <View style={styles.field} >
                      {(lastName == undefined || lastName.trim() == '') ? null :
                          <Text style={styles.label} >
-                             Last name
+                             Фамилия
                          </Text>
                      }
                      <View>
-                         <TextInput placeholder={'First name'} style={styles.input}
+                         <TextInput placeholder={'Фамилия'} style={styles.input}
                                     value={lastName} onChangeText={(newText) => {
                              this.setState({
                                  lastName: newText,
@@ -122,13 +128,30 @@
                      </View>
                  </View>
 
+                 <View style={styles.field} >
+                     <Text style={styles.label} >
+                         Аэродром
+                     </Text>
+                     <View>
+                         <Picker
+                             selectedValue={this.state.organizationId}
+                             onValueChange={(itemValue, itemIndex) => this.setState({organizationId: itemValue, changed: true})}>
+                             {organizations.map((org, k) => {
+                                return (
+                                    <Picker.Item label={(org.name + ' (' + org.code + ')')} value={org.id} key={org.id} />
+                                )
+                             })}
+                         </Picker>
+                     </View>
+                 </View>
+
                  {changed == false ? null :
                      <View style={styles.saveButtonPlaceholder} >
                          <TouchableHighlight style={styles.saveButton} onPress={() => {
                          this.onSave()
                      }} >
                              <Text style={{textAlign: 'center'}} >
-                                 Save
+                                 Сохранить
                              </Text>
                          </TouchableHighlight>
                      </View>

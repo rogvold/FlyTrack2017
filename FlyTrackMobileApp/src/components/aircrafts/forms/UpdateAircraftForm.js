@@ -33,6 +33,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 class UpdateAircraftForm extends React.Component {
 
     static defaultProps = {
+
         onSave: (data) => {
 
         }
@@ -89,16 +90,16 @@ class UpdateAircraftForm extends React.Component {
 
     getAircraftTypeSelector = () => {
         let allTypes = [{
-            label: 'Plane',
+            label: 'Самолет',
             value: 'PLANE'
         }, {
-            label: 'Helicopter',
+            label: 'Вертолет',
             value: 'HELICOPTER'
         }, {
-            label: 'Glider',
+            label: 'Планер',
             value: 'GLIDER'
         }, {
-            label: 'Gyroplane',
+            label: 'Гироплан',
             value: 'GYROPLANE'
         }];
         let {aircraftType} = this.state;
@@ -150,11 +151,11 @@ class UpdateAircraftForm extends React.Component {
                 <View style={styles.field} >
                     {(name == undefined || name.trim() == '') ? null :
                         <Text style={styles.label} >
-                            Name
+                            Название
                         </Text>
                     }
                     <View>
-                        <TextInput placeholder={'Aircraft name'}  style={styles.input}
+                        <TextInput placeholder={'Название воздушного судна'}  style={styles.input}
                                    value={name} onChangeText={(newText) => {
                              this.setState({
                                  name: newText,
@@ -167,11 +168,11 @@ class UpdateAircraftForm extends React.Component {
                 <View style={styles.field} >
                     {(callName == undefined || callName.trim() == '') ? null :
                         <Text style={styles.label} >
-                            Call name
+                            Позывной
                         </Text>
                     }
                     <View>
-                        <TextInput placeholder={'Call name'} style={styles.input}
+                        <TextInput placeholder={'Позывной'} style={styles.input}
                                    value={callName} onChangeText={(newText) => {
                              this.setState({
                                  callName: newText,
@@ -184,11 +185,11 @@ class UpdateAircraftForm extends React.Component {
                 <View style={styles.field} >
                     {(aircraftNumber == undefined || aircraftNumber.trim() == '') ? null :
                         <Text style={styles.label} >
-                            Aircraft number
+                            Номер воздушного судна
                         </Text>
                     }
                     <View>
-                        <TextInput placeholder={'Aircraft number'} style={styles.input}
+                        <TextInput placeholder={'Номер воздушного судна'} style={styles.input}
                                    value={aircraftNumber} onChangeText={(newText) => {
                              this.setState({
                                  aircraftNumber: newText,

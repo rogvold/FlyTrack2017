@@ -42,6 +42,8 @@ import SettingsApp from './SettingsApp'
 import GPSApp from './GPSApp'
 import InitializingApp from './InitializingApp'
 import ProfileApp from './ProfileApp'
+import LoginApp from './LoginApp'
+import SignUpApp from './SignUpApp'
 
 import {Constants, Font} from 'expo'
 
@@ -87,20 +89,24 @@ class App extends React.Component {
         Expo.ScreenOrientation.allow('PORTRAIT_UP');
 
         if (this.state.fontLoaded == false){
-            return <View style={styles.container}></View>;
+            return <View style={styles.container}>
+                <Text>
+                    loading
+                </Text>
+            </View>;
         }
 
         if (initialized == false){
             return <InitializingApp />
         }
 
-        // if (user == undefined){
-        //     return (
-        //         <View style={{flex: 1}} >
-        //             <AuthUserPanel />
-        //         </View>
-        //     )
-        // }
+        if (user == undefined){
+            return (
+                <View style={{flex: 1}} >
+                    {tab == 'signup' ? <SignUpApp /> : <LoginApp />}
+                </View>
+            )
+        }
 
         return (
             <View style={styles.container} >
