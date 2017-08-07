@@ -67,6 +67,7 @@ class ProfileSc extends Component {
     }
 
     render() {
+        console.log('ProfileSc: render occured');
 
         let { store, profiledata } = this.props;
         

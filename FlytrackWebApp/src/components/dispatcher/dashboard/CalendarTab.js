@@ -112,7 +112,7 @@ class CalendarTab extends React.Component {
                                             <div key={sess.id}
                                                  onClick={() => {this.props.selectSession(sess.id)}}
                                                  className={'calendar_element'}>
-                                                {(sess.name == undefined ? 'Полет от ': sess.name) + moment(sess.startTimestamp).format('HH:mm DD.MM.YYYY')}
+                                                {(sess.name == undefined ? '': sess.name) + ' ' + moment(sess.startTimestamp).format('HH:mm')}
                                                 {console.log(sess)}
                                             </div>
                                         )

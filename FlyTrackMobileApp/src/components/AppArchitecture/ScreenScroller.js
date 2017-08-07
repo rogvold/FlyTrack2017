@@ -89,6 +89,7 @@ class ScreenScroller extends Component {
                                 <View style={{width: '100%', height: '100%', padding: '2%', backgroundColor: mvConsts.appBackgroundColor, borderTopRightRadius: mvConsts.littleRadius, borderTopLeftRadius: mvConsts.littleRadius, justifyContent: 'center', alignItems: 'center', }}>
                                     {store.screenName ===  mvConsts.screens[index + 1] ? screen : null}
                                 </View>
+
                             </View>
                         )
                     })}

@@ -41,6 +41,7 @@ import BottomNavigationPanel from '../navigation/panels/BottomNavigationPanel'
 import SettingsApp from './SettingsApp'
 import GPSApp from './GPSApp'
 import InitializingApp from './InitializingApp'
+import ProfileApp from './ProfileApp'
 
 import {Constants, Font} from 'expo'
 
@@ -104,25 +105,30 @@ class App extends React.Component {
         return (
             <View style={styles.container} >
 
-                <MityayApp />
-
                 {true == true ? null :
-                    <ScrollView>
-
-                        {tab != 'settings' ? null :
-                            <SettingsApp />
-                        }
-
-                        {tab != 'flight' ? null :
-                            <GPSApp />
-                        }
-
-                    </ScrollView>
+                    <MityayApp />
                 }
 
-                {true == true ? null :
-                    <BottomNavigationPanel />
-                }
+
+
+                <ScrollView>
+
+                    {tab != 'settings' ? null :
+                        <SettingsApp />
+                    }
+
+                    {tab != 'flight' ? null :
+                        <GPSApp />
+                    }
+
+                    {tab != 'profile' ? null :
+                        <ProfileApp />
+                    }
+
+                </ScrollView>
+
+                <BottomNavigationPanel />
+
 
                 {(initialized == false || isLoggedIn == false) ? null :
                     <View style={{display: 'none'}} >
@@ -142,9 +148,11 @@ class App extends React.Component {
 
 var styles = StyleSheet.create({
     container: {
-        // paddingBottom: 50,
-        // paddingTop: Constants.statusBarHeight,
-        flex: 1
+        paddingBottom: 50,
+        paddingTop: Constants.statusBarHeight,
+
+        flex: 1,
+        backgroundColor: 'whitesmoke'
     },
 
 });

@@ -7,6 +7,8 @@ import InputRange from 'react-input-range';
 import Diagram from "./Diagram";
 import moment from "moment";
 
+import {Map} from 'immutable'
+
 const iconsList = {
     'PLANE': L.icon({
         iconUrl: './assets/images/planes/plane0.png', iconSize: [40, 40],
@@ -108,6 +110,9 @@ class LeafletSingleMap extends React.Component {
     updatePolyline = () => {
         let {aircraftId, id, start, startTimestamp, timestamp} = this.props.props.session;
         let {points} = this.props.props;
+        // if (points != undefined){
+        //     points = points.reduce((map, p) => (map.set(p.t, p)), Map()).toArray().sort((a, b) => (a.t - b.t))
+        // }
 
         if (!this.state.changeFromSlider) {
             if (this.state.index < points.lon.length-1 && this.state.index > 0) {
