@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import moment from '../../../node_modules/moment/moment';
 // import { bindActionCreators } from 'redux';
 
+import * as constants from '../../constants/config'
+
 class PlanesList extends React.Component {
 
     static defaultProps = {
@@ -84,8 +86,8 @@ class PlanesList extends React.Component {
                                          this.setState({isPopupActive: buffer});
                                      }
                                  }}>
-                                 {message.points[message.points.length -1].alt < 200 ?
-                                     <div style={{color:red}}>{message.aircraft.callName}</div>
+                                 {message.points[message.points.length -1].alt < constants.AIRPORT_ALERT_HEIGHT ?
+                                     <div style={{color:'#FF0000'}}>{message.aircraft.callName}</div>
                                      :
                                      message.aircraft.callName}
 
