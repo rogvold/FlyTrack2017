@@ -85,15 +85,19 @@ var MonthPanel = React.createClass({
     },
 
     render: function () {
-        var list = this.getWeeksTimestamps();
+        let list = this.getWeeksTimestamps();
 
         return (
             <div style={this.componentStyle.placeholder}>
 
                 {list.map(function(t, k){
-                    var key = t + '_' + k;
-                    var className = 'week_placeholder ';
+                    let key = t + '_' + k;
+                    let cf = this.props.selectedContentFunction == undefined ? () => undefined : this.props.selectedContentFunction;
+                    let selCont = cf(t);
+                    let isSelected = (+moment(this.props.selectedTimestamp).startOf('week').startOf('day').format('x') ==
+                    +moment(t).startOf('week').startOf('day').format('x'));
 
+                    let className = 'week_placeholder ' + (((selCont != undefined) && (isSelected == true)) ? 'with_selected_content' : '');
                     return (
                         <div style={this.componentStyle.week} key={key} className={className} >
                             <WeekRow

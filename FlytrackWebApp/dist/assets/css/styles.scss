@@ -5,7 +5,7 @@ $sidebar_background: #343268;
 
 $logo_background: #343268;
 
-$content_background: #F3F3F8;
+$content_background: rgba(0, 0, 0, 0);
 
 $box_border_radius: 4px;
 
@@ -110,6 +110,7 @@ $cool_modal_top_offset: 20px;
       position: absolute;
       width: 100%;
       height: 100%;
+
 
       .cool_modal_left{
         display: inline-block;
@@ -793,7 +794,9 @@ $calendar_bubble_size: 40px;
 
 .sessions_calendar_panel{
   .day_placeholder.selected{
-    background-color: #F3F3F8;
+
+    background-color: #e2e2f2;
+    border-radius: 3px;
 
     .calendar_spot{
       .calendar_inner{
@@ -805,7 +808,7 @@ $calendar_bubble_size: 40px;
 
 .dispatcher_calendar{
   position: relative;
-  height: 600px;
+  height: 400px;
 }
 
 
@@ -854,9 +857,38 @@ $calendar_bubble_size: 40px;
 
 .my_calendar {
   background-color: white;
+  height: 100%;
   .week_row, .days_placeholder, .additional_content_placeholder {
     display: block;
   }
+  .month_placeholder{
+    height: calc(100% - 70px);
+    &>div{
+      height: 100%;
+    }
+  }
+
+  .week_placeholder{
+    //height: 16.666%;
+    &.with_selected_content{
+      min-height: 80px;
+      height: auto !important;
+    }
+    .week_row{
+      height: 100%;
+      .days_placeholder{
+        height: 100%;
+        .day_placeholder{
+          height: 100%;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+
+
+
   .day_placeholder, .header_column {
     display: inline-block;
     vertical-align: top;
@@ -865,6 +897,7 @@ $calendar_bubble_size: 40px;
     width: 14.2%;
     &.selected{
       background: #e6eef5;
+      border-radius: 3px;
     }
   }
   &.has_total_week {
@@ -913,7 +946,7 @@ $calendar_bubble_size: 40px;
     &.not_this_month .dayNumber {
       opacity: 0.4;
     }
-    min-height: 52px;
+    min-height: 60px;
     //min-height: 30px;
     &:hover {
       border-radius: 3px;
@@ -932,14 +965,15 @@ $calendar_bubble_size: 40px;
 
       margin-top: 2px;
       text-align: center;
-      background: #8aacff;
+      background: #789ae5;
       border-radius: 50px;
       opacity: 0.75;
       font-weight: bold;
-      width: 48px;
-      height: 48px;
+      color: #000000;
+      width: 56px;
+      height: 56px;
       font-size: 18px;
-      line-height: 48px;
+      line-height: 56px;
     }
   }
 
@@ -1053,25 +1087,34 @@ $top_dashboard_panel_height: 50px;
   height: 100%;
   background: white;
   font-size: 16px;
+
   .header_panel{
     height: $top_dashboard_panel_height;
     width: 100%;
     border-bottom: 1px solid whitesmoke;
-    padding: 5px;
+    padding-right: 7px;
+    padding-left: 7px;
     line-height: 40px;
+    font-size: 15px;
+    margin: 0 auto;
+    text-align: center;
 
     .selected_tab {
       display: inline-block;
-
-      padding: 5px;
+      cursor: pointer;
+      padding: 3px;
+      padding-right: 5px;
+      padding-left: 5px;
       padding-bottom: 0px;
-
       border-bottom: 3px solid #9749dc;
     }
     .unselected_tab{
       text-decoration: none;
       display: inline-block;
-      padding: 5px;
+      padding: 3px;
+      padding-right: 5px;
+      padding-left: 5px;
+      cursor: pointer;
     }
 
   }
@@ -1123,7 +1166,7 @@ $top_dashboard_panel_height: 50px;
         padding-bottom: 10px;
         border-bottom: 1px solid lightgray;
         //todo: fix it
-        height: 380px;
+        height: 400px;
 
       }
       .planes_list{
@@ -1226,7 +1269,7 @@ span.red{
 .SingleRouteMapPlaceholder {
   display: inline-block;
   vertical-align: top;
-  height: calc(100% - 20px); //- #{$top_dashboard_panel_height});
+  height: calc(100% - 20px);
   width: 100%;
 
   padding: 2px;
@@ -1383,8 +1426,7 @@ span.red{
 }
 
 .history_planes_list {
-  //width: calc(100% - 320px);
-  height: calc(100% - 380px);
+  height: calc(100% - 420px);
   position: relative;
   display: block;
   vertical-align: top;
@@ -1401,42 +1443,69 @@ span.red{
 }
 
 .user_sessions_panel{
-  margin: auto;
+  margin: 0 auto;
+  text-align: center;
   padding-bottom: 40px;
   width: 100%;
   height: 100%;
   position: relative;
 
-  .session_item{
-    margin: auto;
-    vertical-align: top;
-    position: relative;
-    width: 70%;
-    height: 50%;
-    border: 1px solid powderblue;
-    border-radius: 3px;
-    padding-left: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
 
-    .preview_map{
-      padding: 5px;
-      height: 92%;
+
+    .session_item{
+      opacity: 1;
+      display: inline-block;
+      margin: auto;
+      vertical-align: top;
+      position: relative;
+      width: 342px;
+      height: 280px;
+      border: 1px solid #ebebeb;
+      margin-left: 10px;
+      margin-bottom: 0px;
+      margin-right: 10px;
+      margin-top: 20px;
+      position: relative;
+
+      .overlay_panel{
+        background-color: #000000;
+        position: absolute;
+        z-index: 1;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        opacity: 0;
+      }
+
+      &:hover{
+        .overlay_panel{
+          opacity: 0.15;
+        }
+      }
+
+      .preview_image{
+        border-bottom: 1px solid #ebebeb;
+      }
     }
 
-  }
 }
 
 .datetime_placeholder{
   text-align: right;
+  font-size: 13px;
+  color: #9b9b9b;
+  margin-right: 5px;
 }
 
 .calendar_tab_placeholder{
-  margin: 3px;
-  padding: 10px;
-  border: 1px solid whitesmoke;
+  //margin: 3px;
+  padding-top: 10px;
+  padding-left: 60px;
+  padding-right: 50px;
+
   border-radius: 3px;
+  height: calc(100%-52px);
 
   .calendar_month{
     text-align: center;
@@ -1447,8 +1516,8 @@ span.red{
   }
 
   .calendar_sessions_list{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    //padding-top: 10px;
+    //padding-bottom: 10px;
     text-align: center;
 
 
@@ -1463,33 +1532,72 @@ span.red{
         opacity: 0.8;
       }
 
-      width: 520px;
-      margin: 0 auto;
-      padding: 10px;
-      margin-bottom: 10px;
+      .calendar_element {
+        width: 520px;
+        margin: 0 auto;
+        cursor: pointer;
+        border: 1px solid #ededed;
+        border-radius: 3px;
+        background-color: #f9f9f9;
 
-      &:hover{
-        //font-weight: bold;
-        background-color: #f5f5f5;
+        padding: 10px;
+
+        &:hover {
+          //font-weight: bold;
+          background-color: #f5f5f5;
+        }
+
+        &.selected {
+          opacity: 0.8;
+        }
       }
     }
+
+      .default_calendar_element{
+        width: 520px;
+        margin: 0 auto;
+        cursor: pointer;
+        background-color: #f9f9f9;
+        padding: 10px;
+        text-align: left;
+
+        .sess_time{
+          display: inline-block;
+          margin: auto;
+          float: right;
+          text-align: center;
+        }
+
+        &:hover{
+          background-color: #f5f5f5;
+          opacity: 0.6;
+        }
+
+        &.selected{
+          opacity: 0.8;
+        }
+      }
+
   }
 }
 
 .history_calendar_placeholder{
-  padding: 5px;
+  padding-top: 10px;
+  padding-left: 60px;
+  padding-right: 50px;
 }
 
 
 .user_calendar_placeholder{
+
   .number_for_circle{
     cursor: pointer;
   }
 
   .selectedContent{
-    padding: 10px;
-    border-top: 1px solid whitesmoke;
-    border-bottom: 1px solid whitesmoke;
+    //padding: 10px;
+    //border-top: 1px solid whitesmoke;
+    //border-bottom: 1px solid whitesmoke;
   }
 
   .calendar_element{
@@ -1501,3 +1609,109 @@ span.red{
   }
 
 }
+
+.all_users_panel{
+  margin: 0 auto;
+  text-align: center;
+  .single_user{
+    margin: 6px;
+    width: 345px;
+    display: inline-block;
+
+  }
+}
+
+.allUsersTopPanel {
+  width:100%;
+
+  text-align: left;
+  line-height: 20px;
+  border-right: 10px;
+  margin: 6px;
+  display: inline-block;
+
+  .user_name{
+    text-align: right;
+    display: inline;
+    float: right;
+    padding-right: 20px;
+  }
+
+  .panels_tabs{
+    display: inline-block;
+    text-align: left;
+    font-size: 14px;
+
+    .selected_tab {
+      display: inline-block;
+      padding: 3px;
+      padding-right: 5px;
+      padding-left: 5px;
+      border-bottom: 3px solid #9749dc;
+    }
+    .unselected_tab {
+      text-decoration: none;
+      display: inline-block;
+      padding: 3px;
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+}
+
+//.session_panel_placeholder{
+//  width:100%;
+//  height: 100%;
+//  padding: 5px;
+//  padding-top:0px;
+//
+//  .session_panel_tabs{
+//
+//  }
+//
+//  .session_name_placeholder{
+//
+//  }
+//
+//  .session_panel {
+//    width:100%;
+//    height: 100%;
+//    display: inline-block;
+//
+//    .session_user_name{
+//      display: inline-block;
+//      text-align: left;
+//    }
+//
+//    .session_datetime{
+//      width: 76%;
+//      text-align: center;
+//      display: inline-block;
+//      margin: 0 auto;
+//      position: absolute;
+//      opacity: 0.5;
+//    }
+//
+//    .session_tabs_placeholder{
+//      display: inline-block;
+//      float: right;
+//      padding-bottom: 1px;
+//      .selected_tab {
+//        display: inline-block;
+//        font-weight: bold;
+//        padding-right: 3px;
+//        padding-left: 3px;
+//        padding-top: 0px;
+//        padding-bottom: 3px;
+//        border-bottom: 3px solid #9749dc;
+//      }
+//      .unselected_tab{
+//        text-decoration: none;
+//        display: inline-block;
+//        padding: 2px;
+//        padding-top: 0px;
+//        padding-bottom: 3px;
+//      }
+//    }
+//  }
+//}

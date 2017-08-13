@@ -65,10 +65,10 @@ class LeafletSingleMap extends React.Component {
         let lat2 = +currPoint.lat;
         let y = Math.sin(+dLon) * Math.cos(+lat2);
         let x = Math.cos(+lat1) * Math.sin(+lat2) - Math.sin(+lat1) * Math.cos(+lat2) * Math.cos(+dLon);
-        let brng = Math.atan2(x, y);
+        let brng = Math.atan2(y, x);
         brng = (brng*180/Math.PI);
         brng = (brng + 360) % 360;
-        return 90 - brng;
+        return 90-brng;
     };
 
     createPolyline = () => { //создать маркер и линию
@@ -118,14 +118,20 @@ class LeafletSingleMap extends React.Component {
                     'lng': points.lon[this.state.index]
                 }).addTo(this.map);
 
-                if (this.polylines[id]._latlngs.length > 1) { //поворот, если точек больше одной
-                    this.markers[id].setRotationAngle(this.getAngle({
-                        'lat': points.lat[this.state.index-1],
-                        'lng': points.lon[this.state.index-1]
+                if (this.polylines[id]._latlngs.length > 0) { //поворот, если точек больше одной
+
+                    let rotAngle = this.getAngle({
+                        'lng': points.lat[this.state.index-1],
+                        'lat': points.lon[this.state.index-1]
                     }, {
-                        'lat': points.lat[this.state.index],
-                        'lng': points.lon[this.state.index]
-                    }));
+                        'lng': points.lat[this.state.index],
+                        'lat': points.lon[this.state.index]
+                    });
+
+                    if (rotAngle !== 90) {
+                        this.markers[id].setRotationAngle(rotAngle)
+                    }
+
                 }
                 this.polylines[id].addLatLng({ // добавили текущую точку
                     'lat': points.lat[this.state.index],
@@ -152,13 +158,14 @@ class LeafletSingleMap extends React.Component {
                 }).addTo(this.map);
             }
 
-            if (this.state.index > 1) { //ПОВОРОТ
+            if (this.state.index > 0) { //ПОВОРОТ
+
                 this.markers[id].setRotationAngle(this.getAngle({
-                    'lat': points.lat[this.state.index-1],
-                    'lng': points.lon[this.state.index-1]
+                    'lng': points.lat[this.state.index-1],
+                    'lat': points.lon[this.state.index-1]
                 }, {
-                    'lat': points.lat[this.state.index],
-                    'lng': points.lon[this.state.index]
+                    'lng': points.lat[this.state.index],
+                    'lat': points.lon[this.state.index]
                 }));
             }
         }

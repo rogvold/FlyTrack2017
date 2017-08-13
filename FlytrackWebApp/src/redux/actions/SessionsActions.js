@@ -40,6 +40,7 @@ export function loadUserSessions(userId){
     }
 }
 
+
 export function saveSessionPoints(data){
     return (dispatch, getState) => {
         dispatch(loadUserSessions_());

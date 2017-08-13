@@ -45,26 +45,35 @@ class UserSessionsPanel extends React.Component {
         return sessions.map((session, key) => {
             // let points = getSessionPoints(session.id);
             return(
-                <div className={'session_item'} key ={session.id} onClick={() => {
-                    selectSession(session.id)
-                }} >
-                    <div className={'username_placeholder'}>
-                        {session.name}
-                    </div>
 
-                    <MapPreview  />
+                    <div className={'session_item'} key ={session.id} onClick={() => {
+                        selectSession(session.id)
+                    }} >
+                        <div className={'username_placeholder'}>
+                            {session.name}
+                        </div>
 
-                    <div className={'datetime_placeholder'}>
-                        {moment(session.startTimestamp).format('DD.MM.YYYY HH:mm')}
+                        <img className={'preview_image'}
+                            style={{width: '340px', height: '250px'}}
+                            src={'https://webref.ru/assets/images/book/learn-html-css_1.png'}
+                        />
+
+                        {/*<MapPreview  />*/}
+
+                        <div className={'datetime_placeholder'}>
+                            {moment(session.startTimestamp).format('DD.MM.YYYY HH:mm')}
+                        </div>
+
+                        <div className="overlay_panel"></div>
+
                     </div>
-                </div>
             )
         })
     }
 
     render = () => {
         let {sessions, loadUserSessions} = this.props;
-        console.log('UserSessionsPanel: render: sessions = ', sessions);
+        // console.log('UserSessionsPanel: render: sessions = ', sessions);
 
         return (
             <div className={'user_sessions_panel'} >

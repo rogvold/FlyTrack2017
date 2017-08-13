@@ -47,9 +47,9 @@ class CesiumView extends React.Component {
             let time = Cesium.JulianDate.fromDate(new Date(times[i]));  //раскомментить с нормальным временем
             // let time = Cesium.JulianDate.fromDate(new Date(times[i]-172800000)); //двое суток сдвиг
 
-            // let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], alt[i]); //раскомментить с нормальными высотами
+            let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], alt[i]+300); //раскомментить с нормальными высотами
             // let position = Cesium.Cartesian3.fromDegrees(lat[i], lon[i], 600);
-            let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], 50);
+            // let position = Cesium.Cartesian3.fromDegrees(lon[i], lat[i], 50);
 
             property.addSample(time, position);
         }

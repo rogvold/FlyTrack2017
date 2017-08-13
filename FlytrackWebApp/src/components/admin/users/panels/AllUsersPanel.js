@@ -9,10 +9,13 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../../../../redux/actions/UsersActions'
 
 import CoolPreloader from '../../../preloader/CoolPreloader'
+// import UserSessionsPanel from '../../../sessions/panels/UserSessionsPanel'
 
 import moment from 'moment'
 
 import CoolModal from '../../../modals/CoolModal'
+import CalendarTab from "../../../dispatcher/dashboard/CalendarTab";
+import AircraftsPanel from "../../../aircrafts/panels/AircraftsPanel";
 
 class AllUsersPanel extends React.Component {
 
@@ -21,7 +24,8 @@ class AllUsersPanel extends React.Component {
     static propTypes = {}
 
     state = {
-        selectedUserId: undefined
+        selectedUserId: undefined,
+        activeTab: 'calendar'
     }
 
     //ES5 - componentWillMount
@@ -35,6 +39,10 @@ class AllUsersPanel extends React.Component {
     }
 
     componentWillReceiveProps() {
+
+    }
+
+    getSelectedUserComponent = () => {
 
     }
 
@@ -61,38 +69,46 @@ class AllUsersPanel extends React.Component {
         return (
             <div className={'all_users_panel'} >
 
-                <div className={'ui cards'} >
 
                     {users.map((u, k) => {
                         let key = 'user_' + u.id;
 
                         return (
-                            <div className={'card pointer'} key={key} onClick={() => {
-                                this.setState({
-                                    selectedUserId: u.id
-                                });
-                            }} >
 
-                                <div className={'content'} >
-                                    <div className={'header'} >
-                                        {u.firstName} {u.lastName}
-                                    </div>
-                                    <div className={'meta'} >
-                                        {moment(u.timestamp).format('DD.MM.YYYY HH:mm')}
-                                    </div>
-                                    <div className={'descriptions'} >
+                                <div className={"item pointer single_user"} key={key}
+                                     onClick={() => {
+                                        this.setState({selectedUserId: u.id});
+                                }}>
 
+                                    <div className="ui icon message">
+                                        <i className="inbox icon"></i>
+                                        <div className="content" style={{textAlign: 'left'}}>
+                                            <div className="header">
+                                                {u.firstName} {u.lastName}
+                                            </div>
+                                            <div>
+                                                ID пользователя: {u.id}
+                                                <br/>
+                                                ID организации: {u.organizationId}
+                                                <br/>
+                                                E-mail: {u.email}
+                                                <br/>
+                                                Дата регистрации: {moment(u.timestamp).format('DD.MM.YYYY HH:mm')}
+                                                <br/>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
 
-                            </div>
                         )
 
                     })}
 
-                </div>
+                {/*</div>*/}
 
                 {selectedUserId == undefined ? null :
+
                     <CoolModal onClose={() => {
                         this.setState({
                             selectedUserId: undefined
@@ -100,16 +116,31 @@ class AllUsersPanel extends React.Component {
                     }} >
 
                         <div className={'selected_user_panel'} >
+                            {/*<div className={'header_placeholder'} >*/}
+                                {/*<div className={'center p10'} >*/}
+                                    {/*{selectedUser.firstName} {selectedUser.lastName}*/}
+                                {/*</div>*/}
+                            {/*</div>*/}
 
-                            <div className={'header_placeholder'} >
-                                <div className={'center p10'} >
+                            <div className={'allUsersTopPanel'} >
+
+                                <div className={"panels_tabs"}>
+                                    <div className={this.state.activeTab === 'calendar' ? 'selected_tab':'unselected_tab pointer '} onClick={() => {this.setState({activeTab: 'calendar'})}}>
+                                        Полеты
+                                    </div>
+
+                                    <div className={this.state.activeTab === 'aircrafts' ? 'selected_tab':'unselected_tab pointer '} onClick={() => {this.setState({activeTab: 'aircrafts'})}}>
+                                        Авиасудна
+                                    </div>
+                                </div>
+
+                                <div className={'user_name'}>
                                     {selectedUser.firstName} {selectedUser.lastName}
                                 </div>
-                            </div>
+                            </div >
 
-                            <div className={'content_placeholder'} >
-
-                            </div>
+                            {this.state.activeTab !== 'calendar' ? null: <div style={{height: '100%'}} > <CalendarTab userId={selectedUserId} /> </div>}
+                            {this.state.activeTab !== 'aircrafts' ? null: <div style={{height: '100%'}} > <AircraftsPanel userId={selectedUserId} /> </div>}
 
                         </div>
 
@@ -142,7 +173,10 @@ const mapDispatchToProps = (dispatch) => {
    return {
         loadAllUsers: () => {
             return dispatch(actions.loadAllUsers())
-        }
+        },
+       loadOneUser: (userId) => {
+            return dispatch(actions.loadOneUser(userId))
+       },
    }
 }
 

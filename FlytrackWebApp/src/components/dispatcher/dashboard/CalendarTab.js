@@ -33,8 +33,8 @@ class CalendarTab extends React.Component {
     }
 
     componentDidMount(){
-        let {loadUserSessions} = this.props;
-        loadUserSessions();
+        let {loadUserSessions, userId} = this.props;
+        loadUserSessions(userId);
     }
 
     componentWillReceiveProps(){
@@ -67,11 +67,10 @@ class CalendarTab extends React.Component {
 
         if (this.isDateSelected) {
             return (
-                <div className={'calendar_tab_placeholder user_calendar_placeholder '}>
+                <div className={'calendar_tab_placeholder user_calendar_placeholder '} >
                     <CalendarPanel
 
                         contentFunction={(t) => {
-                            // console.log("contentFunc", t);
                             let day = moment(t).day();
                             let daySessions = getSessionsForTheDay(t);
                             if (daySessions.length == 0){
@@ -108,12 +107,32 @@ class CalendarTab extends React.Component {
                                         </div>}
 
                                     {sessions.map((sess, k) => {
+                                        let myUser = this.props.getUserBySessionId(sess.id);
+                                        let uName = 'N/A';
+                                        if (myUser != undefined){
+                                            uName = myUser.firstName + ' ' + myUser.lastName;
+                                        }
                                         return (
-                                            <div key={sess.id}
-                                                 onClick={() => {this.props.selectSession(sess.id)}}
-                                                 className={'calendar_element'}>
-                                                {(sess.name == undefined ? 'Полет от ': sess.name) + moment(sess.startTimestamp).format('HH:mm DD.MM.YYYY')}
-                                                {console.log(sess)}
+                                            <div className={'default_calendar_element'}
+                                                 onClick={() => {this.props.selectSession(sess.id)}}>
+
+                                                <table className="ui celled table">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style={{width: '245px'}}>
+                                                            <i className="user icon"></i>
+                                                            <b> {uName} </b>
+                                                        </td>
+
+                                                        <td>
+                                                            <div className="sess_time">
+                                                                <i className="wait icon"></i>
+                                                                {moment(sess.startTimestamp).format('HH:mm/DD.MM.YYYY')}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         )
                                     })}
@@ -130,35 +149,44 @@ class CalendarTab extends React.Component {
 
 }
 
-// let getPoints = (state, sessionId) => {
-//     let points = state.sessions.sessionsDataMap.get(sessionId);
-//     if (points == undefined){
-//         points = [];
-//     }
-//     return points;
-// }
+let getAllSessions = (state, userId) => {
+    if (userId == undefined){
+        userId = state.users.currentUserId;
+    }
+    return state.sessions.sessionsMap.toArray().filter(
+        ss => (ss.userId == userId)).sort((a, b) => (a.startTimestamp - b.startTimestamp));
+}
 
-// points: getPoints(state, ownProps.sessionId),
+let getUser = (state, sessionId) => {
+    let session = state.sessions.sessionsMap.get(sessionId);
+    if (session == undefined){
+        return undefined;
+    }
+    let {userId} = session;
+    return state.users.usersMap.get(userId)
+}
 
-const mapStateToProps = (state) => {
+
+const mapStateToProps = (state, ownProps) => {
    return {
-       allSessions: state.sessions.sessionsMap.toArray().filter(
-           ss => (ss.userId == state.users.currentUserId)
-       ).sort((a, b) => (a.t - b.t)),
+       allSessions: getAllSessions(state, ownProps.userId),
+
+       getUserBySessionId: (sessionId) => {
+           return getUser(state, sessionId)
+       },
+
        getSessionsForTheDay: (dayTimestamp) => {
            let from = +moment(dayTimestamp).startOf('day')
            let to = +moment(dayTimestamp).endOf('day')
-           return state.sessions.sessionsMap.toArray().filter(
-               ss => ((ss.userId == state.users.currentUserId) && (ss.startTimestamp > from) && (ss.startTimestamp < to))
-           ).sort((a, b) => (a.t - b.t))
+           return getAllSessions(state, ownProps.userId).filter(ss => ((ss.startTimestamp > from) && (ss.startTimestamp < to)))
        }
    }
 }
 
 const mapDispatchToProps = (dispatch) => {
    return {
-       loadUserSessions: () => {
-           return dispatch(sessionsActions.loadUserSessions())
+       loadUserSessions: (userId) => {
+           return dispatch(sessionsActions.loadUserSessions(userId))
        },
        selectSession: (id) => {
            return dispatch(sessionsActions.selectSession(id))

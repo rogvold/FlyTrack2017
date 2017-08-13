@@ -40,8 +40,8 @@ class AdminTabbedPanel extends React.Component {
             <div>
 
                 <div className="ui top attached tabular menu">
-                    <div className={' item ' + (active == 'users' ? 'active' : 'pointer')} onClick={() => {this.setState({active: 'users'})}} >Users</div>
-                    <div className={' item ' + (active == 'organizations' ? 'active' : 'pointer')} onClick={() => {this.setState({active: 'organizations'})}} >Airfields</div>
+                    <div className={' item ' + (active == 'users' ? 'active' : 'pointer')} onClick={() => {this.setState({active: 'users'})}} >Пользователи</div>
+                    <div className={' item ' + (active == 'organizations' ? 'active' : 'pointer')} onClick={() => {this.setState({active: 'organizations'})}} >Аэродромы</div>
                 </div>
 
 

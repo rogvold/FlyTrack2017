@@ -5,8 +5,6 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-
-
 import * as dashboardActions from '../../../redux/actions/DashboardActions'
 
 import CoolPreloader from '../../preloader/CoolPreloader'
@@ -46,7 +44,8 @@ class DispatcherCalendar extends React.Component {
             <div className={'dispatcher_calendar'} >
 
                 <CalendarPanel selectedTimestamp={selectedTimestamp}
-                               onDayClick={this.onDayClick} />
+                               onDayClick={this.onDayClick}
+                />
 
                 {loading == false ? null :
                     <CoolPreloader />

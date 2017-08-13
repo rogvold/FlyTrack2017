@@ -631,6 +631,16 @@ export function loadAllUsers(){
     }
 }
 
+export function loadOneUser(userId){
+    return (dispatch, getState) => {
+        dispatch(loadUsers_())
+        return ParseAPI.getFreshObjects(Parse.User, Map(), {containedIn: [['objectId', [userId]]]}, ParseAPI.transformUser).then(
+            users => dispatch(loadUsersSuccess(users)),
+            err => dispatch(loadUsersFail(err))
+        )
+    }
+}
+
 let searchUsers_ = () => {
     return {
         type: types.SEARCH_USERS
