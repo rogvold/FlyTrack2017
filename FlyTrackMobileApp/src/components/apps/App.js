@@ -41,6 +41,9 @@ import BottomNavigationPanel from '../navigation/panels/BottomNavigationPanel'
 import SettingsApp from './SettingsApp'
 import GPSApp from './GPSApp'
 import InitializingApp from './InitializingApp'
+import ProfileApp from './ProfileApp'
+import LoginApp from './LoginApp'
+import SignUpApp from './SignUpApp'
 
 import {Constants, Font} from 'expo'
 
@@ -82,49 +85,58 @@ class App extends React.Component {
 
 
     render = () => {
-        let {initialized, tab, user} = this.props;
+        let {initialized, tab, user, isLoggedIn} = this.props;
         Expo.ScreenOrientation.allow('PORTRAIT_UP');
 
         if (this.state.fontLoaded == false){
-            return <View style={styles.container}></View>;
+            return <View style={styles.container}>
+                <Text>
+                    loading
+                </Text>
+            </View>;
         }
 
         if (initialized == false){
             return <InitializingApp />
         }
 
-        // if (user == undefined){
-        //     return (
-        //         <View style={{flex: 1}} >
-        //             <AuthUserPanel />
-        //         </View>
-        //     )
-        // }
+        if (user == undefined){
+            return (
+                <View style={{flex: 1}} >
+                    {tab == 'signup' ? <SignUpApp /> : <LoginApp />}
+                </View>
+            )
+        }
 
         return (
             <View style={styles.container} >
 
-                <MityayApp />
-
                 {true == true ? null :
-                    <ScrollView>
-
-                        {tab != 'settings' ? null :
-                            <SettingsApp />
-                        }
-
-                        {tab != 'flight' ? null :
-                            <GPSApp />
-                        }
-
-                    </ScrollView>
+                    <MityayApp />
                 }
 
-                {true == true ? null :
-                    <BottomNavigationPanel />
-                }
 
-                {initialized == false ? null :
+
+                <ScrollView>
+
+                    {tab != 'settings' ? null :
+                        <SettingsApp />
+                    }
+
+                    {tab != 'flight' ? null :
+                        <GPSApp />
+                    }
+
+                    {tab != 'profile' ? null :
+                        <ProfileApp />
+                    }
+
+                </ScrollView>
+
+                <BottomNavigationPanel />
+
+
+                {(initialized == false || isLoggedIn == false) ? null :
                     <View style={{display: 'none'}} >
                         <GPSDaemon />
                         <RealtimeDaemon />
@@ -142,9 +154,11 @@ class App extends React.Component {
 
 var styles = StyleSheet.create({
     container: {
-        // paddingBottom: 50,
-        // paddingTop: Constants.statusBarHeight,
-        flex: 1
+        paddingBottom: 50,
+        paddingTop: Constants.statusBarHeight,
+
+        flex: 1,
+        backgroundColor: 'whitesmoke'
     },
 
 });
@@ -155,7 +169,10 @@ const mapStateToProps = (state) => {
         organizations: state.organizations.organizationsMap.toArray().sort((a, b) => (b.timestamp - a.timestamp)),
         initialized: state.users.initialized,
         tab: state.navigation.tab,
-        user: state.users.usersMap.get(state.users.currentUserId)
+        user: state.users.usersMap.get(state.users.currentUserId),
+
+        isLoggedIn: (state.users.currentUserId != undefined)
+
     }
 }
 

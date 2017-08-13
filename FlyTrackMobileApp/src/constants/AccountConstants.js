@@ -27,13 +27,13 @@ export const FLIGHT_REALTIME_TIMEOUT = 10; //seconds
 
 export const NAVIGATION_TABS = [
     {
+        name: 'profile',
+        label: 'Profile'
+    },
+    {
         name: 'flight',
         label: 'Flight'
     },
-    // {
-    //     name: 'index',
-    //     label: 'Sessions'
-    // },
     {
         name: 'settings',
         label: 'Settings'

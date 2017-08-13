@@ -98,6 +98,10 @@ class SettingsSc extends Component {
 
                     <LanguageSetter />
 
+
+                    {SignOut}
+
+
                     <View style={{paddingTop: 5, paddingBottom: 5, flexDirection: 'row'}} >
                         <Text style={{flex: 1, textAlign: 'center'}} >
                             {user.firstName} {user.lastName}
@@ -113,8 +117,6 @@ class SettingsSc extends Component {
                             </Text>
                         </View>
                     }
-
-                    {SignOut}
 
                     <CurrentUserGPSPanel />
 

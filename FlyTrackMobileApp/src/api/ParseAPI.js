@@ -25,7 +25,7 @@ const ParseAPI = {
         Parse.serverURL = constants.PARSE_SERVER_URL;
     },
 
-    transformUser (u) {
+    transformUser(u) {
         if (u == undefined){
             return undefined;
         }
@@ -35,6 +35,7 @@ const ParseAPI = {
             email: u.get('email'),
             firstName: u.get('firstName'),
             lastName: u.get('lastName'),
+            organizationId: u.get('organizationId'),
             avatar: (u.get('avatar') == undefined) ? constants.EMPTY_AVATAR : u.get('avatar')
         }
     },

@@ -1,5 +1,5 @@
 /**
- * Created by sabir on 31.07.17.
+ * Created by sabir on 07.08.17.
  */
 
 
@@ -37,13 +37,9 @@
 
  import AuthUserPanel from '../users/panels/AuthUserPanel'
 
- import UpdateUserProfilePanel from '../profile/panels/UpdateUserProfilePanel'
+ import * as navigationActions from '../../redux/actions/NavigationActions'
 
- import AircraftsPanel from '../aircrafts/panels/AircraftsPanel'
-
- import * as usersActions from '../../redux/actions/UsersActions'
-
- class SettingsApp extends React.Component {
+ class LoginApp extends React.Component {
 
      static defaultProps = {}
 
@@ -65,33 +61,28 @@
      }
 
      render = () => {
-         let {logout, currentUserId} = this.props;
-         if (currentUserId == undefined){
-             return null;
-         }
+         let {switchToSignUp} = this.props;
+         console.log('LoginApp: render occured');
 
          return (
-             <ScrollView style={styles.container} >
+             <View style={styles.container} >
 
-                 <UpdateUserProfilePanel />
+                 <AuthUserPanel />
 
-                 <AircraftsPanel />
-
-                 <View style={{marginTop: 10}} >
-                     <TouchableHighlight
-                        style={{alignItems: 'center', justifyContent: 'center',
-
-                                padding: 8, backgroundColor: 'pink'}}
+                 <View>
+                     <TouchableOpacity
+                         style={{padding: 5}}
                          onPress={() => {
-                            logout()
-                        }} >
-                         <Text>
-                             Выход
-                         </Text>
-                     </TouchableHighlight>
+                            switchToSignUp()
+                         }} >
+                             <Text style={{textAlign: 'center'}} >
+                                 Еще не зарегистрированы? Создать аккаунт!
+                             </Text>
+                     </TouchableOpacity>
                  </View>
 
-             </ScrollView>
+
+             </View>
          )
      }
 
@@ -100,7 +91,6 @@
  var styles = StyleSheet.create({
      container: {
          flex: 1,
-         padding: 10
      },
 
  });
@@ -108,19 +98,18 @@
 
  const mapStateToProps = (state) => {
     return {
-        currentUserId: state.users.currentUserId,
-        loading: state.users.loading
+
     }
  }
 
  const mapDispatchToProps = (dispatch) => {
     return {
-        logout: () => {
-            return dispatch(usersActions.logOut())
+        switchToSignUp: (tab) => {
+            return dispatch(navigationActions.selectTab('signup'))
         }
     }
  }
 
- SettingsApp = connect(mapStateToProps, mapDispatchToProps)(SettingsApp)
+ LoginApp = connect(mapStateToProps, mapDispatchToProps)(LoginApp)
 
- export default SettingsApp
+ export default LoginApp

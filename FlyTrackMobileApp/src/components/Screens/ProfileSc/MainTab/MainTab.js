@@ -48,7 +48,7 @@ class MainTab extends Component {
 
     render() {
 
-        let { store, profiledata } = this.props;
+        let {store, profiledata, user} = this.props;
         let avatarSide = Dimensions.get('window').height * 0.10;
         let innerTabWidth = window.width * 0.92 / mvConsts.profileTabs.length;
         let id = 0;
@@ -74,12 +74,12 @@ class MainTab extends Component {
                     <View style={{width: '30%', height: '100%', borderRadius: mvConsts.littleRadius, alignItems: 'center', justifyContent: 'center' }}>
                         <Image
                             style={{width: avatarSide, height: avatarSide, borderRadius: avatarSide / 2,  }}
-                            source={{uri: stab.users[id].uri}}
+                            source={{uri: user.avatar}}
                         />
                     </View>
                     <View style={{width: '70%', height: '100%', borderRadius: mvConsts.littleRadius, justifyContent: 'center', flexDirection: 'column' }}>
                         <View style={{width: '100%', height: '60%', borderRadius: mvConsts.littleRadius, justifyContent: 'center', }}>
-                            <Text style={{fontFamily: mvConsts.fontFamilySemiBold, fontSize: mvConsts.fontSizeMiddle, color: mvConsts.fontColorMain, }} >{stab.users[id].name} {stab.users[id].surname}</Text>
+                            <Text style={{fontFamily: mvConsts.fontFamilySemiBold, fontSize: mvConsts.fontSizeMiddle, color: mvConsts.fontColorMain, }} >{user.firstName} {user.lastName}</Text>
                         </View>
                         <View style={{width: '50%', height: '40%', backgroundColor: 'black', borderRadius: mvConsts.littleRadius + 2, alignItems: 'center', justifyContent: 'center', }}>
                             <TouchableOpacity style={{width: '100%', height: '100%', borderRadius: mvConsts.littleRadius, alignItems: 'center', justifyContent: 'center', }}>
@@ -109,6 +109,8 @@ let mapStateToProps = (state) => {
     return {
         store: state.store,
         profiledata: state.profiledata,
+
+        user: state.users.usersMap.get(state.users.currentUserId)
 
     }
 };

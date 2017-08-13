@@ -36,7 +36,7 @@ import FlightTab from './FlightTab'
 class FlightsScroll extends Component {
     render() {
 
-        let { store, profiledata } = this.props;
+        let { store, profiledata, sessions } = this.props;
 
         return (
             <View style={{width: '100%', height: '100%', borderRadius: mvConsts.littleRadius, alignItems: 'center', position: 'absolute' }}>
@@ -44,10 +44,12 @@ class FlightsScroll extends Component {
                     showsVerticalScrollIndicator={false}
                 >
                 <View style={{width: '100%', height: '100%', borderRadius: mvConsts.littleRadius, alignItems: 'center', }}>
-                    {stab.flights.map((flight, index) => {
+                    {sessions.map((session, index) => {
                         return(
-                            <View style={{width: '100%', marginBottom: '2%', borderRadius: mvConsts.littleRadius, alignItems: 'center', }} key={index}  >
-                                <FlightTab index={index} />
+                            <View
+                                style={{width: '100%', marginBottom: '2%', borderRadius: mvConsts.littleRadius, alignItems: 'center', }}
+                                key={session.id}  >
+                                <FlightTab sessionId={session.id} index={index} />
                             </View>
                         )
                     })}
@@ -63,18 +65,19 @@ let mapStateToProps = (state) => {
     return {
         store: state.store,
         profiledata: state.profiledata,
+
+        sessions: state.sessions.sessionsMap.toArray()
+                       .filter((s) => (s.userId == state.users.currentUserId))
+                       .sort((a, b) => (a.t - b.t))
+
     }
 };
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         Authorize: () => {
-//             return dispatch({
-//                 type: 'Authorize'
-//             })
-//         },
-//     }
-// }
+let mapDispatchToProps = (dispatch) => {
+    return {
+
+    }
+}
 
 // Export
-export default connect(mapStateToProps)(FlightsScroll)
+export default connect(mapStateToProps, mapDispatchToProps)(FlightsScroll)
