@@ -84,8 +84,10 @@ class PlanesList extends React.Component {
                                          this.setState({isPopupActive: buffer});
                                      }
                                  }}>
-
-                                 {message.aircraft.callName}
+                                 {message.points[message.points.length -1].alt < 200 ?
+                                     <div style={{color:red}}>{message.aircraft.callName}</div>
+                                     :
+                                     message.aircraft.callName}
 
                              </div>
                             {isActive ? <div className="plane_spoiler">{popupCreator(message)}</div> : null}
