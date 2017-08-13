@@ -856,6 +856,7 @@ $calendar_bubble_size: 40px;
 }
 
 .my_calendar {
+  //font-size: 14px;
   background-color: white;
   height: 100%;
   .week_row, .days_placeholder, .additional_content_placeholder {
@@ -915,12 +916,12 @@ $calendar_bubble_size: 40px;
     position: absolute;
     left: 3px;
     top: 3px;
-    font-size: 14px;
+    font-size: 15px;
     opacity: 0.8;
     cursor: pointer;
     &.today {
       //font-weight: bold;
-      font-style: italic;
+      //font-style: italic;
       color: #212121;
     }
     &.selected {

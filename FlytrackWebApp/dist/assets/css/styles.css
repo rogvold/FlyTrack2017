@@ -549,11 +549,10 @@
     position: absolute;
     left: 3px;
     top: 3px;
-    font-size: 14px;
+    font-size: 15px;
     opacity: 0.8;
     cursor: pointer; }
     .my_calendar .dayNumber.today {
-      font-style: italic;
       color: #212121; }
     .my_calendar .dayNumber.selected {
       cursor: default;

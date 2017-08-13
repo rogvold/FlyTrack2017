@@ -182,6 +182,7 @@ let popupCreator = (message) => {
             <li>Координаты:</li>
             <li>Широта: {(''+message.points[message.points.length -1].lat).slice(0, 8)}</li>
             <li>Долгота: {('' + message.points[message.points.length -1].lng).slice(0, 8)}</li>
+            <li>Высота: {('' + message.points[message.points.length -1].alt).slice(0, 8)}</li>
         </ul>
     );
 };
