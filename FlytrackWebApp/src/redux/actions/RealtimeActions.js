@@ -62,3 +62,11 @@ export function sendPusherEvent(){
     }
 }
 
+export function addRealtimeMessages(messages){
+    return (dispatch, getState) => {
+        return dispatch({
+            type: types.REALTIME_MESSAGE_RECEIVED,
+            messages: messages
+        })
+    }
+}

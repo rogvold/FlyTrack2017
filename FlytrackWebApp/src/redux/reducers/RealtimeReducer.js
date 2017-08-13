@@ -15,6 +15,13 @@ const initialState = {
 }
 
 
+let consumeMessages = (messagesSet, messages) => {
+    for (let i in messages){
+        messagesSet = messagesSet.add(messages[i])
+    }
+    return messagesSet;
+}
+
 const RealtimeReducer =  (state = initialState, action = {}) => {
 
     switch (action.type) {
@@ -45,6 +52,16 @@ const RealtimeReducer =  (state = initialState, action = {}) => {
                 error: action.error,
                 pointsMap: state.pointsMap.merge(action.points.reduce((map, p) => map.set(p.t, p), Map())),
                 lastTimestamp: (action.points.length == 0) ? state.lastTimestamp : action.points[action.points.length - 1].t
+            }
+
+        case types.REALTIME_MESSAGE_RECEIVED:
+            return {
+                ...state,
+                loading: false,
+                error: undefined,
+                messagesSet: consumeMessages(state.messagesSet, action.messages)
+                // messagesMap: state.messagesMap.merge(action.messages.reduce((res, u) => {return res.set(u.id, u)}, Map()))
+                // messagesSet: consumeMessages(state.messagesSet, action.messages)
             }
 
 
