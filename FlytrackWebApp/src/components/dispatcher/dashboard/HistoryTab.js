@@ -5,17 +5,10 @@ import React, {PropTypes} from 'react';
 
 import DispatcherCalendar from './DispatcherCalendar'
 import PlaneListInHistory from '../../map/historyTab/PlaneListInHistory'
-
-// import TestinG from '../../map/TestinG'
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import SessionsDataPanel from './SessionsDataPanel'
-
 import moment from 'moment';
-import HistoryActivePlanes from "./HistoryActivePlanes";
-
 import Slider from "./slider/Slider";
 import CurrentTime from "./slider/CurrentTime";
 import PlayPauseButton from "./slider/PlayPauseButton";
@@ -58,16 +51,6 @@ class HistoryTab extends React.Component {
                 </div>
             )
         }
-        // let sortedSessions = this.props.sessions.sort((e1, e2) => {
-        //     if (e1.startTimestamp > e2.startTimestamp) {
-        //         return 1;
-        //     }
-        //     if (e1.startTimestamp < e2.startTimestamp) {
-        //         return -1;
-        //     }
-        //     return 0;
-        //
-        // });
 
         return (
             <div className={'content_panel'}>
@@ -96,14 +79,6 @@ class HistoryTab extends React.Component {
         )
     }
 }
-
-
-// const mapDispatchToProps = (dispatch) => {
-//    return {
-//        onLogout: (data) => {
-//            dispatch(actions.logOut())
-//        }
-//    }getSortedSessions()
 
 let getSessions = (state) => {
     let {timestamp} = state.dashboard;

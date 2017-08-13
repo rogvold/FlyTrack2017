@@ -46,7 +46,6 @@ class SessionsDataPanel extends React.Component {
 
         });
 
-        // console.log('sorted ', sortedSessions);
 
         return (
             <div className={'sessions_data_panel'} >

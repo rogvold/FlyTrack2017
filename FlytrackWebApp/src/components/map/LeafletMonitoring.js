@@ -290,7 +290,6 @@ let transformMessagesToDataArray = (messages) => {
         }
         return {
             aircraft: a.aircraft,
-            // messages: a.messages,
             points: newPoints
         }
     })
@@ -322,8 +321,6 @@ const mapStateToProps = (state) => {
     return {
         messages: state.realtime.messagesSet.toArray(),
         selectedAircraftsSet: state.dashboard.selectedAircraftsSet
-        // currentUserId: state.users.currentUserId,
-        // loading: state.users.loading
     }
 }
 

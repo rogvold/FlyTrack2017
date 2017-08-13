@@ -139,22 +139,6 @@ class CalendarWithAllFlights extends React.Component {
                                                 </tbody>
                                             </table>
 
-                                            {/*//*/}
-                                        {/*<div key={sess.id}*/}
-                                                 {/*onClick={() => {this.props.selectSession(sess.id)}}*/}
-                                                 {/*style={{display: 'inline-block'}}*/}
-                                                 {/*className={'calendar_element'}>*/}
-
-                                            {/*<i className="user icon"></i>*/}
-                                                {/*<b>*/}
-                                                    {/*{uName + ' '}*/}
-                                                {/*</b>*/}
-
-                                            {/*{moment(sess.startTimestamp).format('HH:mm DD.MM.YYYY')}*/}
-                                                {/*{console.log(sess)}*/}
-                                            {/*</div>*/}
-                                            {/*//*/}
-
                                         </div>
 
                                         )

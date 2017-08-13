@@ -116,15 +116,9 @@ class AllUsersPanel extends React.Component {
                     }} >
 
                         <div className={'selected_user_panel'} >
-                            {/*<div className={'header_placeholder'} >*/}
-                                {/*<div className={'center p10'} >*/}
-                                    {/*{selectedUser.firstName} {selectedUser.lastName}*/}
-                                {/*</div>*/}
-                            {/*</div>*/}
-
                             <div className={'allUsersTopPanel'} >
-
                                 <div className={"panels_tabs"}>
+
                                     <div className={this.state.activeTab === 'calendar' ? 'selected_tab':'unselected_tab pointer '} onClick={() => {this.setState({activeTab: 'calendar'})}}>
                                         Полеты
                                     </div>
@@ -141,7 +135,6 @@ class AllUsersPanel extends React.Component {
 
                             {this.state.activeTab !== 'calendar' ? null: <div style={{height: '100%'}} > <CalendarTab userId={selectedUserId} /> </div>}
                             {this.state.activeTab !== 'aircrafts' ? null: <div style={{height: '100%'}} > <AircraftsPanel userId={selectedUserId} /> </div>}
-
                         </div>
 
                     </CoolModal>

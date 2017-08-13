@@ -25,8 +25,6 @@ class PlanesList extends React.Component {
 
     state = {
         isPopupActive: {},
-        // this.state.aircraft.ids = Array.from(selectedAircraftsSet);
-        // this.state.aircraft.callNames =
     }
 
     //ES5 - componentWillMount
@@ -70,8 +68,7 @@ class PlanesList extends React.Component {
                                            } else {
                                                selectAircraft(message.aircraft.id);
                                            }
-                                       }}
-                                />
+                                       }}/>
                             </div>
                              <div
                                  className={'plane_name_placeholder ' + (isActive == true ? ' bold ' : '')}
@@ -107,8 +104,6 @@ const mapStateToProps = (state) => {
     return {
         messages: state.realtime.messagesSet.toArray(),
         selectedAircraftsSet: state.dashboard.selectedAircraftsSet
-        // currentUserId: state.users.currentUserId,
-        // loading: state.users.loading
     }
 }
 

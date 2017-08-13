@@ -61,22 +61,4 @@ class MonitoringTab extends React.Component {
     }
 }
 
-
-//const mapStateToProps = (state) => {
-//    return {
-//        currentUserId: state.users.currentUserId,
-//        loading: state.users.loading
-//    }
-//}
-
-//const mapDispatchToProps = (dispatch) => {
-//    return {
-//        onLogout: (data) => {
-//            dispatch(actions.logOut())
-//        }
-//    }
-//}
-
-//MonitoringTab = connect(mapStateToProps, mapDispatchToProps)(MonitoringTab)
-
 export default MonitoringTab
