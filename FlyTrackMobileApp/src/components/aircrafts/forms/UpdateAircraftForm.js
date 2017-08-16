@@ -106,6 +106,11 @@ class UpdateAircraftForm extends React.Component {
         return (
             allTypes.map((aType, k) => {
                 let isSelected = (aircraftType == aType.value);
+                let st = {fontSize: 16, opacity: 0.7};
+                if (isSelected == true) {
+                    st = {fontWeight: 'bold', fontSize: 16, opacity: 1};
+                }
+
                 return (
                     <TouchableOpacity
                         style={{flexDirection: 'row'}}
@@ -115,7 +120,7 @@ class UpdateAircraftForm extends React.Component {
                             changed: true
                         });
                     }} >
-                        <Text style={{fontWeight: (isSelected ? 'bold' : 'normal'), fontSize: 14}} >
+                        <Text style={st} >
                             {isSelected == true ? '[x]' : '[]'} {aType.label}
                         </Text>
                     </TouchableOpacity>
@@ -146,7 +151,7 @@ class UpdateAircraftForm extends React.Component {
         let canSubmit = this.canSubmit();
 
         return (
-            <View style={styles.container} >
+            <ScrollView style={styles.container} >
 
                 <View style={styles.field} >
                     {(name == undefined || name.trim() == '') ? null :
@@ -155,7 +160,9 @@ class UpdateAircraftForm extends React.Component {
                         </Text>
                     }
                     <View>
-                        <TextInput placeholder={'Название воздушного судна'}  style={styles.input}
+                        <TextInput placeholder={'Название воздушного судна'}
+                                   underlineColorAndroid='transparent'
+                                   style={styles.input}
                                    value={name} onChangeText={(newText) => {
                              this.setState({
                                  name: newText,
@@ -173,6 +180,7 @@ class UpdateAircraftForm extends React.Component {
                     }
                     <View>
                         <TextInput placeholder={'Позывной'} style={styles.input}
+                                   underlineColorAndroid='transparent'
                                    value={callName} onChangeText={(newText) => {
                              this.setState({
                                  callName: newText,
@@ -189,7 +197,9 @@ class UpdateAircraftForm extends React.Component {
                         </Text>
                     }
                     <View>
-                        <TextInput placeholder={'Номер воздушного судна'} style={styles.input}
+                        <TextInput placeholder={'Номер воздушного судна'}
+                                   style={styles.input}
+                                   underlineColorAndroid='transparent'
                                    value={aircraftNumber} onChangeText={(newText) => {
                              this.setState({
                                  aircraftNumber: newText,
@@ -200,6 +210,9 @@ class UpdateAircraftForm extends React.Component {
                 </View>
 
                 <View style={styles.field} >
+                    <Text style={styles.label} >
+                        Тип воздушного судна
+                    </Text>
                     {this.getAircraftTypeSelector()}
                 </View>
 
@@ -209,13 +222,13 @@ class UpdateAircraftForm extends React.Component {
                          this.onSave()
                      }} >
                             <Text style={{textAlign: 'center'}} >
-                                Save
+                                Сохранить
                             </Text>
                         </TouchableHighlight>
                     </View>
                 }
 
-            </View>
+            </ScrollView>
         )
     }
 
@@ -225,7 +238,7 @@ class UpdateAircraftForm extends React.Component {
 
 var styles = StyleSheet.create({
     container: {
-
+        // backgroundColor: 'white'
     },
 
     field: {
@@ -234,6 +247,7 @@ var styles = StyleSheet.create({
 
     input: {
         borderBottomWidth: 1,
+        height: 40,
         borderBottomColor: 'whitesmoke'
     },
 

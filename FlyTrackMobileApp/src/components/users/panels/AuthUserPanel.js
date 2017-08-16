@@ -38,6 +38,8 @@
 
  import LoginPanel from '../../auth/panels/LoginPanel'
 
+ import {Constants} from 'expo'
+
  class AuthUserPanel extends React.Component {
 
      static defaultProps = {}
@@ -59,19 +61,12 @@
 
      }
 
-
-
      render = () => {
          let {currentUserId, login, logout, loading, user} = this.props;
 
          return (
              <View style={styles.container} >
 
-                 {loading == false ? null :
-                    <Text>
-                        loading...
-                    </Text>
-                 }
 
                  {currentUserId != undefined ? null :
                      <LoginPanel />
@@ -116,7 +111,8 @@
 
  var styles = StyleSheet.create({
      container: {
-         flex: 1,
+         // height: 300,
+         // width: 120
      },
 
  });

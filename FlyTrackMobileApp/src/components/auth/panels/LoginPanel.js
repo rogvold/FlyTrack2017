@@ -112,7 +112,10 @@
                                  Email
                              </Text>
                          }
-                         <TextInput keyboardType='email' placeholder={'Email'} value={email} onChangeText={(txt) => {
+                         <TextInput keyboardType='email-address'
+                                    style={styles.input}
+                                    underlineColorAndroid='transparent'
+                                    placeholder={'Email'} value={email} onChangeText={(txt) => {
                              this.setState({
                                  email: txt.toLowerCase()
                              });
@@ -126,9 +129,12 @@
                              </Text>
                          }
 
-                         <TextInput placeholder={'Пароль'} value={password} onChangeText={(txt) => {
+                         <TextInput placeholder={'Пароль'}
+                                    style={styles.input}
+                                    underlineColorAndroid='transparent'
+                                    value={password} onChangeText={(txt) => {
                              this.setState({
-                                 password: txt
+                                 password: txt.toLowerCase()
                              });
                          }} />
                      </View>
@@ -147,8 +153,8 @@
                                            }}
                          >
                              {loading == false ?
-                                 <Text>
-                                     Вход
+                                 <Text style={{fontSize: 20}} >
+                                     Войти
                                  </Text>
                                  :
                                  <ActivityIndicator />
@@ -167,18 +173,30 @@
 
  var styles = StyleSheet.create({
      container: {
-         flex: 1,
-     },
-
-     loginFormPlaceholder: {
-         width: width,
-         height: 200,
-         padding: 10,
+         // flex: 1,
+         alignItems: 'center',
+         justifyContent: 'center',
          paddingTop: Constants.statusBarHeight * 2
      },
 
+     loginFormPlaceholder: {
+         width: width * 0.8,
+         height: height / 2.0,
+         padding: 10,
+         paddingTop: Constants.statusBarHeight * 2,
+         // backgroundColor: 'green',
+         borderRadius: 4
+     },
+
      field: {
-         marginBottom: 30
+         marginBottom: 30,
+         borderBottomWidth: 1,
+         borderBottomColor: 'lightgrey'
+     },
+
+     input: {
+         // height: 50,
+         // backgroundColor: 'pink'
      }
 
  });

@@ -21,6 +21,7 @@ import {
     Navigator,
     TouchableHighlight,
     TouchableOpacity,
+    Dimensions,
     NativeAppEventEmitter,
     Platform,
     BackAndroid,
@@ -46,6 +47,10 @@ import LoginApp from './LoginApp'
 import SignUpApp from './SignUpApp'
 
 import {Constants, Font} from 'expo'
+
+let {width, height} = Dimensions.get('window');
+
+import NoAircraftsPanel from '../aircrafts/panels/NoAircraftsPanel'
 
 class App extends React.Component {
 
@@ -85,13 +90,13 @@ class App extends React.Component {
 
 
     render = () => {
-        let {initialized, tab, user, isLoggedIn} = this.props;
+        let {initialized, tab, user, isLoggedIn, aircrafts, aircraftsLoading} = this.props;
         Expo.ScreenOrientation.allow('PORTRAIT_UP');
 
         if (this.state.fontLoaded == false){
             return <View style={styles.container}>
                 <Text>
-                    loading
+
                 </Text>
             </View>;
         }
@@ -115,25 +120,29 @@ class App extends React.Component {
                     <MityayApp />
                 }
 
+                {(aircrafts.length == 0 && aircraftsLoading == false) ?
+                    <View style={{height: height * 2.0 / 3.0, marginTop: height / 16.0}} >
+                        <NoAircraftsPanel />
+                    </View> :
+                    <ScrollView>
 
+                        {tab != 'settings' ? null :
+                            <SettingsApp />
+                        }
 
-                <ScrollView>
+                        {tab != 'flight' ? null :
+                            <GPSApp />
+                        }
 
-                    {tab != 'settings' ? null :
-                        <SettingsApp />
-                    }
+                        {tab != 'profile' ? null :
+                            <ProfileApp />
+                        }
 
-                    {tab != 'flight' ? null :
-                        <GPSApp />
-                    }
+                    </ScrollView>
+                }
 
-                    {tab != 'profile' ? null :
-                        <ProfileApp />
-                    }
-
-                </ScrollView>
-
-                <BottomNavigationPanel />
+                {((aircrafts.length == 0) && (aircraftsLoading == false)) ? null :
+                    <BottomNavigationPanel /> }
 
 
                 {(initialized == false || isLoggedIn == false) ? null :
@@ -170,6 +179,9 @@ const mapStateToProps = (state) => {
         initialized: state.users.initialized,
         tab: state.navigation.tab,
         user: state.users.usersMap.get(state.users.currentUserId),
+
+        aircrafts: state.aircrafts.aircraftsMap.toArray().filter((a) => (a.userId == state.users.currentUserId)),
+        aircraftsLoading: state.aircrafts.loading,
 
         isLoggedIn: (state.users.currentUserId != undefined)
 

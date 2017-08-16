@@ -89,7 +89,7 @@ import UpdateUserProfileForm from '../forms/UpdateUserProfileForm'
                         }}>
                             <ActivityIndicator />
                             <Text>
-                                loading...
+                                загрузка...
                             </Text>
                         </View>
                      }

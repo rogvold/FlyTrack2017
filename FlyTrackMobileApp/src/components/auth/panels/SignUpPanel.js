@@ -111,11 +111,14 @@ class SignUpPanel extends React.Component {
 
                     <View style={styles.field} >
                         {email.length == 0 ? null :
-                            <Text>
+                            <Text >
                                 Email
                             </Text>
                         }
-                        <TextInput keyboardType='email' placeholder={'Email'} value={email} onChangeText={(txt) => {
+                        <TextInput keyboardType='email-address'
+                                   style={styles.input}
+                                   underlineColorAndroid='transparent'
+                                   placeholder={'Email'} value={email} onChangeText={(txt) => {
                              this.setState({
                                  email: txt.toLowerCase()
                              });
@@ -129,9 +132,12 @@ class SignUpPanel extends React.Component {
                             </Text>
                         }
 
-                        <TextInput placeholder={'Пароль'} value={password} onChangeText={(txt) => {
+                        <TextInput placeholder={'Пароль'}
+                                   style={styles.input}
+                                   underlineColorAndroid='transparent'
+                                   value={password} onChangeText={(txt) => {
                              this.setState({
-                                 password: txt
+                                 password: txt.toLowerCase()
                              });
                          }} />
                     </View>
@@ -143,9 +149,12 @@ class SignUpPanel extends React.Component {
                             </Text>
                         }
 
-                        <TextInput placeholder={'Пароль еще раз'} value={passwordConfirmation} onChangeText={(txt) => {
+                        <TextInput placeholder={'Пароль еще раз'}
+                                   style={styles.input}
+                                   underlineColorAndroid='transparent'
+                                   value={passwordConfirmation} onChangeText={(txt) => {
                              this.setState({
-                                 passwordConfirmation: txt
+                                 passwordConfirmation: txt.toLowerCase()
                              });
                          }} />
                     </View>
@@ -164,8 +173,8 @@ class SignUpPanel extends React.Component {
                                            }}
                         >
                             {loading == false ?
-                                <Text>
-                                    Регистрация
+                                <Text style={{fontSize: 20}} >
+                                    Зарегистрироваться
                                 </Text>
                                 :
                                 <ActivityIndicator />
@@ -184,18 +193,29 @@ class SignUpPanel extends React.Component {
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1,
-    },
-
-    loginFormPlaceholder: {
-        width: width,
-        height: 200,
-        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingTop: Constants.statusBarHeight * 2
     },
 
+    loginFormPlaceholder: {
+        width: width * 0.8,
+        height: height / 2.0,
+        padding: 10,
+        paddingTop: Constants.statusBarHeight * 2,
+        // backgroundColor: 'green',
+        borderRadius: 4
+    },
+
     field: {
-        marginBottom: 30
+        marginBottom: 30,
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgrey'
+    },
+
+    input: {
+        // height: 50,
+        // backgroundColor: 'pink'
     }
 
 });

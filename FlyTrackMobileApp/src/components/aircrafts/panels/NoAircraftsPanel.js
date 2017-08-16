@@ -70,12 +70,12 @@
          }
 
          return (
-             <View style={styles.container} >
+             <ScrollView style={styles.container} >
 
 
                  <View style={{padding: 10}} >
-                     <Text style={{textAlign: 'center', fontWeight: 'bold'}} >
-                         You have no aircrafts. Please create the first one!
+                     <Text style={{textAlign: 'center', fontSize: 16}} >
+                         Пожалуйста, добавьте свое воздушное судно!
                      </Text>
                  </View>
 
@@ -85,7 +85,7 @@
                      }} />
                  </View>
 
-             </View>
+             </ScrollView>
          )
      }
 
@@ -93,7 +93,9 @@
 
  var styles = StyleSheet.create({
      container: {
-         flex: 1,
+         // flex: 1,
+         backgroundColor: 'white',
+         padding: 10
      },
 
  });

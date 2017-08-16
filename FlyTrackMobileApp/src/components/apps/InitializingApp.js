@@ -61,9 +61,7 @@
          return (
              <View style={styles.container} >
 
-                 <Text style={styles.text} >
-                     loading...
-                 </Text>
+
 
              </View>
          )
