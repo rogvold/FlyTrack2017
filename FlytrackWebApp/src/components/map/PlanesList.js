@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import moment from '../../../node_modules/moment/moment';
 // import { bindActionCreators } from 'redux';
 
+import * as constants from '../../constants/config'
+
 class PlanesList extends React.Component {
 
     static defaultProps = {
@@ -23,8 +25,6 @@ class PlanesList extends React.Component {
 
     state = {
         isPopupActive: {},
-        // this.state.aircraft.ids = Array.from(selectedAircraftsSet);
-        // this.state.aircraft.callNames =
     }
 
     //ES5 - componentWillMount
@@ -68,8 +68,7 @@ class PlanesList extends React.Component {
                                            } else {
                                                selectAircraft(message.aircraft.id);
                                            }
-                                       }}
-                                />
+                                       }}/>
                             </div>
                              <div
                                  className={'plane_name_placeholder ' + (isActive == true ? ' bold ' : '')}
@@ -84,8 +83,10 @@ class PlanesList extends React.Component {
                                          this.setState({isPopupActive: buffer});
                                      }
                                  }}>
-
-                                 {message.aircraft.callName}
+                                 {message.points[message.points.length -1].alt < constants.AIRPORT_ALERT_HEIGHT ?
+                                     <div style={{color:'#FF0000'}}>{message.aircraft.callName}</div>
+                                     :
+                                     message.aircraft.callName}
 
                              </div>
                             {isActive ? <div className="plane_spoiler">{popupCreator(message)}</div> : null}
@@ -103,8 +104,6 @@ const mapStateToProps = (state) => {
     return {
         messages: state.realtime.messagesSet.toArray(),
         selectedAircraftsSet: state.dashboard.selectedAircraftsSet
-        // currentUserId: state.users.currentUserId,
-        // loading: state.users.loading
     }
 }
 

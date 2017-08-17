@@ -65,21 +65,4 @@ class AdminTabbedPanel extends React.Component {
 }
 
 
-//const mapStateToProps = (state) => {
-//    return {
-//        currentUserId: state.users.currentUserId,
-//        loading: state.users.loading
-//    }
-//}
-
-//const mapDispatchToProps = (dispatch) => {
-//    return {
-//        onLogout: (data) => {
-//            dispatch(actions.logOut())
-//        }
-//    }
-//}
-
-//AdminTabbedPanel = connect(mapStateToProps, mapDispatchToProps)(AdminTabbedPanel)
-
 export default AdminTabbedPanel

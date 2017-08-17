@@ -20,3 +20,4 @@ export const FACELESS_AVATAR = './assets/images/faceless_avatar.png';
 
 export const REALTIME_EMULATOR_ENABLED = true;
 // export const REALTIME_EMULATOR_ENABLED = false;
+export const AIRPORT_ALERT_HEIGHT = 175;
