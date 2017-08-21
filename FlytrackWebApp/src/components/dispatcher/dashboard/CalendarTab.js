@@ -176,8 +176,8 @@ const mapStateToProps = (state, ownProps) => {
        },
 
        getSessionsForTheDay: (dayTimestamp) => {
-           let from = +moment(dayTimestamp).startOf('day')
-           let to = +moment(dayTimestamp).endOf('day')
+           let from = +moment(dayTimestamp).startOf('day');
+           let to = +moment(dayTimestamp).endOf('day');
            return getAllSessions(state, ownProps.userId).filter(ss => ((ss.startTimestamp > from) && (ss.startTimestamp < to)))
        }
    }
