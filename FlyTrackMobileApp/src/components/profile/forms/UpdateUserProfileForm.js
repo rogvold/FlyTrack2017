@@ -102,6 +102,7 @@
                      }
                      <View>
                          <TextInput placeholder={'Имя'}  style={styles.input}
+                                    underlineColorAndroid='transparent'
                                     value={firstName} onChangeText={(newText) => {
                              this.setState({
                                  firstName: newText,
@@ -119,6 +120,7 @@
                      }
                      <View>
                          <TextInput placeholder={'Фамилия'} style={styles.input}
+                                    underlineColorAndroid='transparent'
                                     value={lastName} onChangeText={(newText) => {
                              this.setState({
                                  lastName: newText,
@@ -166,7 +168,7 @@
 
  var styles = StyleSheet.create({
      container: {
-         flex: 1,
+         // flex: 1,
      },
 
      field: {

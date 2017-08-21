@@ -4,10 +4,37 @@
 
 import React from 'react';
 
+import {
+    AppRegistry,
+    Picker,
+    StyleSheet,
+    NativeModules,
+    Text,
+    Modal,
+    Dimensions,
+    View,
+    ListView,
+    StatusBar,
+    ScrollView,
+    Image,
+    TextInput,
+    Navigator,
+    TouchableHighlight,
+    TouchableOpacity,
+    NativeAppEventEmitter,
+    Platform,
+    Alert,
+    BackAndroid,
+    ActivityIndicator,
+    Keyboard
+} from 'react-native';
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import {Provider} from 'react-redux';
+
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 //app
 import App from './components/apps/App.js'

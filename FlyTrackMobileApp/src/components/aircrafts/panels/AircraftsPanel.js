@@ -42,6 +42,8 @@ import moment from 'moment'
  import UpdateAircraftPanel from './UpdateAircraftPanel'
  import NoAircraftsPanel from './NoAircraftsPanel'
 
+let {width, height} = Dimensions.get('window');
+
  class AircraftsPanel extends React.Component {
 
      static defaultProps = {}
@@ -99,11 +101,10 @@ import moment from 'moment'
 
                  <Modal visible={(selectedUpdateAircraftId != undefined)} >
                      <View style={{
-                         marginTop: 22,
                          padding: 10
                      }} >
 
-                         <View style={{height: 360}} >
+                         <View style={{height: height}} >
                              <UpdateAircraftPanel id={selectedUpdateAircraftId} onSaved={() => {
                                  this.setState({
                                      selectedUpdateAircraftId: undefined
@@ -112,14 +113,14 @@ import moment from 'moment'
                          </View>
 
                          <TouchableOpacity
-                             style={{position: 'absolute', bottom: 5, left: 5, right: 5, padding: 10, backgroundColor: 'whitesmoke'}}
+                             style={{position: 'absolute', bottom: 20, left: 5, right: 5, padding: 10, backgroundColor: 'whitesmoke'}}
                              onPress={() => {
                                  this.setState({
                                      selectedUpdateAircraftId: undefined
                                  });
                             }} >
                              <Text style={{textAlign: 'center', fontSize: 16, paddingBottom: 5, paddingTop: 5}} >
-                                 Close
+                                 Закрыть
                              </Text>
                          </TouchableOpacity>
 
@@ -128,11 +129,11 @@ import moment from 'moment'
 
                  <Modal visible={this.state.createMode} animationType={"slide"} transparent={false} >
                      <View style={{
-                         marginTop: 22,
+
                          padding: 10
                      }} >
 
-                         <View style={{height: 360}} >
+                         <View style={{height: height}} >
                              <UpdateAircraftPanel onSaved={() => {
                                  this.setState({
                                      createMode: false
@@ -141,14 +142,14 @@ import moment from 'moment'
                          </View>
 
                          <TouchableOpacity
-                             style={{position: 'absolute', bottom: 5, left: 5, right: 5, padding: 10, backgroundColor: 'whitesmoke'}}
+                             style={{position: 'absolute', bottom: 20, left: 5, right: 5, padding: 10, backgroundColor: 'whitesmoke'}}
                              onPress={() => {
                                  this.setState({
                                      createMode: false
                                  });
                             }} >
                              <Text style={{textAlign: 'center', fontSize: 16, paddingBottom: 5, paddingTop: 5}} >
-                                 Close
+                                 Закрыть
                              </Text>
                          </TouchableOpacity>
 
@@ -171,7 +172,7 @@ import moment from 'moment'
                  {loading == false ? null :
                      <View>
                          <Text>
-                             loading...
+                             загрузка...
                          </Text>
                      </View>
                  }
@@ -259,9 +260,9 @@ import moment from 'moment'
     return {
         loading: state.aircrafts.loading,
         selectedAircraftId: state.aircrafts.selectedAircraftId,
-        aircrafts: state.aircrafts.aircraftsMap.toArray().sort(
-            (a, b) => (b.timestamp - a.timestamp)
-        )
+        aircrafts: state.aircrafts.aircraftsMap.toArray()
+            .filter((a) => (a.userId == state.users.currentUserId))
+            .sort((a, b) => (b.timestamp - a.timestamp))
     }
  }
 
